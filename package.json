@@ -1,0 +1,29 @@
+{
+  "name": "techshop",
+  "version": "1.0.0",
+  "main": "expo/AppEntry.js",
+  "scripts": {
+    "start": "npx expo start",
+    "android": "npx expo run:android",
+    "ios": "npx expo run:ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "@tamagui/config": "^1.100.3",
+    "@tamagui/core": "^1.100.3",
+    "expo": "~51.0.11",
+    "expo-dev-client": "~4.0.15",
+    "expo-status-bar": "~1.12.1",
+    "react": "18.2.0",
+    "react-native": "0.74.2",
+    "tamagui": "^1.100.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "@babel/preset-typescript": "^7.24.7",
+    "@types/react": "^18.3.3",
+    "@types/react-native": "^0.73.0",
+    "typescript": "^5.4.5"
+  },
+  "private": true
+}
