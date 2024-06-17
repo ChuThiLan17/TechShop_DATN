@@ -10,6 +10,7 @@ const AppStack = function AppStack() {
       screenOptions={{
         headerShown: false,
       }}
+      initialRouteName="Tabbar"
     >
       <Stack.Screen name="Tabbar" component={MainTabbar} />
     </Stack.Navigator>

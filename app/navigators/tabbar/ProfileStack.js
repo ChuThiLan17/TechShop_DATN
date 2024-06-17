@@ -1,13 +1,21 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
+import * as React from "react";
+
 import ProfileScreen from "../../screens/profile/ProfileScreen";
 
 const ProfileStack = createNativeStackNavigator();
 
-function ProfileTab() {
-  <ProfileStack.Navigator>
-    <ProfileStack.Screen name="Profile1" component={ProfileScreen} />
-  </ProfileStack.Navigator>;
+function ProfileStackScreen() {
+  return (
+    <ProfileStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <ProfileStack.Screen name="Profile" component={ProfileScreen} />
+    </ProfileStack.Navigator>
+  );
 }
 
-export { ProfileTab };
+export default ProfileStackScreen;

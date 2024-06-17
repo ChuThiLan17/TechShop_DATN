@@ -1,15 +1,17 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
+import * as React from "react";
+
 import HomeScreen from "../../screens/home/HomeScreen";
-import ProductDetailScreen from "../../screens/product/product-detail-screen";
 
 const HomeStack = createNativeStackNavigator();
 
-function HomeTab() {
-  <HomeStack.Navigator initialRouteName="detai">
-    <HomeStack.Screen name="Main" component={HomeScreen} />
-    <HomeStack.Screen name="detai" component={ProductDetailScreen} />
-  </HomeStack.Navigator>;
+function HomeStackScreen() {
+  return (
+    <HomeStack.Navigator>
+      <HomeStack.Screen name="Home" component={HomeScreen} />
+    </HomeStack.Navigator>
+  );
 }
 
-export { HomeTab };
+export default HomeStackScreen;
