@@ -5,8 +5,8 @@ import ProfileScreen from "../../screens/profile/ProfileScreen";
 const ProfileStack = createNativeStackNavigator();
 
 function ProfileTab() {
-  <ProfileStack.Navigator initialRouteName="Main">
-    <ProfileStack.Screen name="Main" component={ProfileScreen} />
+  <ProfileStack.Navigator>
+    <ProfileStack.Screen name="Profile1" component={ProfileScreen} />
   </ProfileStack.Navigator>;
 }
 

@@ -1,11 +1,13 @@
-import { Text, View } from "react-native";
+import { Platform, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import Navbar from "../components/nav-bar";
 
 function ProfileScreen() {
   console.log("Render profile");
   return (
-    <View>
-      <Text>aaaaaaaaaa</Text>
-    </View>
+    <SafeAreaView>
+      <Navbar text="ảnh dap" onPress={() => {}} />
+    </SafeAreaView>
   );
 }
 

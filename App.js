@@ -18,7 +18,7 @@ export default function App() {
   return (
     <TamaguiProvider config={config}>
       <NavigationContainer>
-       <AppStack/>
+        <AppStack />
       </NavigationContainer>
     </TamaguiProvider>
   );
