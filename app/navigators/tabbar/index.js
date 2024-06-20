@@ -6,6 +6,8 @@ import { FontAwesome } from "@expo/vector-icons";
 import { HomeTab } from "./HomeStack";
 import ProductDetailScreen from "../../screens/product/product-detail-screen";
 import { ProfileTab } from "./ProfileStack";
+import AddressScreen from "../../screens/address/address-screen";
+import ListAddressScreen from "../../screens/address/list-address-screen";
 
 const Tab = createBottomTabNavigator();
 function MainTabbar() {
@@ -32,8 +34,8 @@ function MainTabbar() {
         }}
       />
       <Tab.Screen
-        name="Profile"
-        component={ProfileScreen}
+        name="ListAddress"
+        component={ListAddressScreen}
         options={{
           tabBarLabel: ({ color }) => (
             <Text style={{ color: color, fontSize: 12, marginTop: -12 }}>
