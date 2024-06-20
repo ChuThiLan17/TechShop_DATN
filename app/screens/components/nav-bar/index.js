@@ -15,11 +15,13 @@ const Navbar = ({ text, onPress }) => {
     </View>
   );
 };
+
 export default Navbar;
 
 const styles = StyleSheet.create({
   container: {
-    height: 80,
+    height: 50,
+    marginTop: -10,
     width: "100%",
     flexDirection: "row",
     alignItems: "center",
