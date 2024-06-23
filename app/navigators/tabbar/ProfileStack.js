@@ -13,7 +13,7 @@ function ProfileStackScreen() {
         headerShown: false,
       }}
     >
-      <ProfileStack.Screen name="Profile" component={ProfileScreen} />
+      <ProfileStack.Screen name="ProfileMain" component={ProfileScreen} />
     </ProfileStack.Navigator>
   );
 }
