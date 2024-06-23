@@ -1,10 +1,13 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { MainTabbar } from "./tabbar";
+import { Platform } from "react-native";
+
 import AddressScreen from "../screens/address/address-screen";
 import ListAddressScreen from "../screens/address/list-address-screen";
 import ProductDetailScreen from "../screens/product/product-detail-screen";
-import { Platform } from "react-native";
+import ProfileInfomationScreen from "../screens/profile/ProfileInfomationScreen";
+
+import { MainTabbar } from "./tabbar";
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +23,7 @@ const AppStack = function AppStack() {
       <Stack.Screen name="Address" component={AddressScreen} />
       <Stack.Screen name="ListAddress" component={ListAddressScreen} />
       <Stack.Screen name="DetailProduct" component={ProductDetailScreen} />
+      <Stack.Screen name="UpdateInfo" component={ProfileInfomationScreen} />
     </Stack.Navigator>
   );
 };

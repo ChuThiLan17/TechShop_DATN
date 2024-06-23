@@ -41,6 +41,8 @@ const $imageStyleBase = {
 };
 
 export const iconRegistry = {
+  back: require("../../../../assets/icons/Back.png"),
+
   // Profile
   bag: require("../../../../assets/icons/Bag.png"),
   person: require("../../../../assets/icons/person.png"),

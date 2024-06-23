@@ -23,7 +23,11 @@ function ProfileScreen() {
 
   return (
     <View flex={1} bg={"#fff"} gap={30} px={26} pt={36}>
-      <ProfileListButton icon={"person"} text={"Thông tin tài khoản"} />
+      <ProfileListButton
+        icon={"person"}
+        text={"Thông tin tài khoản"}
+        onPress={() => navigation.navigate("UpdateInfo")}
+      />
       <ProfileListButton icon={"bag"} text={"Giỏ hàng"} />
       <ProfileListButton icon={"ship"} text={"Đơn hàng đã mua"} />
       <ProfileListButton icon={"noti"} text={"Thông báo"} />
