@@ -1,6 +1,6 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
-import { Ionicons } from '@expo/vector-icons';
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React from "react";
+import { Ionicons } from "@expo/vector-icons";
 
 const Navbar = ({ text, onPress }) => {
   return (
@@ -11,28 +11,29 @@ const Navbar = ({ text, onPress }) => {
         </TouchableOpacity>
       </View>
       <Text style={styles.text}>{text}</Text>
-      <View style={styles.btnBack}>
-      </View>
+      <View style={styles.btnBack}></View>
     </View>
   );
 };
+
 export default Navbar;
 
 const styles = StyleSheet.create({
   container: {
-    height:80,
-    flexDirection:'row',
-    alignItems: 'center',
+    height: 50,
+    marginTop: -10,
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
   },
   button: {
     paddingVertical: 12,
     paddingLeft: 16,
-    paddingRight:8,
+    paddingRight: 8,
   },
   text: {
     fontSize: 20,
-    color: 'black',
-    textAlign: 'center',
+    color: "black",
+    textAlign: "center",
   },
 });
-
