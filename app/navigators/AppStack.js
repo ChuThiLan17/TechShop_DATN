@@ -8,6 +8,8 @@ import ProductDetailScreen from "../screens/product/product-detail-screen";
 import ProfileInfomationScreen from "../screens/profile/ProfileInfomationScreen";
 
 import { MainTabbar } from "./tabbar";
+import CartScreen from "../screens/product/cart-screen";
+import CheckoutScreen from "../screens/product/checkout-screen";
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +26,8 @@ const AppStack = function AppStack() {
       <Stack.Screen name="ListAddress" component={ListAddressScreen} />
       <Stack.Screen name="DetailProduct" component={ProductDetailScreen} />
       <Stack.Screen name="UpdateInfo" component={ProfileInfomationScreen} />
+      <Stack.Screen name="Cart" component={CartScreen} />
+      <Stack.Screen name="Checkout" component={CheckoutScreen} />
     </Stack.Navigator>
   );
 };

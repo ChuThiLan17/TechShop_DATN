@@ -1,9 +1,8 @@
 {
   "name": "techshop",
   "version": "1.0.0",
-  "main": "expo/AppEntry.js",
   "scripts": {
-    "start": "npx expo start",
+    "start": "expo start --dev-client",
     "android": "npx expo run:android",
     "ios": "npx expo run:ios",
     "web": "expo start --web"
@@ -16,6 +15,7 @@
     "@tamagui/core": "^1.100.3",
     "expo": "~51.0.11",
     "expo-dev-client": "~4.0.15",
+    "expo-font": "~12.0.7",
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",
     "react-native": "0.74.2",

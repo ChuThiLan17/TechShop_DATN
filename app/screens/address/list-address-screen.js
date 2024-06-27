@@ -11,6 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Navbar from "../components/nav-bar";
 import ItemAddress from "./Item-address";
 import { useNavigation } from "@react-navigation/native";
+import Itext from "../components/Text/Itext";
 
 const data = [
   {
@@ -74,12 +75,12 @@ const ListAddressScreen = () => {
       }}
     >
       <Navbar text="Danh sách địa chỉ" onPress={() => navigation.goBack()} />
-      <ScrollView style={{ paddingHorizontal: 16 }}>
+      <View style={{ paddingHorizontal: 16, height: "90%" }}>
         <FlatList
           data={data}
           renderItem={({ item, index }) => <ItemAddress dataAddress={item} />}
         />
-      </ScrollView>
+      </View>
       <View style={{ alignItems: "center" }}>
         <TouchableOpacity
           style={{
@@ -92,14 +93,13 @@ const ListAddressScreen = () => {
           }}
           onPress={() => navigation.navigate("DetailProduct")}
         >
-          <Text
-            style={{
-              color: "white",
-              fontSize: 18,
-            }}
-          >
-            Thêm địa chỉ
-          </Text>
+          <Itext
+            text="Hello World!"
+            size={20} // Kích thước font 20
+            color="white" // Màu chữ là đen
+            // backgroundColor="white" // Màu nền là trắng
+            font="re" // Sử dụng font Outfit-Black
+          />
         </TouchableOpacity>
       </View>
     </SafeAreaView>
