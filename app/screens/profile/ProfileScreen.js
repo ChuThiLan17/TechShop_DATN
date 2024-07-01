@@ -29,9 +29,13 @@ function ProfileScreen() {
         onPress={() => navigation.navigate("UpdateInfo")}
       />
       <ProfileListButton icon={"bag"} text={"Giỏ hàng"} />
-      <ProfileListButton icon={"ship"} text={"Đơn hàng đã mua"} />
+      <ProfileListButton
+        icon={"ship"}
+        text={"Đơn hàng đã mua"}
+        onPress={() => navigation.navigate("Order")}
+      />
       <ProfileListButton icon={"noti"} text={"Thông báo"} />
-      <ProfileListButton icon={"setting"} text={"Cài đặt"} />
+      <ProfileListButton icon={"setting"} text={"Đổi mật khẩu"} />
       <ProfileListButton icon={"logout"} text={"Đăng xuất"} />
     </View>
   );
