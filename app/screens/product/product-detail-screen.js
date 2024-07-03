@@ -149,6 +149,23 @@ const ProductDetailScreen = () => {
           </View>
         </View>
       </ScrollView>
+      <View style={styles.container}>
+        <TouchableOpacity style={styles.btnMess}>
+          <AntDesign name="message1" size={24} color="black" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.btnDetai}
+          onPress={() => navigation.navigate("Cart")}
+        >
+          <Text>Thêm giỏ hàng</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.btnDetai, { backgroundColor: "black" }]}
+          onPress={() => navigation.navigate("Checkout")}
+        >
+          <Text style={{ color: "white" }}>Mua hàng</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
@@ -156,6 +173,24 @@ const ProductDetailScreen = () => {
 export default ProductDetailScreen;
 
 const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    width: "100%",
+    height: "6%",
+    borderWidth: 1,
+    justifyContent: "space-between",
+  },
+  btnMess: {
+    width: "20%",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRightWidth: 1,
+  },
+  btnDetai: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: "40%",
+  },
   wrap: {
     width: width * 0.9,
     height: height * 0.3,
