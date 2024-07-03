@@ -17,16 +17,34 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/xoai.jpg",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.example.TechShop"
+      "package": "com.example.TechShop",
+      "permissions": [
+        "android.permission.INTERNET",
+        "android.permission.POST_NOTIFICATIONS",
+        "android.permission.BLUETOOTH"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-font"
-    ]
+      "./plugins/withAndroidGradleProperties",
+      "expo-font",
+      [
+        "./plugins/withAndroidMainActivityAttributes",
+        {
+          "android:showWhenLocked": true,
+          "android:turnScreenOn": true
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "6f54952c-1b8e-4a05-af16-dff21e62a095"
+      }
+    }
   }
 }

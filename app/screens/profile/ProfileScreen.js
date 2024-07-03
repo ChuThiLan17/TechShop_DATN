@@ -1,8 +1,10 @@
 import { useNavigation } from "@react-navigation/native";
 
-import { useCallback, useLayoutEffect } from "react";
+import { useCallback, useEffect, useLayoutEffect } from "react";
 
 import { View } from "tamagui";
+
+import api from "../../services";
 
 import ProfileListButton from "./component/component/ProfileListButton";
 
@@ -20,6 +22,19 @@ function ProfileScreen() {
     }, [navigation]),
     []
   );
+
+  const fetchData = async () => {
+    try {
+      const res = await api.auth.registerAccount();
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <View flex={1} bg={"#fff"} gap={30} px={26} pt={36}>
