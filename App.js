@@ -3,22 +3,15 @@ import {
   NavigationContainer,
   createNavigationContainerRef,
 } from "@react-navigation/native";
-
 import "@tamagui/core/reset.css";
 import { TamaguiProvider } from "@tamagui/core";
-
 import { StyleSheet } from "react-native";
-
+import Reactotron from "./ReactotronConfig";
 import { useFonts } from "expo-font";
-
 import config from "./tamagui.config.ts";
-
 import AppStack from "./app/navigators/AppStack.js";
-
 export const navigationRef = createNavigationContainerRef();
-
 const Stack = createNativeStackNavigator();
-
 export default function App() {
   const [fontsLoaded, fontError] = useFonts({
     Black: require("./assets/fonts/Outfit-Black.ttf"),
@@ -33,10 +26,6 @@ export default function App() {
     Regular: require("./assets/fonts/Outfit-Regular.ttf"),
     SemiBold: require("./assets/fonts/Outfit-SemiBold.ttf"),
   });
-
-  // if (__DEV__) {
-  //   require("@react-navigation/devtools").useFlipper(navigationRef);
-  // }
 
   return (
     <TamaguiProvider config={config}>
