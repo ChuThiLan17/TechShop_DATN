@@ -4,12 +4,13 @@ import { Platform } from "react-native";
 
 import AddressScreen from "../screens/address/address-screen";
 import ListAddressScreen from "../screens/address/list-address-screen";
-import ProductDetailScreen from "../screens/product/product-detail-screen";
-import ProfileInfomationScreen from "../screens/profile/ProfileInfomationScreen";
-
-import { MainTabbar } from "./tabbar";
 import CartScreen from "../screens/product/cart-screen";
 import CheckoutScreen from "../screens/product/checkout-screen";
+import ProductDetailScreen from "../screens/product/product-detail-screen";
+import ProfileInfomationScreen from "../screens/profile/ProfileInfomationScreen";
+import OrderScreen from "../screens/profile/order/OrderScreen";
+
+import { MainTabbar } from "./tabbar";
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +27,7 @@ const AppStack = function AppStack() {
       <Stack.Screen name="ListAddress" component={ListAddressScreen} />
       <Stack.Screen name="DetailProduct" component={ProductDetailScreen} />
       <Stack.Screen name="UpdateInfo" component={ProfileInfomationScreen} />
+      <Stack.Screen name="Order" component={OrderScreen} />
       <Stack.Screen name="Cart" component={CartScreen} />
       <Stack.Screen name="Checkout" component={CheckoutScreen} />
     </Stack.Navigator>
