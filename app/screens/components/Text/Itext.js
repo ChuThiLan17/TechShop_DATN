@@ -3,23 +3,25 @@ import { Text } from "react-native";
 import { View } from "tamagui";
 
 const Itext = ({ size, text, color, backgroundColor, font }) => {
-  let fontFamily = "SemiBold"; // Giá trị mặc định là Outfit-Regular
+  let fontFamily = "Regular"; // Giá trị mặc định là Outfit-Regular
 
   // Kiểm tra giá trị của font để áp dụng fontFamily phù hợp
   if (font === "lb") {
     fontFamily = "Black";
-  } else if (font === "bo") {
+  } else if (font === "bold") {
     fontFamily = "Bold";
-  } else if (font === "eb") {
+  } else if (font === "exbold") {
     fontFamily = "ExtraBold";
-  } else if (font === "el") {
+  } else if (font === "exli") {
     fontFamily = "ExtraLight";
   } else if (font === "li") {
     fontFamily = "Light";
-  } else if (font === "me") {
+  } else if (font === "medium") {
     fontFamily = "Medium";
-  } else if (font === "re") {
+  } else if (font === "regular") {
     fontFamily = "Regular";
+  } else if (font === "semibold") {
+    fontFamily = "SemiBold";
   }
 
   return (
