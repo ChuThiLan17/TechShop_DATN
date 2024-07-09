@@ -7,36 +7,17 @@ import {
 import "@tamagui/core/reset.css";
 import { TamaguiProvider } from "@tamagui/core";
 
-import { StyleSheet } from "react-native";
+import { AppRegistry, StyleSheet } from "react-native";
 
 import { useFonts } from "expo-font";
 
 import config from "./tamagui.config.ts";
 
 import AppStack from "./app/navigators/AppStack.js";
-
-export const navigationRef = createNavigationContainerRef();
-
-const Stack = createNativeStackNavigator();
+import { customFontsToLoad } from "./app/theme/typography.js";
 
 export default function App() {
-  const [fontsLoaded, fontError] = useFonts({
-    Black: require("./assets/fonts/Outfit-Black.ttf"),
-    Bold: require("./assets/fonts/Outfit-Bold.ttf"),
-
-    ExtraBold: require("./assets/fonts/Outfit-ExtraBold.ttf"),
-    ExtraLight: require("./assets/fonts/Outfit-ExtraLight.ttf"),
-
-    Light: require("./assets/fonts/Outfit-Light.ttf"),
-    Medium: require("./assets/fonts/Outfit-Medium.ttf"),
-
-    Regular: require("./assets/fonts/Outfit-Regular.ttf"),
-    SemiBold: require("./assets/fonts/Outfit-SemiBold.ttf"),
-  });
-
-  // if (__DEV__) {
-  //   require("@react-navigation/devtools").useFlipper(navigationRef);
-  // }
+  const [fontsLoaded, fontError] = useFonts(customFontsToLoad);
 
   return (
     <TamaguiProvider config={config}>

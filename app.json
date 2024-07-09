@@ -30,17 +30,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      "./plugins/withAndroidGradleProperties",
-      "expo-font",
-      [
-        "./plugins/withAndroidMainActivityAttributes",
-        {
-          "android:showWhenLocked": true,
-          "android:turnScreenOn": true
-        }
-      ]
-    ],
+    "plugins": ["expo-font"],
     "extra": {
       "eas": {
         "projectId": "6f54952c-1b8e-4a05-af16-dff21e62a095"
