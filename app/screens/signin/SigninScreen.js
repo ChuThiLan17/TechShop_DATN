@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 
-import { View, YStack, XStack } from "tamagui";
+import { View, YStack, XStack, ScrollView } from "tamagui";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -31,77 +31,85 @@ function SigninScreen() {
     }
   };
 
-  const validate = (email) => {
+  const validate = (email, password) => {
     let check = false;
     const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (regex.test(email)) {
-      check = true;
+      if (password && password.length >= 8) {
+        check = true;
+      } else {
+        Toast.show({
+          type: "error",
+          text1: "Mật khẩu phải lớn hơn hoặc bằng 8 kí tự",
+        });
+      }
     } else {
       Toast.show({
         type: "error",
         text1: "Email không hợp lệ!",
       });
     }
-    if (password && password.length >= 8) {
-      check = true;
-    } else {
-      Toast.show({
-        type: "error",
-        text1: "Mật khẩu phải lớn hơn hoặc bằng 8 kí tự",
-      });
-    }
+
     return check;
   };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View flex={1} pt={70} px={24}>
-        <YStack gap={4}>
-          <Itext text={"Chào mừng bạn"} font={"medium"} size={24} />
-          <Itext
-            text={"Đăng nhập để tiếp tục"}
-            size={16}
-            color={"#818181"}
-          ></Itext>
-        </YStack>
+      <ScrollView>
+        <YStack flex={1}>
+          <View flex={1} pt={70} px={24}>
+            <YStack gap={4}>
+              <Itext text={"Chào mừng bạn"} font={"medium"} size={24} />
+              <Itext
+                text={"Đăng nhập để tiếp tục"}
+                size={16}
+                color={"#818181"}
+              ></Itext>
+            </YStack>
 
-        <YStack gap={26} mt={70}>
-          <InputSignup label={"Email"} onChangeText={setEmail} />
-          <InputSignup
-            label={"Password"}
-            secureTextEntry={true}
-            onChangeText={setPassword}
-          />
-        </YStack>
-        <View als="flex-end" mt={22}>
-          <Itext text={"Quên mật khẩu ?"} size={16} color={"#2971f0"}></Itext>
-        </View>
-        <YStack mt={80} gap={28}>
-          <YStack
-            ai="center"
-            bg={"#000"}
-            br={16}
-            py={10}
-            onPress={_onPressSignIn}
-          >
-            <Itext text={"Đăng nhập"} color={"#fff"} />
-          </YStack>
+            <YStack gap={26} mt={70}>
+              <InputSignup label={"Email"} onChangeText={setEmail} />
+              <InputSignup
+                label={"Password"}
+                secureTextEntry={true}
+                onChangeText={setPassword}
+              />
+            </YStack>
+            <View als="flex-end" mt={22}>
+              <Itext
+                text={"Quên mật khẩu ?"}
+                size={16}
+                color={"#2971f0"}
+              ></Itext>
+            </View>
+            <YStack mt={80} flex={1} gap={28}>
+              <YStack
+                ai="center"
+                bg={"#000"}
+                br={16}
+                py={10}
+                onPress={_onPressSignIn}
+              >
+                <Itext text={"Đăng nhập"} color={"#fff"} />
+              </YStack>
 
-          <YStack als="center">
-            <Itext text={"-Hoặc-"} />
-          </YStack>
-          <YStack
-            als="stretch"
-            br={16}
-            borderColor={"#1a202c1a"}
-            borderWidth={1}
-            ai="center"
-            py={10}
-          >
-            <Itext text={"Đăng nhập với google"} />
-          </YStack>
+              <YStack als="center">
+                <Itext text={"-Hoặc-"} />
+              </YStack>
+              <YStack
+                als="stretch"
+                br={16}
+                borderColor={"#1a202c1a"}
+                borderWidth={1}
+                ai="center"
+                py={10}
+              >
+                <Itext text={"Đăng nhập với google"} />
+              </YStack>
+            </YStack>
+          </View>
         </YStack>
-      </View>
+      </ScrollView>
       <XStack
         ai="center"
         jc="center"

@@ -21,7 +21,8 @@ function SignupScreen() {
   const [rePassword, setRePassword] = useState("");
 
   const _onPressSignUp = async () => {
-    if (!validateEmailPassword(name, phone, email, password)) return;
+    if (!validateEmailPassword(name, phone, email, password, rePassword))
+      return;
     try {
       let params = {
         name: name,
@@ -29,54 +30,68 @@ function SignupScreen() {
         password: password,
         mobile: phone,
       };
-      await api.auth.registerAccount(params);
+      const status = await api.auth.registerAccount(params);
+      // console.log("res?", res.data.sucess);
+      // {
+      //   status.data.sucess === "true" ? console.log(1) : console.log(2);
+      // }
+
+      if (res.data.sucess === "true") {
+        Toast.show({
+          type: "success",
+          text1: error.response.data.mes,
+        });
+        console.log("aaaaaaaaaaa");
+        navigation.navigate("Signin");
+      }
     } catch (error) {
-      console.log(error);
       Toast.show({
         type: "error",
-        text1: { error },
+        text1: error.response.data.error,
       });
     }
   };
 
   const validateEmailPassword = (name, phone, email, password, rePassword) => {
     let check = false;
-    if (name && name.length > 0) {
-      check = true;
-    } else {
-      Toast.show({
-        type: "error",
-        text2: "Tên không được để trống!",
-      });
-    }
-
     const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (regex.test(email)) {
-      check = true;
+    if (name && name.length > 0) {
+      if (regex.test(email)) {
+        if (phone && phone.length > 0) {
+          if (password.length >= 8 && rePassword.length >= 8) {
+            if (password === rePassword) {
+              check = true;
+            } else {
+              Toast.show({
+                type: "error",
+                text1: "Nhập lại mật khẩu không trùng khớp",
+              });
+            }
+          } else {
+            Toast.show({
+              type: "error",
+              text1: "Mật khẩu phải lớn hơn hoặc bằng 8 kí tự!",
+            });
+          }
+        } else {
+          Toast.show({
+            type: "error",
+            text1: "Số điện thoại không được để trống!",
+          });
+        }
+      } else {
+        Toast.show({
+          type: "error",
+          text1: "Email không hợp lệ!",
+        });
+      }
     } else {
       Toast.show({
         type: "error",
-        text1: "Email không hợp lệ!",
+        text1: "Tên không được để trống!",
       });
     }
 
-    if (phone && phone.length > 0) {
-      check = true;
-    } else {
-      Toast.show({
-        type: "error",
-        text1: "Số điện thoại không được để trống!",
-      });
-    }
-
-    if (password.length >= 8 && rePassword.length >= 8) {
-      check = true;
-    } else {
-      Toast.show({
-        type: "error",
-        text1: "Mật khẩu phải lớn hơn hoặc bằng 8 kí tự!",
-      });
-    }
     return check;
   };
 
@@ -104,7 +119,7 @@ function SignupScreen() {
             />
           </YStack>
 
-          <YStack gap={16} mb={26}>
+          <YStack flex={1} gap={16} mb={26}>
             <XStack>
               <Itext text={"Tôi đồng ý với chính sách của app"} />
             </XStack>
@@ -120,18 +135,18 @@ function SignupScreen() {
             </YStack>
           </YStack>
         </YStack>
-        <XStack
-          ai="center"
-          jc="center"
-          onPress={() => navigation.navigate("Signin")}
-          py={10}
-          gap={8}
-          bg={"#eeeaea"}
-        >
-          <Itext text={"Bạn đã có tài khoản?"} />
-          <Itext text={"Đăng nhập"} font={"medium"} />
-        </XStack>
       </ScrollView>
+      <XStack
+        ai="center"
+        jc="center"
+        onPress={() => navigation.navigate("Signin")}
+        py={10}
+        gap={8}
+        bg={"#eeeaea"}
+      >
+        <Itext text={"Bạn đã có tài khoản?"} />
+        <Itext text={"Đăng nhập"} font={"medium"} />
+      </XStack>
     </SafeAreaView>
   );
 }
