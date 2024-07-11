@@ -22,7 +22,7 @@ export default function App() {
     <TamaguiProvider config={config}>
       <NavigationContainer>
         <AppStack />
-        <Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />
+        <Toast config={toastConfig} />
       </NavigationContainer>
     </TamaguiProvider>
   );

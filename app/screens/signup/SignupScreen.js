@@ -30,18 +30,12 @@ function SignupScreen() {
         password: password,
         mobile: phone,
       };
-      const status = await api.auth.registerAccount(params);
-      // console.log("res?", res.data.sucess);
-      // {
-      //   status.data.sucess === "true" ? console.log(1) : console.log(2);
-      // }
-
-      if (res.data.sucess === "true") {
+      const res = await api.auth.registerAccount(params);
+      if (res.data.sucess) {
         Toast.show({
           type: "success",
-          text1: error.response.data.mes,
+          text1: res.data.mes,
         });
-        console.log("aaaaaaaaaaa");
         navigation.navigate("Signin");
       }
     } catch (error) {

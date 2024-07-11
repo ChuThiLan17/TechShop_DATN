@@ -1,5 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { View, YStack, XStack, ScrollView } from "tamagui";
 
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -26,8 +28,15 @@ function SigninScreen() {
     };
     try {
       const res = await api.auth.login(params);
+      if (res.data.sucess) {
+        await AsyncStorage.setItem("accessToken", res.data.accessToken);
+        navigation.navigate("Tabbar");
+      }
     } catch (error) {
-      console.log(error);
+      Toast.show({
+        type: "error",
+        text1: error.response.data.mes,
+      });
     }
   };
 
