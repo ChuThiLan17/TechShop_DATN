@@ -23,19 +23,6 @@ function ProfileScreen() {
     []
   );
 
-  const fetchData = async () => {
-    try {
-      const res = await api.auth.registerAccount();
-      console.log(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   return (
     <View flex={1} bg={"#fff"} gap={30} px={26} pt={36}>
       <ProfileListButton
