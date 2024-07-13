@@ -1,11 +1,15 @@
 import { useNavigation } from "@react-navigation/native";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { View, YStack } from "tamagui";
 
-import { useLayoutEffect, useCallback } from "react";
+import { useLayoutEffect, useCallback, useEffect } from "react";
 
 import { ScrollView } from "react-native";
 
+import api from "../../services";
+import { ACCESS_TOKEN_KEY } from "../../services/httpclient";
 import { Icon } from "../components/Icon/Icon";
 import Itext from "../components/Text/Itext";
 
@@ -29,6 +33,21 @@ function ProfileInfomationScreen() {
     }, [navigation]),
     []
   );
+
+  const fetch = async () => {
+    const token = await AsyncStorage.getItem(ACCESS_TOKEN_KEY);
+    console.log("Access Token:", token);
+    try {
+      const res = await api.user.getInfoUser();
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetch();
+  }, []);
 
   return (
     <View flex={1} bg={"#fff"}>

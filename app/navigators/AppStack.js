@@ -4,6 +4,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { useEffect, useState } from "react";
 
+import { useAuthContext } from "../core/AuthProvider";
+import { ACCESS_TOKEN_KEY } from "../services/httpclient";
 import AddressScreen from "../screens/address/address-screen";
 import ListAddressScreen from "../screens/address/list-address-screen";
 import CartScreen from "../screens/product/cart-screen";
@@ -20,23 +22,7 @@ import { MainTabbar } from "./tabbar";
 const Stack = createNativeStackNavigator();
 
 const AppStack = function AppStack() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const checkAccessToken = async () => {
-      try {
-        const accessToken = await AsyncStorage.getItem("accessToken");
-        setIsLoggedIn(!!accessToken);
-      } catch (error) {
-        console.error("Error checking accessToken:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    checkAccessToken();
-  }, []);
+  const { isLoading, isLoggedIn } = useAuthContext();
 
   if (isLoading) {
     return <SplashScreen />;

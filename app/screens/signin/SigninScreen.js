@@ -11,12 +11,15 @@ import { useEffect, useState } from "react";
 import Toast from "react-native-toast-message";
 
 import api from "../../services";
+import { useAuthContext } from "../../core/AuthProvider";
+import { ACCESS_TOKEN_KEY } from "../../services/httpclient";
 import Itext from "../components/Text/Itext";
 
 import InputSignup from "./components/InputSignup";
 
 function SigninScreen() {
   const navigation = useNavigation();
+  const { login } = useAuthContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -29,8 +32,7 @@ function SigninScreen() {
     try {
       const res = await api.auth.login(params);
       if (res.data.sucess) {
-        await AsyncStorage.setItem("accessToken", res.data.accessToken);
-        navigation.navigate("Tabbar");
+        await login(res.data.accessToken);
       }
     } catch (error) {
       Toast.show({

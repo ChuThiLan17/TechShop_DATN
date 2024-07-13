@@ -12,6 +12,7 @@ import Toast from "react-native-toast-message";
 import config from "./tamagui.config.ts";
 
 import toastConfig from "./app/configs/Toastconfig.js";
+import { AuthProvider } from "./app/core/AuthProvider.js";
 import AppStack from "./app/navigators/AppStack.js";
 import { customFontsToLoad } from "./app/theme/typography.js";
 
@@ -20,10 +21,12 @@ export default function App() {
 
   return (
     <TamaguiProvider config={config}>
-      <NavigationContainer>
-        <AppStack />
-        <Toast config={toastConfig} />
-      </NavigationContainer>
+      <AuthProvider>
+        <NavigationContainer>
+          <AppStack />
+          <Toast config={toastConfig} />
+        </NavigationContainer>
+      </AuthProvider>
     </TamaguiProvider>
   );
 }
