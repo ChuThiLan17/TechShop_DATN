@@ -51,4 +51,5 @@ export const iconRegistry = {
   setting: require("../../../../assets/icons/setting.png"),
   logout: require("../../../../assets/icons/logout.png"),
   hidepass: require("../../../../assets/icons/hidepass.png"),
+  arrowdown: require("../../../../assets/icons/arrowdown.png"),
 };

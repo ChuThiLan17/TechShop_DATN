@@ -1,19 +1,23 @@
 import { useNavigation } from "@react-navigation/native";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { View, XStack, YStack } from "tamagui";
 
-import { View, YStack } from "tamagui";
-
-import { useLayoutEffect, useCallback, useEffect } from "react";
+import {
+  useLayoutEffect,
+  useCallback,
+  useEffect,
+  useState,
+  useRef,
+} from "react";
 
 import { ScrollView } from "react-native";
 
 import api from "../../services";
-import { ACCESS_TOKEN_KEY } from "../../services/httpclient";
 import { Icon } from "../components/Icon/Icon";
 import Itext from "../components/Text/Itext";
 
 import ConfirmButton from "./component/component/ConfirmButton";
+import GenderModal from "./component/component/GenderModal";
 import InfomationInput from "./component/component/InfomationInput";
 
 function ProfileInfomationScreen() {
@@ -34,12 +38,18 @@ function ProfileInfomationScreen() {
     []
   );
 
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState([]);
+  const [mobile, setMobile] = useState("");
+  const [gender, setGender] = useState();
+
   const fetch = async () => {
-    const token = await AsyncStorage.getItem(ACCESS_TOKEN_KEY);
-    console.log("Access Token:", token);
     try {
       const res = await api.user.getInfoUser();
-      console.log(res.data);
+      setName(res.data.rs.name);
+      setAddress(res.data.rs.address);
+      setMobile(res.data.rs.mobile);
+      setGender(res.data.rs.gender);
     } catch (error) {
       console.log(error);
     }
@@ -49,13 +59,18 @@ function ProfileInfomationScreen() {
     fetch();
   }, []);
 
+  const genderRef = useRef(null);
+
+  const _onSelectedGender = () => {
+    genderRef.current?.present();
+  };
+
   return (
     <View flex={1} bg={"#fff"}>
       <ScrollView>
         <View ai="center" flex={1}>
           <YStack mt={32} gap={8} ai="center">
             <View w={96} h={96} bg={"#ff6d03"} br={48}></View>
-            <Itext text={"Bruno Pham"} size={20} />
             <Itext
               text={"Change Profile Picture"}
               size={12}
@@ -63,10 +78,34 @@ function ProfileInfomationScreen() {
             />
           </YStack>
           <YStack als="stretch" px={26} py={24} gap={20}>
-            <InfomationInput text={"Họ và tên"} value={"Bruno Pham"} />
+            <InfomationInput
+              text={"Họ và tên"}
+              value={name}
+              onChangeText={setName}
+            />
             <InfomationInput text={"Địa chỉ"} value={"Hà Nội"} />
-            <InfomationInput text={"Số điện thoại"} value={"01727763666"} />
-            <InfomationInput text={"Giới tính"} value={"Nam"} />
+            <InfomationInput
+              text={"Số điện thoại"}
+              value={mobile}
+              onChangeText={setMobile}
+            />
+            <YStack>
+              <Itext text={"Giới tính"} />
+              <XStack
+                bg={"#F7F7F9"}
+                px={16}
+                py={14}
+                br={14}
+                ai="center"
+                jc="space-between"
+                onPress={_onSelectedGender}
+              >
+                <Itext
+                  text={gender == 0 ? "Nam" : gender == 1 ? "Nữ" : "Khác"}
+                ></Itext>
+                <Icon icon={"arrowdown"} />
+              </XStack>
+            </YStack>
           </YStack>
         </View>
       </ScrollView>
@@ -75,6 +114,8 @@ function ProfileInfomationScreen() {
         text={"Cập nhật"}
         color={"#fff"}
       />
+
+      <GenderModal ref={genderRef} onSelectGender={setGender} />
     </View>
   );
 }

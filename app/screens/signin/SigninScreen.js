@@ -31,7 +31,7 @@ function SigninScreen() {
     };
     try {
       const res = await api.auth.login(params);
-      if (res.data.sucess) {
+      if (res.data.success) {
         await login(res.data.accessToken);
       }
     } catch (error) {
