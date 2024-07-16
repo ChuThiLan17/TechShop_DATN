@@ -24,17 +24,13 @@ import InputSignup from "./components/InputSignup";
 
 function SigninScreen() {
   const navigation = useNavigation();
-  const { login } = useAuthContext();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const _onPressSignIn = async () => {
 
   //const rootState = useSelector((state) => state.loginReducer);
   //console.log("rootState",rootState);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const dispatch = useDispatch();
 
   const _onPressSignIn = async () => {
@@ -45,13 +41,16 @@ function SigninScreen() {
     };
     try {
       const res = await api.auth.login(params);
-      if (res.data.sucess) {
-        console.log("res", res.data);
+      if (res.data.success) {
         const user_data = res.data.userData;
         dispatch(setUserAction(KEY_ACTION_SET.SET_USER, { user: user_data }));
-        await Promise.all(
-          [AsyncStorage.setItem("accessToken", res.data.accessToken),
-          AsyncStorage.setItem(KEY_STORAGE_USER.USER_DATA, JSON.stringify(user_data))])
+        await Promise.all([
+          AsyncStorage.setItem(ACCESS_TOKEN_KEY, res.data.accessToken),
+          AsyncStorage.setItem(
+            KEY_STORAGE_USER.USER_DATA,
+            JSON.stringify(user_data)
+          ),
+        ]);
         navigation.navigate("Tabbar");
       }
     } catch (error) {
@@ -61,7 +60,7 @@ function SigninScreen() {
       });
     }
   };
-  }
+
   const validate = (email, password) => {
     let check = false;
     const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;

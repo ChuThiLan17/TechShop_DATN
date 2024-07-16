@@ -21,12 +21,6 @@ import { MainTabbar } from "./tabbar";
 const Stack = createNativeStackNavigator();
 
 const AppStack = function AppStack() {
-  const { isLoading, isLoggedIn } = useAuthContext();
-
-  if (isLoading) {
-    return <SplashScreen />;
-  }
-
   return (
     <Stack.Navigator
       screenOptions={{

@@ -1,17 +1,18 @@
 import { useNavigation } from "@react-navigation/native";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { useCallback, useEffect, useLayoutEffect } from "react";
 
 import { View } from "tamagui";
 
 import api from "../../services";
-import { useAuthContext } from "../../core/AuthProvider";
+import { ACCESS_TOKEN_KEY } from "../../services/httpclient";
 
 import ProfileListButton from "./component/component/ProfileListButton";
 
 function ProfileScreen() {
   const navigation = useNavigation();
-  const { logout } = useAuthContext();
 
   useLayoutEffect(
     useCallback(() => {
@@ -28,8 +29,12 @@ function ProfileScreen() {
   const _onPressLogout = async () => {
     try {
       const res = await api.auth.logout();
-      if (res.data) {
-        await logout();
+      if (res.data.success) {
+        await AsyncStorage.removeItem(ACCESS_TOKEN_KEY);
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "Signin" }],
+        });
       }
     } catch (error) {
       console.log(error);
