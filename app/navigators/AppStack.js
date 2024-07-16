@@ -14,7 +14,6 @@ import ProductDetailScreen from "../screens/product/product-detail-screen";
 import ProfileInfomationScreen from "../screens/profile/ProfileInfomationScreen";
 import SigninScreen from "../screens/signin/SigninScreen";
 import SignupScreen from "../screens/signup/SignupScreen";
-import SplashScreen from "../screens/splash/SplashScreen";
 import OrderScreen from "../screens/profile/order/OrderScreen";
 
 import { MainTabbar } from "./tabbar";
@@ -34,17 +33,9 @@ const AppStack = function AppStack() {
         headerShown: false,
       }}
     >
-      {isLoggedIn ? (
-        <>
-          <Stack.Screen name="Tabbar" component={MainTabbar} />
-        </>
-      ) : (
-        <>
-          <Stack.Screen name="Signin" component={SigninScreen} />
-        </>
-      )}
-
       <Stack.Screen name="Signup" component={SignupScreen} />
+      <Stack.Screen name="Signin" component={SigninScreen} />
+      <Stack.Screen name="Tabbar" component={MainTabbar} />
       <Stack.Screen name="Address" component={AddressScreen} />
       <Stack.Screen name="ListAddress" component={ListAddressScreen} />
       <Stack.Screen name="DetailProduct" component={ProductDetailScreen} />

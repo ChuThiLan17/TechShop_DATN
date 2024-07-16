@@ -11,14 +11,14 @@ import Toast from "react-native-toast-message";
 
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-import { AppRegistry } from "react-native";
+import { Provider } from "react-redux";
 
-import { name as appName } from "./app.json";
 import config from "./tamagui.config.ts";
 
 import toastConfig from "./app/configs/Toastconfig.js";
 import { AuthProvider } from "./app/core/AuthProvider.js";
 import AppStack from "./app/navigators/AppStack.js";
+import Store from "./app/redux/Store.js";
 import { customFontsToLoad } from "./app/theme/typography.js";
 
 export default function App() {
@@ -26,6 +26,7 @@ export default function App() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
+      <Provider store={Store}>
       <TamaguiProvider config={config}>
         <BottomSheetModalProvider>
           <AuthProvider>
@@ -36,6 +37,10 @@ export default function App() {
           </AuthProvider>
         </BottomSheetModalProvider>
       </TamaguiProvider>
+      </Provider>
     </GestureHandlerRootView>
+    
+    
+
   );
 }

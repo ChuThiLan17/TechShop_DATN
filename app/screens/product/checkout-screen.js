@@ -8,8 +8,7 @@ const CheckoutScreen = () => {
   const navigation = useNavigation();
   return (
     <SafeAreaView>
-      <Navbar text="Danh sách địa chỉ" onPress={() => navigation.goBack()} />
-      <Text>CheckoutScreen</Text>
+      <Navbar text="Thanh toán" onPress={() => navigation.goBack()} />
     </SafeAreaView>
   );
 };

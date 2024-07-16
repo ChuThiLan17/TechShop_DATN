@@ -10,10 +10,15 @@ import { useEffect, useState } from "react";
 
 import Toast from "react-native-toast-message";
 
+import { useDispatch, useSelector } from "react-redux";
+
 import api from "../../services";
+import { KEY_ACTION_SET } from "../../constants/KeyRedux";
+import { KEY_STORAGE_USER } from "../../constants/KeyStorage";
 import { useAuthContext } from "../../core/AuthProvider";
 import { ACCESS_TOKEN_KEY } from "../../services/httpclient";
 import Itext from "../components/Text/Itext";
+import { setUserAction } from "../../redux/action/loginAction";
 
 import InputSignup from "./components/InputSignup";
 
@@ -24,6 +29,15 @@ function SigninScreen() {
   const [password, setPassword] = useState("");
 
   const _onPressSignIn = async () => {
+
+  //const rootState = useSelector((state) => state.loginReducer);
+  //console.log("rootState",rootState);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+
+  const _onPressSignIn = async () => {
     if (!validate(email, password)) return;
     let params = {
       email: email,
@@ -31,8 +45,14 @@ function SigninScreen() {
     };
     try {
       const res = await api.auth.login(params);
-      if (res.data.success) {
-        await login(res.data.accessToken);
+      if (res.data.sucess) {
+        console.log("res", res.data);
+        const user_data = res.data.userData;
+        dispatch(setUserAction(KEY_ACTION_SET.SET_USER, { user: user_data }));
+        await Promise.all(
+          [AsyncStorage.setItem("accessToken", res.data.accessToken),
+          AsyncStorage.setItem(KEY_STORAGE_USER.USER_DATA, JSON.stringify(user_data))])
+        navigation.navigate("Tabbar");
       }
     } catch (error) {
       Toast.show({
@@ -41,7 +61,7 @@ function SigninScreen() {
       });
     }
   };
-
+  }
   const validate = (email, password) => {
     let check = false;
     const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
