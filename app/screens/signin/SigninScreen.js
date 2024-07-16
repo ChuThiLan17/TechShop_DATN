@@ -43,6 +43,7 @@ function SigninScreen() {
       const res = await api.auth.login(params);
       if (res.data.success) {
         const user_data = res.data.userData;
+
         dispatch(setUserAction(KEY_ACTION_SET.SET_USER, { user: user_data }));
         await Promise.all([
           AsyncStorage.setItem(ACCESS_TOKEN_KEY, res.data.accessToken),

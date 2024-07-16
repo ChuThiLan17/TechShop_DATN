@@ -14,6 +14,7 @@ import ProductDetailScreen from "../screens/product/product-detail-screen";
 import ProfileInfomationScreen from "../screens/profile/ProfileInfomationScreen";
 import SigninScreen from "../screens/signin/SigninScreen";
 import SignupScreen from "../screens/signup/SignupScreen";
+import ChangePassScreen from "../screens/profile/changepassword/ChangePassScreen";
 import OrderScreen from "../screens/profile/order/OrderScreen";
 
 import { MainTabbar } from "./tabbar";
@@ -37,6 +38,7 @@ const AppStack = function AppStack() {
       <Stack.Screen name="Order" component={OrderScreen} />
       <Stack.Screen name="Cart" component={CartScreen} />
       <Stack.Screen name="Checkout" component={CheckoutScreen} />
+      <Stack.Screen name="ChangePass" component={ChangePassScreen} />
     </Stack.Navigator>
   );
 };

@@ -31,7 +31,7 @@ function SignupScreen() {
         mobile: phone,
       };
       const res = await api.auth.registerAccount(params);
-      if (res.data.sucess) {
+      if (res.data.success) {
         Toast.show({
           type: "success",
           text1: res.data.mes,

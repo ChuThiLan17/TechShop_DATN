@@ -83,7 +83,6 @@ function ProfileInfomationScreen() {
               value={name}
               onChangeText={setName}
             />
-            <InfomationInput text={"Địa chỉ"} value={"Hà Nội"} />
             <InfomationInput
               text={"Số điện thoại"}
               value={mobile}
