@@ -1,5 +1,4 @@
 import { NavigationContainer } from "@react-navigation/native";
-
 import "@tamagui/core/reset.css";
 import { TamaguiProvider } from "@tamagui/core";
 
@@ -29,7 +28,6 @@ export default function App() {
         </NavigationContainer>
       </TamaguiProvider>
     </Provider>
-
   );
 }
 
