@@ -1,5 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { View, XStack, YStack } from "tamagui";
 
 import {
@@ -10,15 +12,23 @@ import {
   useRef,
 } from "react";
 
-import { ScrollView } from "react-native";
+import { ScrollView, Image } from "react-native";
+
+import Toast from "react-native-toast-message";
+
+import { launchImageLibrary } from "react-native-image-picker";
 
 import api from "../../services";
+import { KEY_STORAGE_USER } from "../../constants/KeyStorage";
 import { Icon } from "../components/Icon/Icon";
 import Itext from "../components/Text/Itext";
 
 import ConfirmButton from "./component/component/ConfirmButton";
 import GenderModal from "./component/component/GenderModal";
 import InfomationInput from "./component/component/InfomationInput";
+
+const DEFAULT_AVATAR_URL =
+  "https://image-1.bituclub.com/images/f5235548-59ee-4585-b77b-ea88b6587867.png";
 
 function ProfileInfomationScreen() {
   const navigation = useNavigation();
@@ -39,17 +49,19 @@ function ProfileInfomationScreen() {
   );
 
   const [name, setName] = useState("");
-  const [address, setAddress] = useState([]);
   const [mobile, setMobile] = useState("");
   const [gender, setGender] = useState();
+  const [avatar, setAvatar] = useState("");
 
   const fetch = async () => {
     try {
-      const res = await api.user.getInfoUser();
-      setName(res.data.rs.name);
-      setAddress(res.data.rs.address);
-      setMobile(res.data.rs.mobile);
-      setGender(res.data.rs.gender);
+      const value = JSON.parse(
+        await AsyncStorage.getItem(KEY_STORAGE_USER.USER_DATA)
+      );
+      setName(value.name);
+      setMobile(value.mobile);
+      setGender(value.gender);
+      setAvatar(value.avatar);
     } catch (error) {
       console.log(error);
     }
@@ -65,17 +77,81 @@ function ProfileInfomationScreen() {
     genderRef.current?.present();
   };
 
+  const updateUser = async () => {
+    let params = {
+      name: name,
+      mobile: mobile,
+      gender: gender,
+    };
+    try {
+      const res = await api.user.updateUser(params);
+      if (res.data.success) {
+        Toast.show({
+          type: "success",
+          text1: "Cập nhật thông tin thành công",
+        });
+        await AsyncStorage.setItem(
+          KEY_STORAGE_USER.USER_DATA,
+          res.data.updateUser
+        );
+      }
+    } catch (error) {
+      console.log(error);
+      Toast.show({
+        type: "error",
+        text1: error.response.message,
+      });
+    }
+  };
+
+  const pickImage = async () => {
+    const result = await launchImageLibrary({
+      mediaType: "photo",
+      maxWidth: 200,
+      maxHeight: 200,
+      includeBase64: false,
+    });
+
+    if (result.didCancel) {
+      console.log("User cancelled image picker");
+    } else if (result.errorCode) {
+      console.log("ImagePicker Error: ", result.errorCode);
+    } else {
+      const fileUri = result.assets[0].uri;
+      setAvatar(fileUri);
+      await api.user.uploadAvartar(result.assets[0]);
+    }
+  };
+
   return (
     <View flex={1} bg={"#fff"}>
       <ScrollView>
         <View ai="center" flex={1}>
           <YStack mt={32} gap={8} ai="center">
-            <View w={96} h={96} bg={"#ff6d03"} br={48}></View>
-            <Itext
-              text={"Change Profile Picture"}
-              size={12}
-              color={"#2971f0"}
-            />
+            {avatar.length > 1 ? (
+              <Image
+                source={{ uri: avatar ?? DEFAULT_AVATAR_URL }}
+                style={{ width: 96, height: 96, borderRadius: 48 }}
+              />
+            ) : (
+              <View
+                w={96}
+                h={96}
+                bg={"#1a202c1a"}
+                br={48}
+                ai="center"
+                jc="center"
+              >
+                <Icon icon={"camera"} color={"#2971f0"} />
+              </View>
+            )}
+            <View onPress={pickImage}>
+              <Itext
+                text={"Change Profile Picture"}
+                size={12}
+                color={"#2971f0"}
+              />
+            </View>
           </YStack>
           <YStack als="stretch" px={26} py={24} gap={20}>
             <InfomationInput
@@ -112,6 +188,7 @@ function ProfileInfomationScreen() {
         backgroundColor={"#000"}
         text={"Cập nhật"}
         color={"#fff"}
+        onPress={updateUser}
       />
 
       <GenderModal ref={genderRef} onSelectGender={setGender} />

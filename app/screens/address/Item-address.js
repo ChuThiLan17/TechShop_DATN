@@ -1,31 +1,32 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
 import { useNavigation } from "@react-navigation/native";
 
-const ItemAddress = (dataAddress) => {
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+
+import React from "react";
+
+const ItemAddress = ({ dataAddress }) => {
   const navigation = useNavigation();
+
   return (
     <View style={{ alignItems: "center", marginTop: 8 }}>
       <TouchableOpacity
         style={styles.container}
-        onPress={() =>
-          navigation.navigate("Address", { dataAddress: dataAddress })
-        }
+        // onPress={() =>
+        //   navigation.navigate("Address", { dataAddress: dataAddress })
+        // }
       >
         <View style={{ flexDirection: "row" }}>
-          <Text style={{ fontWeight: "bold" }}>
-            {dataAddress?.dataAddress.name}{" "}
-          </Text>
-          <Text style={{ color: "#444444" }}>
-            | {dataAddress?.dataAddress.phone}
-          </Text>
+          <Text style={{ fontWeight: "bold" }}>{dataAddress.name}</Text>
+          <Text style={{ color: "#444444" }}>| {dataAddress?.phone}</Text>
         </View>
         <Text style={{ color: "#000000", marginTop: 4 }}>
-          {dataAddress?.dataAddress.address.street}
+          {dataAddress?.street}
         </Text>
         <Text style={{ color: "#000000", marginTop: 4 }}>
-          {dataAddress?.dataAddress.address.city}{" "}
-          {dataAddress?.dataAddress.address.country}
+          {dataAddress?.district}
+        </Text>
+        <Text style={{ color: "#000000", marginTop: 4 }}>
+          {dataAddress?.city} Việt Nam
         </Text>
       </TouchableOpacity>
     </View>

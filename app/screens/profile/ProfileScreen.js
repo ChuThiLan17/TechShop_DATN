@@ -54,7 +54,7 @@ function ProfileScreen() {
         text={"Địa chỉ"}
         onPress={() => navigation.navigate("ListAddress")}
       />
-      <ProfileListButton icon={"noti"} text={"Thông báo"} />
+      {/* <ProfileListButton icon={"noti"} text={"Thông báo"} /> */}
       <ProfileListButton
         icon={"setting"}
         text={"Đổi mật khẩu"}

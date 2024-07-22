@@ -4,7 +4,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { useEffect, useState } from "react";
 
+import { io } from "socket.io-client";
+
+import Toast from "react-native-toast-message";
+
 import { useAuthContext } from "../core/AuthProvider";
+import { SOCKET_URL } from "../services/config";
 import { ACCESS_TOKEN_KEY } from "../services/httpclient";
 import AddressScreen from "../screens/address/address-screen";
 import ListAddressScreen from "../screens/address/list-address-screen";
@@ -22,6 +27,22 @@ import { MainTabbar } from "./tabbar";
 const Stack = createNativeStackNavigator();
 
 const AppStack = function AppStack() {
+  useEffect(() => {
+    const socket = io(SOCKET_URL);
+
+    socket.on("notification", (data) => {
+      Toast.show({
+        type: "noti",
+        text1: data.title,
+        text2: data.message,
+      });
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
   return (
     <Stack.Navigator
       screenOptions={{

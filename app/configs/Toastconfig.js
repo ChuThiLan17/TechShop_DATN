@@ -21,6 +21,12 @@ const toastConfig = {
       {text2 && <Text style={styles.text2}>{text2}</Text>}
     </View>
   ),
+  noti: ({ text1, text2, props }) => (
+    <View style={[styles.noti]}>
+      <Text style={styles.text1}>{text1}</Text>
+      {text2 && <Text style={styles.text2}>{text2}</Text>}
+    </View>
+  ),
 };
 
 const styles = StyleSheet.create({
@@ -47,6 +53,13 @@ const styles = StyleSheet.create({
   text2: {
     fontSize: 14,
     color: "white",
+  },
+  noti: {
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 8,
+    marginHorizontal: 10,
+    backgroundColor: "#000",
   },
 });
 

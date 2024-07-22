@@ -53,4 +53,5 @@ export const iconRegistry = {
   hidepass: require("../../../../assets/icons/hidepass.png"),
   openpass: require("../../../../assets/icons/Eye.png"),
   arrowdown: require("../../../../assets/icons/arrowdown.png"),
+  camera: require("../../../../assets/icons/camera 1.png"),
 };

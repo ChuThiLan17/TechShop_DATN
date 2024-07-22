@@ -17,7 +17,7 @@ const createHTTPClient = (baseURL, timeout, onTokenError) => {
   });
 
   client.interceptors.request.use(
-    async (config) => { 
+    async (config) => {
       try {
         const token = await AsyncStorage.getItem(ACCESS_TOKEN_KEY);
         if (token) {

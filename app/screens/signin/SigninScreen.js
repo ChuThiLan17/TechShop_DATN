@@ -124,7 +124,7 @@ function SigninScreen() {
                 <Itext text={"Đăng nhập"} color={"#fff"} />
               </YStack>
 
-              <YStack als="center">
+              {/* <YStack als="center">
                 <Itext text={"-Hoặc-"} />
               </YStack>
               <YStack
@@ -136,7 +136,7 @@ function SigninScreen() {
                 py={10}
               >
                 <Itext text={"Đăng nhập với google"} />
-              </YStack>
+              </YStack> */}
             </YStack>
           </View>
         </YStack>

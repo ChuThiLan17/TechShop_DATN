@@ -13,6 +13,10 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { Provider } from "react-redux";
 
+import { useEffect } from "react";
+
+import io from "socket.io-client";
+
 import config from "./tamagui.config.ts";
 
 import toastConfig from "./app/configs/Toastconfig.js";
