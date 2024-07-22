@@ -24,6 +24,22 @@ import Navbar from "../components/nav-bar";
 import { KEY_ACTION_SET } from "../../constants/KeyRedux";
 import { setCartProductAction } from "../../redux/action/productAction";
 
+const width = Dimensions.get("window").width;
+const height = 500;
+
+const images = [
+  "https://vienthammydiva.vn/wp-content/uploads/2022/07/gai-xinh-toc-ngang-vai-2k6-8.jpg",
+  "https://haycafe.vn/wp-content/uploads/2022/02/Anh-gai-xinh-de-thuong.jpg",
+  "https://gcs.tripi.vn/public-tripi/tripi-feed/img/474014MTE/anh-gai-xinh-cute-de-thuong-hot-girl-5.jpg",
+  "https://inkythuatso.com/uploads/thumbnails/800/2022/05/1-anh-gai-xinh-2k4-inkythuatso-07-15-20-27.jpg",
+];
+
+const data = [
+  { id: "1", text: "Item 1" },
+  { id: "2", text: "Item 2" },
+  { id: "3", text: "Item 3" },
+];
+
 const ProductDetailScreen = (props) => {
   const { item_detail } = props.route.params.params;
   console.log("props_product_detail", item_detail);
