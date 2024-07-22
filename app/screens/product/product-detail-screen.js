@@ -28,6 +28,9 @@ const data = [
 ];
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
+import { useDispatch, useSelector } from "react-redux";
+import { setCartProductAction } from "../../redux/action/productAction";
+import { KEY_ACTION_SET } from "../../constants/KeyRedux";
 
 const ProductDetailScreen = (props) => {
 
@@ -37,6 +40,9 @@ const ProductDetailScreen = (props) => {
   const [imgA, setImgA] = useState(0);
   const [text, setText] = useState("");
 
+  const rootState_cartProducts = useSelector((state) => state.productReducer.cart_products);
+  const dispatch = useDispatch();
+
   onChange = (nativeEvent) => {
     const slide = Math.ceil(
       nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width
@@ -45,6 +51,23 @@ const ProductDetailScreen = (props) => {
       setImgA(slide);
     }
   };
+
+  const addToCart = () => {
+    const cart_temp = JSON.parse(JSON.stringify(rootState_cartProducts));
+    const index_item_select = cart_temp.findIndex((value, index) => value.item._id === item_detail._id);
+    console.log("cart_temp", cart_temp);
+    console.log("index_item_select", index_item_select);
+    if (index_item_select === -1) {
+      cart_temp.push({ item: item_detail, total: 1, isSelect: true });
+    } else {
+      cart_temp[index_item_select].total += 1;
+    }
+
+    dispatch(setCartProductAction(KEY_ACTION_SET.SET_CART_PRODUCT, { cart_products: cart_temp }));
+    props.navigation.goBack();
+  }
+
+
   return (
     <SafeAreaView style={{ flex: 1, alignItems: "center" }}>
       <Navbar text="Chi tiết sản phẩm" onPress={() => navigation.goBack()} />
@@ -214,7 +237,7 @@ const ProductDetailScreen = (props) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.btnDetai}
-          onPress={() => navigation.navigate("Cart")}
+          onPress={addToCart}
         >
           <Text>Thêm giỏ hàng</Text>
         </TouchableOpacity>

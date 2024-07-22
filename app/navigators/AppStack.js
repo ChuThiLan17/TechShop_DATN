@@ -13,6 +13,7 @@ import SignupScreen from "../screens/signup/SignupScreen";
 import OrderScreen from "../screens/profile/order/OrderScreen";
 
 import { MainTabbar } from "./tabbar";
+import CartDetailScreens from "../screens/cart/cart-detail-screens";
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +34,7 @@ const AppStack = function AppStack() {
       <Stack.Screen name="Order" component={OrderScreen} />
       <Stack.Screen name="Cart" component={CartScreen} />
       <Stack.Screen name="Checkout" component={CheckoutScreen} />
+      <Stack.Screen name="CartDetailScreens" component={CartDetailScreens} />
     </Stack.Navigator>
   );
 };

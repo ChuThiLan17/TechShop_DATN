@@ -19,7 +19,7 @@ import { setUserAction } from "../../redux/action/loginAction";
 import { KEY_ACTION_SET } from "../../constants/KeyRedux";
 import { KEY_STORAGE_USER } from "../../constants/KeyStorage";
 
-function SigninScreen() {
+function SigninScreen(props) {
   const navigation = useNavigation();
 
   //const rootState = useSelector((state) => state.loginReducer);
@@ -39,16 +39,19 @@ function SigninScreen() {
     };
     try {
       const res = await api.auth.login(params);
-      if (res.data.sucess) {
-        console.log("res", res.data);
-        const user_data = res.data.userData;
-        dispatch(setUserAction(KEY_ACTION_SET.SET_USER, { user: user_data }));
-        await Promise.all(
-          [AsyncStorage.setItem("accessToken", res.data.accessToken),
-          AsyncStorage.setItem(KEY_STORAGE_USER.USER_DATA, JSON.stringify(user_data))])
-        navigation.navigate("Tabbar");
-      }
+      //console.log("res", res.data);
+
+      //console.log("res", res.data);
+      const user_data = res.data.userData;
+      dispatch(setUserAction(KEY_ACTION_SET.SET_USER, { user: user_data }));
+      await Promise.all(
+        [AsyncStorage.setItem("accessToken", res.data.accessToken),
+        AsyncStorage.setItem(KEY_STORAGE_USER.USER_DATA, JSON.stringify(user_data))]);
+      console.log("hihi");
+      props.navigation.navigate("Tabbar");
+
     } catch (error) {
+      console.log("err", error);
       Toast.show({
         type: "error",
         text1: error.response.data.mes,

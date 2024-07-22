@@ -4,12 +4,12 @@ export const style = StyleSheet.create({
     container: {
         flex: 1,
         padding: 10,
-        backgroundColor:"white"
+        backgroundColor: "white"
     },
 
     viewCategory: {
         flex: 1,
-        padding:10,
+        padding: 10,
     },
 
     viewTitleCategory: {
@@ -24,7 +24,23 @@ export const style = StyleSheet.create({
         fontSize: 25,
     },
 
-    viewCart:{
-        
-    }
+    viewCart: {
+        flexDirection: "row",
+        width: "100%",
+        height: "6%",
+        borderWidth: 1,
+        justifyContent: "space-between",
+    },
+
+    btnMess: {
+        width: "20%",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRightWidth: 1,
+    },
+    btnDetai: {
+        alignItems: "center",
+        justifyContent: "center",
+        width: "40%",
+    },
 })
