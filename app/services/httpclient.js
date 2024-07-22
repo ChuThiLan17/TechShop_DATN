@@ -3,10 +3,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import axios from "axios";
 
+import Reactotron from "reactotron-react-native";
+
 import { API_URL, TIMEOUT } from "./config";
 
-const ACCESS_TOKEN_KEY = "access_token";
-const REFRESH_TOKEN_KEY = "refresh_token";
+export const ACCESS_TOKEN_KEY = "access_token";
+export const REFRESH_TOKEN_KEY = "refresh_token";
 
 const createHTTPClient = (baseURL, timeout, onTokenError) => {
   const client = axios.create({
@@ -53,6 +55,10 @@ const onTokenError = () => {
   // Implement your own logout logic here
 };
 const v1 = createHTTPClient(API_URL, TIMEOUT, onTokenError);
+
+Reactotron.configure(v1) // controls connection & communication settings
+  .useReactNative() // add all built-in react native plugins
+  .connect();
 
 const clients = {
   v1,

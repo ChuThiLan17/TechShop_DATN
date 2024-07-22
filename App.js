@@ -1,46 +1,44 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import {
-  NavigationContainer,
-  createNavigationContainerRef,
-} from "@react-navigation/native";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+
+import { NavigationContainer } from "@react-navigation/native";
+
 import "@tamagui/core/reset.css";
 import { TamaguiProvider } from "@tamagui/core";
-import { StyleSheet } from "react-native";
-import Reactotron from "./ReactotronConfig";
+
 import { useFonts } from "expo-font";
+
+import Toast from "react-native-toast-message";
+
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+
+import { Provider } from "react-redux";
+
+import { useEffect } from "react";
+
+import io from "socket.io-client";
+
 import config from "./tamagui.config.ts";
+
+import toastConfig from "./app/configs/Toastconfig.js";
 import AppStack from "./app/navigators/AppStack.js";
-export const navigationRef = createNavigationContainerRef();
-const Stack = createNativeStackNavigator();
+import Store from "./app/redux/Store.js";
+import { customFontsToLoad } from "./app/theme/typography.js";
+
 export default function App() {
-  const [fontsLoaded, fontError] = useFonts({
-    Black: require("./assets/fonts/Outfit-Black.ttf"),
-    Bold: require("./assets/fonts/Outfit-Bold.ttf"),
-
-    ExtraBold: require("./assets/fonts/Outfit-ExtraBold.ttf"),
-    ExtraLight: require("./assets/fonts/Outfit-ExtraLight.ttf"),
-
-    Light: require("./assets/fonts/Outfit-Light.ttf"),
-    Medium: require("./assets/fonts/Outfit-Medium.ttf"),
-
-    Regular: require("./assets/fonts/Outfit-Regular.ttf"),
-    SemiBold: require("./assets/fonts/Outfit-SemiBold.ttf"),
-  });
+  useFonts(customFontsToLoad);
 
   return (
-    <TamaguiProvider config={config}>
-      <NavigationContainer>
-        <AppStack />
-      </NavigationContainer>
-    </TamaguiProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Provider store={Store}>
+        <TamaguiProvider config={config}>
+          <BottomSheetModalProvider>
+            <NavigationContainer>
+              <AppStack />
+              <Toast config={toastConfig} />
+            </NavigationContainer>
+          </BottomSheetModalProvider>
+        </TamaguiProvider>
+      </Provider>
+    </GestureHandlerRootView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
