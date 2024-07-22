@@ -28,11 +28,20 @@ const data = [
 ];
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
+import { useDispatch, useSelector } from "react-redux";
+import { setCartProductAction } from "../../redux/action/productAction";
+import { KEY_ACTION_SET } from "../../constants/KeyRedux";
 
-const ProductDetailScreen = () => {
+const ProductDetailScreen = (props) => {
+
+  const { item_detail } = props.route.params.params;
+  console.log("props_product_detail", item_detail);
   const navigation = useNavigation();
   const [imgA, setImgA] = useState(0);
   const [text, setText] = useState("");
+
+  const rootState_cartProducts = useSelector((state) => state.productReducer.cart_products);
+  const dispatch = useDispatch();
 
   onChange = (nativeEvent) => {
     const slide = Math.ceil(
@@ -42,6 +51,23 @@ const ProductDetailScreen = () => {
       setImgA(slide);
     }
   };
+
+  const addToCart = () => {
+    const cart_temp = JSON.parse(JSON.stringify(rootState_cartProducts));
+    const index_item_select = cart_temp.findIndex((value, index) => value.item._id === item_detail._id);
+    console.log("cart_temp", cart_temp);
+    console.log("index_item_select", index_item_select);
+    if (index_item_select === -1) {
+      cart_temp.push({ item: item_detail, total: 1, isSelect: true });
+    } else {
+      cart_temp[index_item_select].total += 1;
+    }
+
+    dispatch(setCartProductAction(KEY_ACTION_SET.SET_CART_PRODUCT, { cart_products: cart_temp }));
+    props.navigation.goBack();
+  }
+
+
   return (
     <SafeAreaView style={{ flex: 1, alignItems: "center" }}>
       <Navbar text="Chi tiết sản phẩm" onPress={() => navigation.goBack()} />
@@ -74,8 +100,8 @@ const ProductDetailScreen = () => {
             ))}
           </View>
         </View>
-        <View style={{ marginTop: 10 }}>
-          <Text style={{ fontSize: 18, fontWeight: "bold" }}>Lenovo B12</Text>
+        <View style={{ marginVertical: 10 }}>
+          <Text style={{ fontSize: 18, fontWeight: "bold" }}>{item_detail.title}</Text>
           <View
             style={{
               flexDirection: "row",
@@ -90,7 +116,7 @@ const ProductDetailScreen = () => {
                 marginTop: 8,
               }}
             >
-              100,000đ
+              {Number(item_detail.price).toLocaleString("en-VN") + " đ"}
             </Text>
             <View
               style={{
@@ -147,6 +173,62 @@ const ProductDetailScreen = () => {
               Đã Bán: 400
             </Text>
           </View>
+          {/*Content*/}
+          <View style={styles.styleBranch}>
+            <Text style={styles.textBranch}>Thương hiệu : {item_detail.brand}</Text>
+            <Text style={styles.textBranch}>Mặt hàng : {item_detail.slug}</Text>
+            <View style={styles.viewDescription}>
+              <Text style={styles.textBranch}>Thông tin sản phẩm</Text>
+              <Text style={styles.textDescription}>- {item_detail.description}</Text>
+              <Text style={styles.textDescription}>- {item_detail.description}</Text>
+              <Text style={styles.textDescription}>- {item_detail.description}</Text>
+              <View style={{ marginTop: 20 }}>
+                <View style={styles.viewDescriptionDetail}>
+                  <Text style={styles.textDescriptionTitle}>Model</Text>
+                  <Text style={styles.textDescriptionContent}>: DDR4 - AX4U3200716G16A - SW50/ AX4U3200716G16A</Text>
+                </View>
+                <View style={styles.viewDescriptionDetail}>
+                  <Text style={styles.textDescriptionTitle}>Series</Text>
+                  <Text style={styles.textDescriptionContent}>: XPG SPECTRIX D50</Text>
+                </View>
+                <View style={styles.viewDescriptionDetail}>
+                  <Text style={styles.textDescriptionTitle}>Dung lượng</Text>
+                  <Text style={styles.textDescriptionContent}>: 16GB (1x16GB)</Text>
+                </View>
+                <View style={styles.viewDescriptionDetail}>
+                  <Text style={styles.textDescriptionTitle}>Bus</Text>
+                  <Text style={styles.textDescriptionContent}>: 3200 MHz</Text>
+                </View>
+                <View style={styles.viewDescriptionDetail}>
+                  <Text style={styles.textDescriptionTitle}>Đỗ trễ</Text>
+                  <Text style={styles.textDescriptionContent}>: CL 16-20-20</Text>
+                </View>
+                <View style={styles.viewDescriptionDetail}>
+                  <Text style={styles.textDescriptionTitle}>Điện áp</Text>
+                  <Text style={styles.textDescriptionContent}>: Điện áp</Text>
+                </View>
+                <View style={styles.viewDescriptionDetail}>
+                  <Text style={styles.textDescriptionTitle}>Màu sắc</Text>
+                  <Text style={styles.textDescriptionContent}>: Sám/trắng</Text>
+                </View>
+                <View style={styles.viewDescriptionDetail}>
+                  <Text style={styles.textDescriptionTitle}>Bảo hành</Text>
+                  <Text style={styles.textDescriptionContent}>: 36 tháng</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+          <Image
+            source={{ uri: "https://vienthammydiva.vn/wp-content/uploads/2022/07/gai-xinh-toc-ngang-vai-2k6-8.jpg" }}
+            style={styles.viewImageProduct}
+            resizeMode='contain'
+          />
+          <View style={styles.viewMore} />
+          <TouchableOpacity style={{ marginTop: 10 }}>
+            <Text style={styles.textMore}>Xem thêm</Text>
+          </TouchableOpacity>
+          <View>
+          </View>
         </View>
       </ScrollView>
       <View style={styles.container}>
@@ -155,7 +237,7 @@ const ProductDetailScreen = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.btnDetai}
-          onPress={() => navigation.navigate("Cart")}
+          onPress={addToCart}
         >
           <Text>Thêm giỏ hàng</Text>
         </TouchableOpacity>
@@ -204,4 +286,68 @@ const styles = StyleSheet.create({
   },
   dotActive: { margin: 3, color: "black" },
   dot: { margin: 3, color: "white" },
+
+  styleBranch: {
+    backgroundColor: "white",
+    borderRadius: 15,
+    backgroundColor: "white",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
+    padding: 10,
+    marginVertical: 20,
+  },
+
+  textBranch: {
+    fontSize: 17,
+    fontFamily: "SemiBold",
+  },
+
+  viewDescription: {
+    padding: 10,
+  },
+
+  textDescription: {
+    fontSize: 17,
+  },
+
+  textDescriptionTitle: {
+    flex: 4,
+    fontSize: 17,
+  },
+
+  textDescriptionContent: {
+    flex: 6,
+    fontSize: 17,
+  },
+
+  viewDescriptionDetail: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    marginVertical: 5,
+  },
+
+  viewImageProduct: {
+    alignSelf: "center",
+    padding: "10",
+    width: 300,
+    height: 200
+  },
+
+  viewMore: {
+    borderBottomWidth: 1,
+    borderColor: "gray",
+    marginTop: 20,
+  },
+
+  textMore: {
+    fontSize: 17,
+    textAlign: "center"
+  }
+
 });

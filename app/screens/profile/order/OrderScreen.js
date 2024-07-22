@@ -47,9 +47,9 @@ function OrderScreen() {
         headerTitle: "Đơn hàng",
         headerTitleAlign: "center",
         headerShadowVisible: false,
-        headerLeft: () => (
-          <Icon icon={"back"} onPress={() => navigation.goBack()} />
-        ),
+        // headerLeft: () => (
+        //   <Icon icon={"back"} onPress={() => navigation.goBack()} />
+        // ),
       });
     }, [navigation]),
     []

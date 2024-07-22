@@ -81,7 +81,7 @@ const ListAddressScreen = () => {
           renderItem={({ item, index }) => <ItemAddress dataAddress={item} />}
         />
       </View>
-      <View style={{ alignItems: "center" }}>
+      {/* <View style={{ alignItems: "center" }}>
         <TouchableOpacity
           style={{
             alignItems: "center",
@@ -91,7 +91,6 @@ const ListAddressScreen = () => {
             height: 50,
             width: "80%",
           }}
-          onPress={() => navigation.navigate("DetailProduct")}
         >
           <Itext
             text="Hello World!"
@@ -101,7 +100,7 @@ const ListAddressScreen = () => {
             font="re" // Sử dụng font Outfit-Black
           />
         </TouchableOpacity>
-      </View>
+      </View> */}
     </SafeAreaView>
   );
 };
