@@ -7,12 +7,14 @@ import { useCallback, useEffect, useLayoutEffect } from "react";
 import { View } from "tamagui";
 
 import api from "../../services";
+import { useAuthContext } from "../../core/AuthProvider";
 import { ACCESS_TOKEN_KEY } from "../../services/httpclient";
 
 import ProfileListButton from "./component/component/ProfileListButton";
 
 function ProfileScreen() {
   const navigation = useNavigation();
+  const { logout } = useAuthContext();
 
   useLayoutEffect(
     useCallback(() => {
@@ -30,11 +32,7 @@ function ProfileScreen() {
     try {
       const res = await api.auth.logout();
       if (res.data.success) {
-        await AsyncStorage.removeItem(ACCESS_TOKEN_KEY);
-        navigation.reset({
-          index: 0,
-          routes: [{ name: "Signin" }],
-        });
+        await logout();
       }
     } catch (error) {
       console.log(error);

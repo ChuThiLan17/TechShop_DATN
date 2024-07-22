@@ -28,6 +28,8 @@ import { MainTabbar } from "./tabbar";
 const Stack = createNativeStackNavigator();
 
 const AppStack = function AppStack() {
+  const { isLoggedIn } = useAuthContext();
+
   useEffect(() => {
     const socket = io(SOCKET_URL);
 
@@ -50,9 +52,13 @@ const AppStack = function AppStack() {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Signin" component={SigninScreen} />
+      {isLoggedIn ? (
+        <Stack.Screen name="Tabbar" component={MainTabbar} />
+      ) : (
+        <Stack.Screen name="Signin" component={SigninScreen} />
+      )}
+
       <Stack.Screen name="Signup" component={SignupScreen} />
-      <Stack.Screen name="Tabbar" component={MainTabbar} />
       <Stack.Screen name="Address" component={AddressScreen} />
       <Stack.Screen name="ListAddress" component={ListAddressScreen} />
       <Stack.Screen name="DetailProduct" component={ProductDetailScreen} />

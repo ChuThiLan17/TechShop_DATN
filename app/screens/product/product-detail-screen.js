@@ -2,6 +2,8 @@ import { AntDesign } from "@expo/vector-icons";
 
 import { useNavigation } from "@react-navigation/native";
 
+import { Editor } from "@tinymce/tinymce-react";
+
 import {
   Dimensions,
   Image,
@@ -12,7 +14,7 @@ import {
   View,
 } from "react-native";
 
-import React, { useState } from "react";
+import React, { useCallback, useLayoutEffect, useState } from "react";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -20,19 +22,8 @@ import { ScrollView } from "tamagui";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import Navbar from "../components/nav-bar";
-import { KEY_ACTION_SET } from "../../constants/KeyRedux";
-import { setCartProductAction } from "../../redux/action/productAction";
-
 const width = Dimensions.get("window").width;
 const height = 500;
-
-const images = [
-  "https://vienthammydiva.vn/wp-content/uploads/2022/07/gai-xinh-toc-ngang-vai-2k6-8.jpg",
-  "https://haycafe.vn/wp-content/uploads/2022/02/Anh-gai-xinh-de-thuong.jpg",
-  "https://gcs.tripi.vn/public-tripi/tripi-feed/img/474014MTE/anh-gai-xinh-cute-de-thuong-hot-girl-5.jpg",
-  "https://inkythuatso.com/uploads/thumbnails/800/2022/05/1-anh-gai-xinh-2k4-inkythuatso-07-15-20-27.jpg",
-];
 
 const data = [
   { id: "1", text: "Item 1" },
@@ -42,7 +33,7 @@ const data = [
 
 const ProductDetailScreen = (props) => {
   const { item_detail } = props.route.params.params;
-  console.log("props_product_detail", item_detail);
+
   const navigation = useNavigation();
   const [imgA, setImgA] = useState(0);
   const [text, setText] = useState("");
@@ -61,31 +52,41 @@ const ProductDetailScreen = (props) => {
     }
   };
 
-  const addToCart = () => {
-    const cart_temp = JSON.parse(JSON.stringify(rootState_cartProducts));
-    const index_item_select = cart_temp.findIndex(
-      (value, index) => value.item._id === item_detail._id
-    );
-    console.log("cart_temp", cart_temp);
-    console.log("index_item_select", index_item_select);
-    if (index_item_select === -1) {
-      cart_temp.push({ item: item_detail, total: 1, isSelect: true });
-    } else {
-      cart_temp[index_item_select].total += 1;
-    }
+  useLayoutEffect(
+    useCallback(() => {
+      navigation.setOptions({
+        headerShown: true,
+        headerTitle: "Chi tiết sản phẩm",
+        headerTitleAlign: "center",
+        headerShadowVisible: false,
+      });
+    }, [navigation]),
+    []
+  );
 
-    dispatch(
-      setCartProductAction(KEY_ACTION_SET.SET_CART_PRODUCT, {
-        cart_products: cart_temp,
-      })
-    );
-    props.navigation.goBack();
+  const addToCart = () => {
+    // const cart_temp = JSON.parse(JSON.stringify(rootState_cartProducts));
+    // const index_item_select = cart_temp.findIndex(
+    //   (value, index) => value.item._id === item_detail._id
+    // );
+    // console.log("cart_temp", cart_temp);
+    // console.log("index_item_select", index_item_select);
+    // if (index_item_select === -1) {
+    //   cart_temp.push({ item: item_detail, total: 1, isSelect: true });
+    // } else {
+    //   cart_temp[index_item_select].total += 1;
+    // }
+    // dispatch(
+    //   setCartProductAction(KEY_ACTION_SET.SET_CART_PRODUCT, {
+    //     cart_products: cart_temp,
+    //   })
+    // );
+    // props.navigation.goBack();
   };
 
   return (
     <SafeAreaView style={{ flex: 1, alignItems: "center" }}>
-      <Navbar text="Chi tiết sản phẩm" onPress={() => navigation.goBack()} />
-      <ScrollView>
+      <ScrollView style={{ paddingHorizontal: 16 }}>
         <View>
           <ScrollView
             onScroll={({ nativeEvent }) => onChange(nativeEvent)}
@@ -94,7 +95,7 @@ const ProductDetailScreen = (props) => {
             horizontal
             style={[styles.wrap]}
           >
-            {images.map((e, index) => (
+            {item_detail.images.map((e, index) => (
               <Image
                 key={e}
                 resizeMode="stretch"
@@ -104,7 +105,7 @@ const ProductDetailScreen = (props) => {
             ))}
           </ScrollView>
           <View style={styles.wrapDot}>
-            {images.map((e, index) => (
+            {item_detail.images.map((e, index) => (
               <Text
                 key={e}
                 style={imgA === index ? styles.dotActive : styles.dot}
@@ -148,7 +149,7 @@ const ProductDetailScreen = (props) => {
                   fontWeight: "500",
                 }}
               >
-                4.3
+                {item_detail.totalRatings}
               </Text>
             </View>
           </View>
@@ -186,7 +187,7 @@ const ProductDetailScreen = (props) => {
                 fontWeight: "400",
               }}
             >
-              Đã Bán: 400
+              Đã Bán: {item_detail.sold}
             </Text>
           </View>
           {/*Content*/}
@@ -197,70 +198,20 @@ const ProductDetailScreen = (props) => {
             <Text style={styles.textBranch}>Mặt hàng : {item_detail.slug}</Text>
             <View style={styles.viewDescription}>
               <Text style={styles.textBranch}>Thông tin sản phẩm</Text>
-              <Text style={styles.textDescription}>
-                - {item_detail.description}
-              </Text>
-              <Text style={styles.textDescription}>
-                - {item_detail.description}
-              </Text>
-              <Text style={styles.textDescription}>
-                - {item_detail.description}
-              </Text>
-              <View style={{ marginTop: 20 }}>
-                <View style={styles.viewDescriptionDetail}>
-                  <Text style={styles.textDescriptionTitle}>Model</Text>
-                  <Text style={styles.textDescriptionContent}>
-                    : DDR4 - AX4U3200716G16A - SW50/ AX4U3200716G16A
-                  </Text>
-                </View>
-                <View style={styles.viewDescriptionDetail}>
-                  <Text style={styles.textDescriptionTitle}>Series</Text>
-                  <Text style={styles.textDescriptionContent}>
-                    : XPG SPECTRIX D50
-                  </Text>
-                </View>
-                <View style={styles.viewDescriptionDetail}>
-                  <Text style={styles.textDescriptionTitle}>Dung lượng</Text>
-                  <Text style={styles.textDescriptionContent}>
-                    : 16GB (1x16GB)
-                  </Text>
-                </View>
-                <View style={styles.viewDescriptionDetail}>
-                  <Text style={styles.textDescriptionTitle}>Bus</Text>
-                  <Text style={styles.textDescriptionContent}>: 3200 MHz</Text>
-                </View>
-                <View style={styles.viewDescriptionDetail}>
-                  <Text style={styles.textDescriptionTitle}>Đỗ trễ</Text>
-                  <Text style={styles.textDescriptionContent}>
-                    : CL 16-20-20
-                  </Text>
-                </View>
-                <View style={styles.viewDescriptionDetail}>
-                  <Text style={styles.textDescriptionTitle}>Điện áp</Text>
-                  <Text style={styles.textDescriptionContent}>: Điện áp</Text>
-                </View>
-                <View style={styles.viewDescriptionDetail}>
-                  <Text style={styles.textDescriptionTitle}>Màu sắc</Text>
-                  <Text style={styles.textDescriptionContent}>: Sám/trắng</Text>
-                </View>
-                <View style={styles.viewDescriptionDetail}>
-                  <Text style={styles.textDescriptionTitle}>Bảo hành</Text>
-                  <Text style={styles.textDescriptionContent}>: 36 tháng</Text>
-                </View>
-              </View>
+              <Text>{item_detail.description}</Text>
             </View>
           </View>
           <Image
             source={{
-              uri: "https://vienthammydiva.vn/wp-content/uploads/2022/07/gai-xinh-toc-ngang-vai-2k6-8.jpg",
+              uri: item_detail.thumb,
             }}
             style={styles.viewImageProduct}
             resizeMode="contain"
           />
           <View style={styles.viewMore} />
-          <TouchableOpacity style={{ marginTop: 10 }}>
+          {/* <TouchableOpacity style={{ marginTop: 10 }}>
             <Text style={styles.textMore}>Xem thêm</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <View></View>
         </View>
       </ScrollView>
