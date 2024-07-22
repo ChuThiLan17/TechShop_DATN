@@ -1,3 +1,7 @@
+import { AntDesign } from "@expo/vector-icons";
+
+import { useNavigation } from "@react-navigation/native";
+
 import {
   Dimensions,
   Image,
@@ -7,40 +11,29 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+
 import React, { useState } from "react";
+
 import { SafeAreaView } from "react-native-safe-area-context";
+
 import { ScrollView } from "tamagui";
-import Navbar from "../components/nav-bar";
-import { AntDesign } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
 
-const images = [
-  "https://vienthammydiva.vn/wp-content/uploads/2022/07/gai-xinh-toc-ngang-vai-2k6-8.jpg",
-  "https://haycafe.vn/wp-content/uploads/2022/02/Anh-gai-xinh-de-thuong.jpg",
-  "https://gcs.tripi.vn/public-tripi/tripi-feed/img/474014MTE/anh-gai-xinh-cute-de-thuong-hot-girl-5.jpg",
-  "https://inkythuatso.com/uploads/thumbnails/800/2022/05/1-anh-gai-xinh-2k4-inkythuatso-07-15-20-27.jpg",
-];
-
-const data = [
-  { id: "1", text: "Item 1" },
-  { id: "2", text: "Item 2" },
-  { id: "3", text: "Item 3" },
-];
-const width = Dimensions.get("window").width;
-const height = Dimensions.get("window").height;
 import { useDispatch, useSelector } from "react-redux";
-import { setCartProductAction } from "../../redux/action/productAction";
+
+import Navbar from "../components/nav-bar";
 import { KEY_ACTION_SET } from "../../constants/KeyRedux";
+import { setCartProductAction } from "../../redux/action/productAction";
 
 const ProductDetailScreen = (props) => {
-
   const { item_detail } = props.route.params.params;
   console.log("props_product_detail", item_detail);
   const navigation = useNavigation();
   const [imgA, setImgA] = useState(0);
   const [text, setText] = useState("");
 
-  const rootState_cartProducts = useSelector((state) => state.productReducer.cart_products);
+  const rootState_cartProducts = useSelector(
+    (state) => state.productReducer.cart_products
+  );
   const dispatch = useDispatch();
 
   onChange = (nativeEvent) => {
@@ -54,7 +47,9 @@ const ProductDetailScreen = (props) => {
 
   const addToCart = () => {
     const cart_temp = JSON.parse(JSON.stringify(rootState_cartProducts));
-    const index_item_select = cart_temp.findIndex((value, index) => value.item._id === item_detail._id);
+    const index_item_select = cart_temp.findIndex(
+      (value, index) => value.item._id === item_detail._id
+    );
     console.log("cart_temp", cart_temp);
     console.log("index_item_select", index_item_select);
     if (index_item_select === -1) {
@@ -63,10 +58,13 @@ const ProductDetailScreen = (props) => {
       cart_temp[index_item_select].total += 1;
     }
 
-    dispatch(setCartProductAction(KEY_ACTION_SET.SET_CART_PRODUCT, { cart_products: cart_temp }));
+    dispatch(
+      setCartProductAction(KEY_ACTION_SET.SET_CART_PRODUCT, {
+        cart_products: cart_temp,
+      })
+    );
     props.navigation.goBack();
-  }
-
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, alignItems: "center" }}>
@@ -101,7 +99,9 @@ const ProductDetailScreen = (props) => {
           </View>
         </View>
         <View style={{ marginVertical: 10 }}>
-          <Text style={{ fontSize: 18, fontWeight: "bold" }}>{item_detail.title}</Text>
+          <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+            {item_detail.title}
+          </Text>
           <View
             style={{
               flexDirection: "row",
@@ -175,25 +175,39 @@ const ProductDetailScreen = (props) => {
           </View>
           {/*Content*/}
           <View style={styles.styleBranch}>
-            <Text style={styles.textBranch}>Thương hiệu : {item_detail.brand}</Text>
+            <Text style={styles.textBranch}>
+              Thương hiệu : {item_detail.brand}
+            </Text>
             <Text style={styles.textBranch}>Mặt hàng : {item_detail.slug}</Text>
             <View style={styles.viewDescription}>
               <Text style={styles.textBranch}>Thông tin sản phẩm</Text>
-              <Text style={styles.textDescription}>- {item_detail.description}</Text>
-              <Text style={styles.textDescription}>- {item_detail.description}</Text>
-              <Text style={styles.textDescription}>- {item_detail.description}</Text>
+              <Text style={styles.textDescription}>
+                - {item_detail.description}
+              </Text>
+              <Text style={styles.textDescription}>
+                - {item_detail.description}
+              </Text>
+              <Text style={styles.textDescription}>
+                - {item_detail.description}
+              </Text>
               <View style={{ marginTop: 20 }}>
                 <View style={styles.viewDescriptionDetail}>
                   <Text style={styles.textDescriptionTitle}>Model</Text>
-                  <Text style={styles.textDescriptionContent}>: DDR4 - AX4U3200716G16A - SW50/ AX4U3200716G16A</Text>
+                  <Text style={styles.textDescriptionContent}>
+                    : DDR4 - AX4U3200716G16A - SW50/ AX4U3200716G16A
+                  </Text>
                 </View>
                 <View style={styles.viewDescriptionDetail}>
                   <Text style={styles.textDescriptionTitle}>Series</Text>
-                  <Text style={styles.textDescriptionContent}>: XPG SPECTRIX D50</Text>
+                  <Text style={styles.textDescriptionContent}>
+                    : XPG SPECTRIX D50
+                  </Text>
                 </View>
                 <View style={styles.viewDescriptionDetail}>
                   <Text style={styles.textDescriptionTitle}>Dung lượng</Text>
-                  <Text style={styles.textDescriptionContent}>: 16GB (1x16GB)</Text>
+                  <Text style={styles.textDescriptionContent}>
+                    : 16GB (1x16GB)
+                  </Text>
                 </View>
                 <View style={styles.viewDescriptionDetail}>
                   <Text style={styles.textDescriptionTitle}>Bus</Text>
@@ -201,7 +215,9 @@ const ProductDetailScreen = (props) => {
                 </View>
                 <View style={styles.viewDescriptionDetail}>
                   <Text style={styles.textDescriptionTitle}>Đỗ trễ</Text>
-                  <Text style={styles.textDescriptionContent}>: CL 16-20-20</Text>
+                  <Text style={styles.textDescriptionContent}>
+                    : CL 16-20-20
+                  </Text>
                 </View>
                 <View style={styles.viewDescriptionDetail}>
                   <Text style={styles.textDescriptionTitle}>Điện áp</Text>
@@ -219,26 +235,24 @@ const ProductDetailScreen = (props) => {
             </View>
           </View>
           <Image
-            source={{ uri: "https://vienthammydiva.vn/wp-content/uploads/2022/07/gai-xinh-toc-ngang-vai-2k6-8.jpg" }}
+            source={{
+              uri: "https://vienthammydiva.vn/wp-content/uploads/2022/07/gai-xinh-toc-ngang-vai-2k6-8.jpg",
+            }}
             style={styles.viewImageProduct}
-            resizeMode='contain'
+            resizeMode="contain"
           />
           <View style={styles.viewMore} />
           <TouchableOpacity style={{ marginTop: 10 }}>
             <Text style={styles.textMore}>Xem thêm</Text>
           </TouchableOpacity>
-          <View>
-          </View>
+          <View></View>
         </View>
       </ScrollView>
       <View style={styles.container}>
         <TouchableOpacity style={styles.btnMess}>
           <AntDesign name="message1" size={24} color="black" />
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.btnDetai}
-          onPress={addToCart}
-        >
+        <TouchableOpacity style={styles.btnDetai} onPress={addToCart}>
           <Text>Thêm giỏ hàng</Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -336,7 +350,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     padding: "10",
     width: 300,
-    height: 200
+    height: 200,
   },
 
   viewMore: {
@@ -347,7 +361,6 @@ const styles = StyleSheet.create({
 
   textMore: {
     fontSize: 17,
-    textAlign: "center"
-  }
-
+    textAlign: "center",
+  },
 });

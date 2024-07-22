@@ -13,6 +13,7 @@ import { SOCKET_URL } from "../services/config";
 import { ACCESS_TOKEN_KEY } from "../services/httpclient";
 import AddressScreen from "../screens/address/address-screen";
 import ListAddressScreen from "../screens/address/list-address-screen";
+import CartDetailScreens from "../screens/cart/cart-detail-screens";
 import CartScreen from "../screens/product/cart-screen";
 import CheckoutScreen from "../screens/product/checkout-screen";
 import ProductDetailScreen from "../screens/product/product-detail-screen";
@@ -23,7 +24,6 @@ import ChangePassScreen from "../screens/profile/changepassword/ChangePassScreen
 import OrderScreen from "../screens/profile/order/OrderScreen";
 
 import { MainTabbar } from "./tabbar";
-import CartDetailScreens from "../screens/cart/cart-detail-screens";
 
 const Stack = createNativeStackNavigator();
 
@@ -50,8 +50,8 @@ const AppStack = function AppStack() {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Signup" component={SignupScreen} />
       <Stack.Screen name="Signin" component={SigninScreen} />
+      <Stack.Screen name="Signup" component={SignupScreen} />
       <Stack.Screen name="Tabbar" component={MainTabbar} />
       <Stack.Screen name="Address" component={AddressScreen} />
       <Stack.Screen name="ListAddress" component={ListAddressScreen} />

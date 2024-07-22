@@ -1,14 +1,6 @@
-<<<<<<< HEAD
-=======
 import { AntDesign } from "@expo/vector-icons";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-import { TouchableOpacity, View, Text, FlatList, ScrollView } from "react-native";
-
-import { useDispatch, useSelector } from "react-redux";
-
-import { useEffect, useMemo, useReducer } from "react";
 
 import {
   TouchableOpacity,
@@ -20,7 +12,7 @@ import {
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { useEffect, useReducer } from "react";
+import { useEffect, useMemo, useReducer } from "react";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -31,10 +23,15 @@ import { getAllCategory } from "../../services/api/category/CategoryService";
 import { getAllProducts } from "../../services/api/products/ProductsService";
 
 import SlideShow from "./SlideShow";
+import { style } from "./styles";
+
+import RenderListCategory from "./components/RenderListCategory";
+import RenderListProduct from "./components/RenderListProduct";
 function HomeScreen(props) {
-  console.log(1);
   //const rootState = useSelector((state) => state.loginReducer);
-  const rootState_cartProducts = useSelector((state) => state.productReducer.cart_products);
+  const rootState_cartProducts = useSelector(
+    (state) => state.productReducer.cart_products
+  );
   console.log("rootState_cartProducts", rootState_cartProducts);
 
   const initialState = {
@@ -86,8 +83,8 @@ function HomeScreen(props) {
           nestedScrollEnabled={true}
         />
       </View>
-    )
-  }, [state.list_category])
+    );
+  }, [state.list_category]);
 
   const RenderProduct = useMemo(() => {
     return (
@@ -100,50 +97,63 @@ function HomeScreen(props) {
         </View>
         <FlatList
           data={[...state.list_product]}
-          renderItem={(item) => <RenderListProduct item={item.item} onPress={() => props.navigation.navigate("DetailProduct", { params: { item_detail: item.item } })} />}
+          renderItem={(item) => (
+            <RenderListProduct
+              item={item.item}
+              onPress={() =>
+                props.navigation.navigate("DetailProduct", {
+                  params: { item_detail: item.item },
+                })
+              }
+            />
+          )}
           keyExtractor={(item) => item._id}
           numColumns={2}
           nestedScrollEnabled={true}
         />
       </View>
-    )
-  }, [state.list_product])
+    );
+  }, [state.list_product]);
 
   const RenderCart = useMemo(() => {
-
     const total_price = () => {
       let total = 0;
       for (let i = 0; i < rootState_cartProducts.length; i++) {
         if (rootState_cartProducts[i].isSelect) {
-          total += rootState_cartProducts[i].item.price * rootState_cartProducts[i].total;
+          total +=
+            rootState_cartProducts[i].item.price *
+            rootState_cartProducts[i].total;
         }
       }
 
       return total;
-    }
+    };
 
     return (
-      rootState_cartProducts.length > 0 &&
-      <View style={style.viewCart}>
-        <TouchableOpacity style={style.btnMess} onPress={() => { props.navigation.navigate("CartDetailScreens") }}>
-          <AntDesign name="shoppingcart" size={24} color="black" />
-        </TouchableOpacity>
-        <View
-          style={style.btnDetai}
-        >
-          <Text>Tổng thanh toán</Text>
-          <Text>{Number(total_price()).toLocaleString("en-VN")} đ</Text>
+      rootState_cartProducts.length > 0 && (
+        <View style={style.viewCart}>
+          <TouchableOpacity
+            style={style.btnMess}
+            onPress={() => {
+              props.navigation.navigate("CartDetailScreens");
+            }}
+          >
+            <AntDesign name="shoppingcart" size={24} color="black" />
+          </TouchableOpacity>
+          <View style={style.btnDetai}>
+            <Text>Tổng thanh toán</Text>
+            <Text>{Number(total_price()).toLocaleString("en-VN")} đ</Text>
+          </View>
+          <TouchableOpacity
+            style={[style.btnDetai, { backgroundColor: "black" }]}
+            onPress={() => props.navigation.navigate("Checkout")}
+          >
+            <Text style={{ color: "white" }}>Mua hàng</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          style={[style.btnDetai, { backgroundColor: "black" }]}
-          onPress={() => props.navigation.navigate("Checkout")}
-        >
-          <Text style={{ color: "white" }}>Mua hàng</Text>
-        </TouchableOpacity>
-      </View>
-    )
-  }, [rootState_cartProducts])
-
+      )
+    );
+  }, [rootState_cartProducts]);
 
   return (
     <SafeAreaView style={style.container}>
