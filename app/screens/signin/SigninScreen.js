@@ -22,7 +22,7 @@ import { setUserAction } from "../../redux/action/loginAction";
 
 import InputSignup from "./components/InputSignup";
 
-function SigninScreen() {
+function SigninScreen(props) {
   const navigation = useNavigation();
 
   const [email, setEmail] = useState("");
@@ -55,6 +55,7 @@ function SigninScreen() {
         navigation.navigate("Tabbar");
       }
     } catch (error) {
+      console.log("err", error);
       Toast.show({
         type: "error",
         text1: error.response.data.mes,

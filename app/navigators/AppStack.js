@@ -23,6 +23,7 @@ import ChangePassScreen from "../screens/profile/changepassword/ChangePassScreen
 import OrderScreen from "../screens/profile/order/OrderScreen";
 
 import { MainTabbar } from "./tabbar";
+import CartDetailScreens from "../screens/cart/cart-detail-screens";
 
 const Stack = createNativeStackNavigator();
 
@@ -60,6 +61,7 @@ const AppStack = function AppStack() {
       <Stack.Screen name="Cart" component={CartScreen} />
       <Stack.Screen name="Checkout" component={CheckoutScreen} />
       <Stack.Screen name="ChangePass" component={ChangePassScreen} />
+      <Stack.Screen name="CartDetailScreens" component={CartDetailScreens} />
     </Stack.Navigator>
   );
 };

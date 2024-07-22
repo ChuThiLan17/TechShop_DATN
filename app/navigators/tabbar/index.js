@@ -60,6 +60,7 @@ function MainTabbar() {
       screenOptions={{
         headerShown: false,
       }}
+      initialRouteName='Home'
     >
       <Tab.Screen
         name="Home"
