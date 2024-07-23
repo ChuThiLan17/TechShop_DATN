@@ -14,13 +14,17 @@ import {
   View,
 } from "react-native";
 
-import React, { useCallback, useLayoutEffect, useState } from "react";
+import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { ScrollView } from "tamagui";
 
 import { useDispatch, useSelector } from "react-redux";
+
+import api from "../../services";
+
+import CartBottomSheetModal from "./components/CartBottomSheetModal";
 
 const width = Dimensions.get("window").width;
 const height = 500;
@@ -64,24 +68,10 @@ const ProductDetailScreen = (props) => {
     []
   );
 
-  const addToCart = () => {
-    // const cart_temp = JSON.parse(JSON.stringify(rootState_cartProducts));
-    // const index_item_select = cart_temp.findIndex(
-    //   (value, index) => value.item._id === item_detail._id
-    // );
-    // console.log("cart_temp", cart_temp);
-    // console.log("index_item_select", index_item_select);
-    // if (index_item_select === -1) {
-    //   cart_temp.push({ item: item_detail, total: 1, isSelect: true });
-    // } else {
-    //   cart_temp[index_item_select].total += 1;
-    // }
-    // dispatch(
-    //   setCartProductAction(KEY_ACTION_SET.SET_CART_PRODUCT, {
-    //     cart_products: cart_temp,
-    //   })
-    // );
-    // props.navigation.goBack();
+  const cartRef = useRef(null);
+
+  const addToCart = async () => {
+    cartRef.current?.present();
   };
 
   return (
@@ -229,6 +219,7 @@ const ProductDetailScreen = (props) => {
           <Text style={{ color: "white" }}>Mua hàng</Text>
         </TouchableOpacity>
       </View>
+      <CartBottomSheetModal ref={cartRef} product={item_detail} />
     </SafeAreaView>
   );
 };
