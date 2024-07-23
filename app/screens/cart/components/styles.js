@@ -18,6 +18,7 @@ export const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 10,
     marginHorizontal: 10,
+    gap: 12,
   },
 
   viewImage: {

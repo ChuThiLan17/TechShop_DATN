@@ -65,7 +65,7 @@ const AddressScreen = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <ScrollView style={{ paddingHorizontal: 16, flex: 1 }}>
         <View>
           <Text>Họ tên</Text>

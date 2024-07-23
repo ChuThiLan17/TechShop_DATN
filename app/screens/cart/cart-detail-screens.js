@@ -1,4 +1,4 @@
-import { useIsFocused } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 
 import {
   StyleSheet,
@@ -8,34 +8,17 @@ import {
   FlatList,
 } from "react-native";
 
-import React, { useCallback, useEffect, useState } from "react";
-
-import { useDispatch, useSelector } from "react-redux";
-
-import CheckBox from "expo-checkbox";
-
-import api from "../../services";
-import { KEY_ACTION_SET } from "../../constants/KeyRedux";
-import { setCartProductAction } from "../../redux/action/productAction";
+import React, { useCallback, useEffect, useLayoutEffect, useMemo } from "react";
 
 import { styles } from "./styles";
 
 import RenderItemListCart from "./components/RenderItemListCart";
+import { CartProvider, useCartContext } from "./provider/provider";
 
-const CartDetailScreens = (props) => {
-  const [toggleCheckBox, setToggleCheckBox] = useState(false);
-  const [cart, setCart] = useState();
+const CartDetailUI = () => {
+  const { cart, fetchCart } = useCartContext();
 
-  const fetchCart = async () => {
-    try {
-      const res = await api.user.getInfoUser();
-      if (res.data.success) {
-        setCart(res.data.rs.cart);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const navigation = useNavigation();
 
   const isFocused = useIsFocused();
   useEffect(() => {
@@ -44,42 +27,33 @@ const CartDetailScreens = (props) => {
     }
   }, [isFocused]);
 
-  props.navigation.setOptions({
-    headerShown: true,
-    headerTitle: "Giỏ hàng",
-    headerTitleAlign: "center",
-    headerShadowVisible: false,
-  });
+  const totalPrice = useMemo(() => {
+    return cart?.reduce((total, item) => total + item.price, 0);
+  }, [cart]);
 
   return (
     <View style={styles.container}>
       <View style={[styles.container, { padding: 5 }]}>
         <FlatList
           data={cart}
-          renderItem={(item) => (
-            <RenderItemListCart
-              item={item}
-              //   onValueChangeCheckbox={handleValueChangeCheckbox}
-              //   onSubtractItem={handleSubtractItem}
-              //   onPlusItem={handlePlusItem}
-              //   onRemoveItem={handleRemoveItem}
-            />
-          )}
+          renderItem={(item) => <RenderItemListCart item={item} />}
           keyExtractor={(item) => item._id}
         />
       </View>
       <View style={styles.viewCart}>
-        <View style={[styles.btnDetai, { flex: 2 }]}>
-          <CheckBox disabled={false} value={toggleCheckBox} />
-          <Text style={styles.textTitle}>Tất cả</Text>
-        </View>
         <View style={[styles.btnDetai, { flex: 5 }]}>
           <Text style={styles.textTitle}>Tổng thanh toán</Text>
-          <Text style={[styles.textTitle, { color: "green" }]}>{} đ</Text>
+          <Text style={[styles.textTitle, { color: "green" }]}>
+            {totalPrice?.toLocaleString("en-VN")} đ
+          </Text>
         </View>
         <TouchableOpacity
           style={[styles.btnDetai, { flex: 3, backgroundColor: "black" }]}
-          onPress={() => props.navigation.navigate("Checkout")}
+          onPress={() =>
+            navigation.navigate("Checkout", {
+              cart,
+            })
+          }
         >
           <Text style={{ color: "white" }}>Mua hàng</Text>
         </TouchableOpacity>
@@ -87,5 +61,27 @@ const CartDetailScreens = (props) => {
     </View>
   );
 };
+
+function CartDetailScreens() {
+  const navigation = useNavigation();
+
+  useLayoutEffect(
+    useCallback(() => {
+      navigation.setOptions({
+        headerShown: true,
+        headerTitle: "Giỏ hàng",
+        headerTitleAlign: "center",
+        headerShadowVisible: false,
+      });
+    }, [navigation]),
+    []
+  );
+
+  return (
+    <CartProvider>
+      <CartDetailUI />
+    </CartProvider>
+  );
+}
 
 export default CartDetailScreens;

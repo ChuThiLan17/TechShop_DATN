@@ -42,19 +42,19 @@ const ProductDetailScreen = (props) => {
   const [imgA, setImgA] = useState(0);
   const [text, setText] = useState("");
 
-  const rootState_cartProducts = useSelector(
-    (state) => state.productReducer.cart_products
-  );
-  const dispatch = useDispatch();
+  // const rootState_cartProducts = useSelector(
+  //   (state) => state.productReducer.cart_products
+  // );
+  // const dispatch = useDispatch();
 
-  onChange = (nativeEvent) => {
-    const slide = Math.ceil(
-      nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width
-    );
-    if (slide != imgA) {
-      setImgA(slide);
-    }
-  };
+  // onChange = (nativeEvent) => {
+  //   const slide = Math.ceil(
+  //     nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width
+  //   );
+  //   if (slide != imgA) {
+  //     setImgA(slide);
+  //   }
+  // };
 
   useLayoutEffect(
     useCallback(() => {

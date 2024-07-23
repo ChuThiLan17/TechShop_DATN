@@ -68,10 +68,11 @@ const ListAddressScreen = () => {
     <SafeAreaView
       style={{
         flex: 1,
+        backgroundColor: "#fff",
       }}
     >
       {/* <Navbar text="Danh sách địa chỉ" onPress={() => navigation.goBack()} /> */}
-      <View style={{ paddingHorizontal: 16, height: "90%" }}>
+      <View style={{ paddingHorizontal: 16, flex: 1 }}>
         <FlatList
           data={address}
           renderItem={({ item, index }) => <ItemAddress dataAddress={item} />}
