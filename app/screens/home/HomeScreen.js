@@ -1,5 +1,9 @@
 import { AntDesign } from "@expo/vector-icons";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import { useNavigation } from "@react-navigation/native";
+
 import {
   TouchableOpacity,
   View,
@@ -7,20 +11,27 @@ import {
   FlatList,
   StyleSheet,
 } from "react-native";
+
 import { useDispatch, useSelector } from "react-redux";
+
 import { useEffect, useMemo, useReducer, useState } from "react";
+
 import { useDebounce } from "use-debounce";
+
 import { SafeAreaView } from "react-native-safe-area-context";
+
+import { ScrollView } from "react-native-gesture-handler";
+
+import api from "../../services";
 import CustomHeader from "../../common/CustomHeader";
 import CustomSearch from "../../common/CustomSearch";
+import Itext from "../components/Text/Itext";
+
 import SlideShow from "./SlideShow";
 import { style } from "./styles";
+
 import CategoryItem from "./components/CategoryItem";
-import api from "../../services";
 import ItemProduct from "./components/item-product";
-import { useNavigation } from "@react-navigation/native";
-import Itext from "../components/Text/Itext";
-import { ScrollView } from "react-native-gesture-handler";
 
 function HomeScreen(props) {
   const navigation = useNavigation();
@@ -100,7 +111,14 @@ function HomeScreen(props) {
               numColumns={2}
               renderItem={(item) => (
                 <View>
-                  <ItemProduct item={item.item} />
+                  <ItemProduct
+                    item={item.item}
+                    onPress={() =>
+                      navigation.navigate("DetailProduct", {
+                        item_detail: item.item,
+                      })
+                    }
+                  />
                 </View>
               )}
               showsVerticalScrollIndicator={false}

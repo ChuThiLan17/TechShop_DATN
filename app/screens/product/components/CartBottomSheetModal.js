@@ -113,9 +113,9 @@ const CartBottomSheetModal = forwardRef(({ product }, ref) => {
             </YStack>
           </XStack>
           <YStack gap={10}>
-            <Itext text={"Chọn màu sắc"} font={"semibold"} />
+            <Itext text={"Màu sắc"} font={"semibold"} />
             <XStack gap={12} flexWrap="wrap">
-              {["Đỏ", "Xanh", "Vàng", "Tím", "Đen", "Trắng", "Xám"].map(
+              {/* {["Đỏ", "Xanh", "Vàng", "Tím", "Đen", "Trắng", "Xám"].map(
                 (val, index) => (
                   <View
                     borderWidth={1}
@@ -132,7 +132,19 @@ const CartBottomSheetModal = forwardRef(({ product }, ref) => {
                     <Itext text={val} color={color === val ? "#fff" : "#000"} />
                   </View>
                 )
-              )}
+              )} */}
+              <View
+                borderWidth={1}
+                borderColor={"#000"}
+                borderRadius={10}
+                py={8}
+                px={12}
+                onPress={() => {
+                  setColor(product.color);
+                }}
+              >
+                <Itext text={product.color} />
+              </View>
             </XStack>
           </YStack>
         </YStack>

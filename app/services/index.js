@@ -8,12 +8,9 @@ const api = {
   auth,
   user,
   home,
-<<<<<<< HEAD
   cart,
   order,
-=======
   product,
->>>>>>> 2bca32f12a918d435170b414fe87f9571b6a1e3d
 };
 
 export default api;

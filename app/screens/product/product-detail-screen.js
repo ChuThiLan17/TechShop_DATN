@@ -2,14 +2,11 @@ import { AntDesign } from "@expo/vector-icons";
 
 import { useNavigation } from "@react-navigation/native";
 
-import { Editor } from "@tinymce/tinymce-react";
-
 import {
   Dimensions,
   Image,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -19,10 +16,6 @@ import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { ScrollView } from "tamagui";
-
-import { useDispatch, useSelector } from "react-redux";
-
-import api from "../../services";
 
 import CartBottomSheetModal from "./components/CartBottomSheetModal";
 
@@ -35,8 +28,8 @@ const data = [
   { id: "3", text: "Item 3" },
 ];
 
-const ProductDetailScreen = (props) => {
-  const { item_detail } = props.route.params.params;
+const ProductDetailScreen = ({ route }) => {
+  const { item_detail } = route.params;
 
   const navigation = useNavigation();
   const [imgA, setImgA] = useState(0);
@@ -225,3 +218,100 @@ const ProductDetailScreen = (props) => {
 };
 
 export default ProductDetailScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    width: "100%",
+    height: "6%",
+    borderWidth: 1,
+    justifyContent: "space-between",
+  },
+  btnMess: {
+    width: "20%",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRightWidth: 1,
+  },
+  btnDetai: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: "40%",
+  },
+  wrap: {
+    width: width * 0.9,
+    height: height * 0.3,
+    borderRadius: 28,
+  },
+  wrapDot: {
+    position: "absolute",
+    bottom: 0,
+    flexDirection: "row",
+    alignSelf: "center",
+  },
+  dotActive: { margin: 3, color: "black" },
+  dot: { margin: 3, color: "white" },
+
+  styleBranch: {
+    backgroundColor: "white",
+    borderRadius: 15,
+    backgroundColor: "white",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
+    padding: 10,
+    marginVertical: 20,
+  },
+
+  textBranch: {
+    fontSize: 17,
+    fontFamily: "SemiBold",
+  },
+
+  viewDescription: {
+    padding: 10,
+  },
+
+  textDescription: {
+    fontSize: 17,
+  },
+
+  textDescriptionTitle: {
+    flex: 4,
+    fontSize: 17,
+  },
+
+  textDescriptionContent: {
+    flex: 6,
+    fontSize: 17,
+  },
+
+  viewDescriptionDetail: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    marginVertical: 5,
+  },
+
+  viewImageProduct: {
+    alignSelf: "center",
+    padding: "10",
+    width: 300,
+    height: 200,
+  },
+
+  viewMore: {
+    borderBottomWidth: 1,
+    borderColor: "gray",
+    marginTop: 20,
+  },
+
+  textMore: {
+    fontSize: 17,
+    textAlign: "center",
+  },
+});

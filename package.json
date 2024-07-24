@@ -43,12 +43,8 @@
     "redux": "^5.0.1",
     "socket.io-client": "^4.7.5",
     "tamagui": "^1.100.3",
-<<<<<<< HEAD
-    "tinymce": "^7.2.1"
-=======
     "tinymce": "^7.2.1",
     "use-debounce": "^10.0.1"
->>>>>>> 2bca32f12a918d435170b414fe87f9571b6a1e3d
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
