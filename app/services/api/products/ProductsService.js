@@ -9,3 +9,15 @@ export const getAllProducts = async () => {
   };
   return await api.v1.get("product/", { headers });
 };
+
+async function getProduct(params) {
+  return await api.v1.get("product/", { params });
+}
+async function getCategory(params) {
+  return await api.v1.get("prodcategory/");
+}
+
+export default {
+  getProduct,
+  getCategory,
+};
