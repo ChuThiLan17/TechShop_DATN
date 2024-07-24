@@ -1,173 +1,131 @@
 import { AntDesign } from "@expo/vector-icons";
-
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import {
   TouchableOpacity,
   View,
   Text,
   FlatList,
-  ScrollView,
+  StyleSheet,
 } from "react-native";
-
 import { useDispatch, useSelector } from "react-redux";
-
-import { useEffect, useMemo, useReducer } from "react";
-
+import { useEffect, useMemo, useReducer, useState } from "react";
+import { useDebounce } from "use-debounce";
 import { SafeAreaView } from "react-native-safe-area-context";
-
 import CustomHeader from "../../common/CustomHeader";
 import CustomSearch from "../../common/CustomSearch";
-import { KEY_STORAGE_USER } from "../../constants/KeyStorage";
-import { getAllCategory } from "../../services/api/category/CategoryService";
-import { getAllProducts } from "../../services/api/products/ProductsService";
-
 import SlideShow from "./SlideShow";
 import { style } from "./styles";
-
-import RenderListCategory from "./components/RenderListCategory";
-import RenderListProduct from "./components/RenderListProduct";
 import CategoryItem from "./components/CategoryItem";
+import api from "../../services";
+import ItemProduct from "./components/item-product";
+import { useNavigation } from "@react-navigation/native";
+import Itext from "../components/Text/Itext";
+import { ScrollView } from "react-native-gesture-handler";
+
 function HomeScreen(props) {
+  const navigation = useNavigation();
   //const rootState = useSelector((state) => state.loginReducer);
-  const rootState_cartProducts = useSelector(
-    (state) => state.productReducer.cart_products
-  );
-  console.log("rootState_cartProducts", rootState_cartProducts);
-
-  const initialState = {
-    list_category: [],
-    list_product: [],
+  const [text, setText] = useState("");
+  const [value] = useDebounce(text, 1000);
+  const handleTextChange = (newText) => {
+    setText(newText);
   };
 
-  const upDateState = (state = initialState, payload) => {
-    return {
-      ...state,
-      ...payload,
-    };
-  };
-
-  const [state, dispatch] = useReducer(upDateState, initialState);
-  console.log("state", state);
-  useEffect(() => {
-    //AsyncStorage.getItem(KEY_STORAGE_USER.USER_DATA).then((value) => console.log("user_data", value));
-    getData();
-  }, []);
-
-  const getData = async () => {
+  const [product, setProduct] = useState(null);
+  const [category, setCategory] = useState(null);
+  const getProduct = async () => {
     try {
-      const res = await Promise.all([getAllCategory(), getAllProducts()]);
-      dispatch({
-        list_category: res[0].data.createCategory,
-        list_product: res[1].data.products,
-      });
-      //console.log("res", res);
+      if (value.trim() !== "") {
+        const params = {
+          q: value,
+        };
+        const res = await api.product.getProduct(params);
+        if (res.data.success) {
+          setProduct(res.data.products);
+        }
+      } else {
+        const res = await api.product.getProduct();
+        if (res.data.success) {
+          setProduct(res.data.products);
+        }
+      }
     } catch (error) {
-      console.log("err", error);
+      console.log(error);
+    }
+  };
+  const getCategory = async () => {
+    try {
+      const res = await api.product.getCategory();
+      if (res.data.success) {
+        setCategory(res.data.res);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  const RenderCategory = useMemo(() => {
-    return (
-      <View style={style.viewCategory}>
-        <View style={style.viewTitleCategory}>
-          <Text style={style.textTitleCategory}>Thể loại</Text>
-          <TouchableOpacity>
-            <Text>Tất cả</Text>
-          </TouchableOpacity>
-        </View>
-        <FlatList
-          data={state.list_category}
-          renderItem={(item) => <CategoryItem item={item.item} />}
-          keyExtractor={(item) => item._id}
-          horizontal
-          nestedScrollEnabled={true}
-        />
-      </View>
-    );
-  }, [state.list_category]);
-
-  const RenderProduct = useMemo(() => {
-    return (
-      <View style={style.viewCategory}>
-        <View style={style.viewTitleCategory}>
-          <Text style={style.textTitleCategory}>Nổi bật</Text>
-          <TouchableOpacity>
-            <Text>Tất cả</Text>
-          </TouchableOpacity>
-        </View>
-        <FlatList
-          data={[...state.list_product]}
-          renderItem={(item) => (
-            <RenderListProduct
-              item={item.item}
-              onPress={() =>
-                props.navigation.navigate("DetailProduct", {
-                  params: { item_detail: item.item },
-                })
-              }
-            />
-          )}
-          keyExtractor={(item) => item._id}
-          numColumns={2}
-          nestedScrollEnabled={true}
-        />
-      </View>
-    );
-  }, [state.list_product]);
-
-  const RenderCart = useMemo(() => {
-    const total_price = () => {
-      let total = 0;
-      for (let i = 0; i < rootState_cartProducts.length; i++) {
-        if (rootState_cartProducts[i].isSelect) {
-          total +=
-            rootState_cartProducts[i].item.price *
-            rootState_cartProducts[i].total;
-        }
-      }
-
-      return total;
-    };
-
-    return (
-      rootState_cartProducts.length > 0 && (
-        <View style={style.viewCart}>
-          <TouchableOpacity
-            style={style.btnMess}
-            onPress={() => {
-              props.navigation.navigate("CartDetailScreens");
-            }}
-          >
-            <AntDesign name="shoppingcart" size={24} color="black" />
-          </TouchableOpacity>
-          <View style={style.btnDetai}>
-            <Text>Tổng thanh toán</Text>
-            <Text>{Number(total_price()).toLocaleString("en-VN")} đ</Text>
-          </View>
-          <TouchableOpacity
-            style={[style.btnDetai, { backgroundColor: "black" }]}
-            onPress={() => props.navigation.navigate("Checkout")}
-          >
-            <Text style={{ color: "white" }}>Mua hàng</Text>
-          </TouchableOpacity>
-        </View>
-      )
-    );
-  }, [rootState_cartProducts]);
+  useEffect(() => {
+    getCategory();
+    getProduct();
+  }, [value]);
 
   return (
     <SafeAreaView style={style.container}>
-      <CustomHeader title={"Trang chủ"} />
-      <CustomSearch isTextInput={true} onPress={() => console.log("onPress")} />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView>
+        <CustomHeader title={"Trang chủ"} />
+        <CustomSearch
+          isTextInput={true}
+          value={text}
+          onChangeText={handleTextChange}
+        />
         <SlideShow />
-        {RenderCategory}
-        {RenderProduct}
+        <View style={styles.container}>
+          <Itext font="semibold" size={20} text={"Loại máy"} />
+          <View style={styles.category}>
+            {category?.map((item, idx) => (
+              <CategoryItem
+                item={item}
+                onPress={() => {
+                  navigation.navigate("ListProduct", { category: item.title });
+                }}
+              />
+            ))}
+          </View>
+        </View>
+        <View>
+          <Itext font="semibold" size={20} text={"Nổi Bật"} />
+          <View style={styles.products}>
+            <FlatList
+              data={product}
+              numColumns={2}
+              renderItem={(item) => (
+                <View>
+                  <ItemProduct item={item.item} />
+                </View>
+              )}
+              showsVerticalScrollIndicator={false}
+            />
+          </View>
+        </View>
       </ScrollView>
-      {RenderCart}
     </SafeAreaView>
   );
 }
 
 export default HomeScreen;
+const styles = StyleSheet.create({
+  container: {
+    padding: 12,
+  },
+  category: {
+    marginHorizontal: 24,
+    paddingTop: 16,
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 40,
+  },
+  products: {
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+});

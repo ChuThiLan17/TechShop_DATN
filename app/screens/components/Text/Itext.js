@@ -33,7 +33,7 @@ const Itext = ({ size, text, color, backgroundColor, font }) => {
           fontFamily: fontFamily,
         }}
       >
-        {text.toLowerCase()}
+        {text}
       </Text>
     </View>
   );
