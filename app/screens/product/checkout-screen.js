@@ -10,12 +10,13 @@ import {
 
 import React, { useCallback, useLayoutEffect, useMemo } from "react";
 
+import Toast from "react-native-toast-message";
+
 import api from "../../services";
 
 import RenderItemListOrder from "./components/RenderItemListOrder";
 import FooterCheckoutView from "./components/checkout/FooterCheckout";
 import HeaderCheckoutView from "./components/checkout/HeaderCheckout";
-import Toast from "react-native-toast-message";
 
 const CheckoutScreen = ({ route }) => {
   const navigation = useNavigation();

@@ -204,7 +204,24 @@ const ProductDetailScreen = ({ route }) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.btnDetai, { backgroundColor: "black" }]}
-          onPress={() => navigation.navigate("Checkout")}
+          onPress={() =>
+            navigation.navigate("Checkout", {
+              cart: [
+                {
+                  color: item_detail.color,
+                  price: item_detail.price,
+                  product: {
+                    _id: item_detail._id,
+                    price: item_detail.price,
+                    thumb: item_detail.thumb,
+                    title: item_detail.title,
+                  },
+                  quantity: 1,
+                  title: item_detail.title,
+                },
+              ],
+            })
+          }
         >
           <Text style={{ color: "white" }}>Mua hàng</Text>
         </TouchableOpacity>
