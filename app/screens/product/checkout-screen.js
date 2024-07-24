@@ -15,6 +15,7 @@ import api from "../../services";
 import RenderItemListOrder from "./components/RenderItemListOrder";
 import FooterCheckoutView from "./components/checkout/FooterCheckout";
 import HeaderCheckoutView from "./components/checkout/HeaderCheckout";
+import Toast from "react-native-toast-message";
 
 const CheckoutScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -44,6 +45,9 @@ const CheckoutScreen = ({ route }) => {
     };
     try {
       const res = await api.order.createOrder(params);
+      if (res.data.success) {
+        navigation.navigate("ConfirmScreen");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -57,7 +61,6 @@ const CheckoutScreen = ({ route }) => {
           renderItem={(item) => <RenderItemListOrder item={item.item} />}
           ListHeaderComponent={HeaderCheckoutView}
           ListFooterComponent={FooterCheckoutView}
-          // keyExtractor={(item) => item.item._id}
         />
       </View>
       <View style={styles.viewCart}>

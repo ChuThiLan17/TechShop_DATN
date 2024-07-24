@@ -64,6 +64,7 @@ const CartBottomSheetModal = forwardRef(({ product }, ref) => {
   );
 
   const [color, setColor] = useState("Đỏ");
+  const [type, setType] = useState();
 
   const onPressAddCart = async () => {
     let params = {
@@ -112,6 +113,31 @@ const CartBottomSheetModal = forwardRef(({ product }, ref) => {
               <Itext text={"Kho : " + product.quantity} />
             </YStack>
           </XStack>
+          {product.types && (
+            <YStack gap={12}>
+              <Itext text={"Loại"} font={"semibold"} />
+              <XStack gap={12}>
+                {product.types.map((item) => {
+                  return (
+                    <View
+                      br={10}
+                      bg={type === item ? "#000" : "#fff"}
+                      borderColor={"#000"}
+                      borderWidth={1}
+                      py={6}
+                      onPress={() => setType(item)}
+                    >
+                      <Itext
+                        text={item}
+                        color={type === item ? "#fff" : "#000"}
+                      />
+                    </View>
+                  );
+                })}
+              </XStack>
+            </YStack>
+          )}
+
           <YStack gap={10}>
             <Itext text={"Màu sắc"} font={"semibold"} />
             <XStack gap={12} flexWrap="wrap">

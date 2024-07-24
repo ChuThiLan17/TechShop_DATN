@@ -16,6 +16,7 @@ import ListAddressScreen from "../screens/address/list-address-screen";
 import CartDetailScreens from "../screens/cart/cart-detail-screens";
 import CartScreen from "../screens/product/cart-screen";
 import CheckoutScreen from "../screens/product/checkout-screen";
+import ListProduct from "../screens/product/list-product";
 import ProductDetailScreen from "../screens/product/product-detail-screen";
 import ProfileInfomationScreen from "../screens/profile/ProfileInfomationScreen";
 import SigninScreen from "../screens/signin/SigninScreen";
@@ -24,7 +25,7 @@ import ChangePassScreen from "../screens/profile/changepassword/ChangePassScreen
 import OrderScreen from "../screens/profile/order/OrderScreen";
 
 import { MainTabbar } from "./tabbar";
-import ListProduct from "../screens/product/list-product";
+import ConfirmScreen from "../screens/product/confirmScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -70,6 +71,7 @@ const AppStack = function AppStack() {
       <Stack.Screen name="ChangePass" component={ChangePassScreen} />
       <Stack.Screen name="CartDetailScreens" component={CartDetailScreens} />
       <Stack.Screen name="ListProduct" component={ListProduct} />
+      <Stack.Screen name="ConfirmScreen" component={ConfirmScreen} />
     </Stack.Navigator>
   );
 };

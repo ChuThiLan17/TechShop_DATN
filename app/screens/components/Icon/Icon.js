@@ -54,4 +54,5 @@ export const iconRegistry = {
   openpass: require("../../../../assets/icons/Eye.png"),
   arrowdown: require("../../../../assets/icons/arrowdown.png"),
   camera: require("../../../../assets/icons/camera 1.png"),
+  confirm: require("../../../../assets/icons/Featured icon.png"),
 };

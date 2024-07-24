@@ -15,7 +15,7 @@ import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { ScrollView } from "tamagui";
+import { ScrollView, XStack } from "tamagui";
 
 import CartBottomSheetModal from "./components/CartBottomSheetModal";
 
@@ -35,19 +35,13 @@ const ProductDetailScreen = ({ route }) => {
   const [imgA, setImgA] = useState(0);
   const [text, setText] = useState("");
 
-  // const rootState_cartProducts = useSelector(
-  //   (state) => state.productReducer.cart_products
-  // );
-  // const dispatch = useDispatch();
+  const [currentPage, setCurrentPage] = useState(0);
 
-  // onChange = (nativeEvent) => {
-  //   const slide = Math.ceil(
-  //     nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width
-  //   );
-  //   if (slide != imgA) {
-  //     setImgA(slide);
-  //   }
-  // };
+  const handleScroll = (event) => {
+    const offsetX = event.nativeEvent.contentOffset.x;
+    const pageIndex = Math.round(offsetX / width);
+    setCurrentPage(pageIndex);
+  };
 
   useLayoutEffect(
     useCallback(() => {
@@ -72,7 +66,7 @@ const ProductDetailScreen = ({ route }) => {
       <ScrollView style={{ paddingHorizontal: 16 }}>
         <View>
           <ScrollView
-            onScroll={({ nativeEvent }) => onChange(nativeEvent)}
+            onScroll={handleScroll}
             showsHorizontalScrollIndicator={false}
             pagingEnabled
             horizontal
@@ -91,7 +85,7 @@ const ProductDetailScreen = ({ route }) => {
             {item_detail.images.map((e, index) => (
               <Text
                 key={e}
-                style={imgA === index ? styles.dotActive : styles.dot}
+                style={currentPage === index ? styles.dotActive : styles.dot}
               >
                 ●
               </Text>
@@ -148,20 +142,23 @@ const ProductDetailScreen = ({ route }) => {
               style={{
                 flexDirection: "row",
                 gap: 8,
+                flexWrap: "wrap",
+                flex: 1,
               }}
             >
-              {data.map((item, index) => (
-                <TouchableOpacity
-                  key={item.id}
-                  style={{
-                    borderRadius: 16,
-                    borderWidth: 1,
-                    paddingHorizontal: 8,
-                  }}
-                >
-                  <Text>{item.text}</Text>
-                </TouchableOpacity>
-              ))}
+              {item_detail.types &&
+                item_detail.types.map((item, index) => (
+                  <TouchableOpacity
+                    key={item.id}
+                    style={{
+                      borderRadius: 16,
+                      borderWidth: 1,
+                      paddingHorizontal: 8,
+                    }}
+                  >
+                    <Text>{item}</Text>
+                  </TouchableOpacity>
+                ))}
             </View>
 
             <Text
