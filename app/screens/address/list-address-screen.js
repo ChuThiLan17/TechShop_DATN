@@ -79,18 +79,16 @@ const ListAddressScreen = () => {
         />
       </View>
       <YStack
-        w={42}
-        h={42}
-        br={21}
         bg={"#000"}
-        pos="absolute"
-        b={16}
-        r={16}
+        py={12}
+        mx={16}
+        mb={16}
+        br={16}
         ai="center"
         jc="center"
         onPress={() => navigation.navigate("Address")}
       >
-        <Itext text={"+"} size={30} color={"#fff"} />
+        <Itext text={"Thêm địa chỉ"} size={16} color={"#fff"} />
       </YStack>
     </SafeAreaView>
   );

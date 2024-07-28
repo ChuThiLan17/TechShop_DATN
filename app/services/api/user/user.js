@@ -21,6 +21,14 @@ async function updateAddress(address) {
   return await api.v1.put("/user/address", { address: address });
 }
 
+async function putAddress(params) {
+  return await api.v1.put("/user/putaddress", { params });
+}
+
+async function deleteAddress(addressId) {
+  return await api.v1.delete(`/user/address/${addressId}`);
+}
+
 async function uploadAvartar(file) {
   const token = await AsyncStorage.getItem(ACCESS_TOKEN_KEY);
 
@@ -46,4 +54,6 @@ export default {
   updateUser,
   uploadAvartar,
   updateAddress,
+  putAddress,
+  deleteAddress,
 };

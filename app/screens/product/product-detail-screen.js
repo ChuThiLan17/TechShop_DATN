@@ -32,8 +32,6 @@ const ProductDetailScreen = ({ route }) => {
   const { item_detail } = route.params;
 
   const navigation = useNavigation();
-  const [imgA, setImgA] = useState(0);
-  const [text, setText] = useState("");
 
   const [currentPage, setCurrentPage] = useState(0);
 

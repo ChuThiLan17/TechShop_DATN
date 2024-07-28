@@ -68,7 +68,7 @@ function HomeScreen(props) {
     try {
       const res = await api.product.getCategory();
       if (res.data.success) {
-        setCategory(res.data.res);
+        setCategory(res.data.createCategory);
       }
     } catch (error) {
       console.log(error);

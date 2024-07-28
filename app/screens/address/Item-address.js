@@ -11,9 +11,9 @@ const ItemAddress = ({ dataAddress }) => {
     <View style={{ alignItems: "center" }}>
       <TouchableOpacity
         style={styles.container}
-        // onPress={() =>
-        //   navigation.navigate("Address", { dataAddress: dataAddress })
-        // }
+        onPress={() =>
+          navigation.navigate("EditAddressScreen", { dataAddress: dataAddress })
+        }
       >
         <View style={{ flexDirection: "row" }}>
           <Text style={{ fontWeight: "bold" }}>{dataAddress.name}</Text>
