@@ -24,7 +24,6 @@ const GenderModal = forwardRef(({ onSelectGender }, ref) => {
   const snapPoints = useMemo(() => ["10%", "30%"], []);
 
   const onPresent = useCallback(() => {
-    console.log("Presenting BottomSheet");
     sheetRef.current?.present();
   }, []);
 

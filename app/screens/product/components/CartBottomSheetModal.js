@@ -65,6 +65,7 @@ const CartBottomSheetModal = forwardRef(({ product }, ref) => {
 
   const [color, setColor] = useState("Đỏ");
   const [type, setType] = useState();
+  const [listColor, setListColor] = useState(product.color);
 
   const onPressAddCart = async () => {
     let params = {
@@ -113,7 +114,7 @@ const CartBottomSheetModal = forwardRef(({ product }, ref) => {
               <Itext text={"Kho : " + product.quantity} />
             </YStack>
           </XStack>
-          {product.types && (
+          {product.types.length > 0 && (
             <YStack gap={12}>
               <Itext text={"Loại"} font={"semibold"} />
               <XStack gap={12}>
@@ -141,25 +142,30 @@ const CartBottomSheetModal = forwardRef(({ product }, ref) => {
           <YStack gap={10}>
             <Itext text={"Màu sắc"} font={"semibold"} />
             <XStack gap={12} flexWrap="wrap">
-              {/* {["Đỏ", "Xanh", "Vàng", "Tím", "Đen", "Trắng", "Xám"].map(
-                (val, index) => (
-                  <View
-                    borderWidth={1}
-                    borderColor={"#000"}
-                    borderRadius={10}
-                    py={8}
-                    px={12}
-                    bg={color === val ? "#000" : "#fff"}
-                    key={index}
-                    onPress={() => {
-                      setColor(val);
-                    }}
-                  >
-                    <Itext text={val} color={color === val ? "#fff" : "#000"} />
-                  </View>
-                )
-              )} */}
-              <View
+              {listColor && listColor.length > 0 && (
+                <>
+                  {listColor.map((val, index) => (
+                    <View
+                      borderWidth={1}
+                      borderColor={"#000"}
+                      borderRadius={10}
+                      py={8}
+                      px={12}
+                      bg={color === val ? "#000" : "#fff"}
+                      key={index}
+                      onPress={() => {
+                        setColor(val);
+                      }}
+                    >
+                      <Itext
+                        text={val}
+                        color={color === val ? "#fff" : "#000"}
+                      />
+                    </View>
+                  ))}
+                </>
+              )}
+              {/* <View
                 borderWidth={1}
                 borderColor={"#000"}
                 borderRadius={10}
@@ -170,7 +176,7 @@ const CartBottomSheetModal = forwardRef(({ product }, ref) => {
                 }}
               >
                 <Itext text={product.color} />
-              </View>
+              </View> */}
             </XStack>
           </YStack>
         </YStack>

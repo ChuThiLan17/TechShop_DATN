@@ -1,14 +1,17 @@
+import { useNavigation } from "@react-navigation/native";
+
 import { StyleSheet, Text, View, Dimensions } from "react-native";
+
 import React from "react";
+
 import { TouchableOpacity } from "react-native";
 import { Image } from "react-native";
+
 import Itext from "../../components/Text/Itext";
-import { useNavigation } from "@react-navigation/native";
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
 const ItemProduct = ({ item, onPress }) => {
-  console.log(item);
   const navigation = useNavigation();
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>

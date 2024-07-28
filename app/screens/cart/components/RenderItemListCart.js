@@ -39,7 +39,7 @@ const RenderItemListCart = (props) => {
       <Image
         style={styles.viewImage}
         source={{
-          uri: item.item.product.thumb ?? "",
+          uri: item.item?.product?.thumb ?? "",
         }}
       />
       <YStack gap={10} flex={1}>
