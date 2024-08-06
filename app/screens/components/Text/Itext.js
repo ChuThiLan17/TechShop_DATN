@@ -2,7 +2,7 @@ import { Text } from "react-native";
 
 import { View } from "tamagui";
 
-const Itext = ({ size, text, color, backgroundColor, font }) => {
+const Itext = ({ size, text, color, backgroundColor, font, textAlign }) => {
   let fontFamily = "Regular"; // Giá trị mặc định là Outfit-Regular
 
   // Kiểm tra giá trị của font để áp dụng fontFamily phù hợp
@@ -31,6 +31,7 @@ const Itext = ({ size, text, color, backgroundColor, font }) => {
           fontSize: size ? size : 16,
           color: color,
           fontFamily: fontFamily,
+          textAlign: textAlign,
         }}
       >
         {text}

@@ -11,6 +11,7 @@ import Toast from "react-native-toast-message";
 import { useAuthContext } from "../core/AuthProvider";
 import { SOCKET_URL } from "../services/config";
 import { ACCESS_TOKEN_KEY } from "../services/httpclient";
+import EditAddressScreen from "../screens/address/EditAddressScreen";
 import AddressScreen from "../screens/address/address-screen";
 import ListAddressScreen from "../screens/address/list-address-screen";
 import CartDetailScreens from "../screens/cart/cart-detail-screens";
@@ -26,7 +27,6 @@ import ChangePassScreen from "../screens/profile/changepassword/ChangePassScreen
 import OrderScreen from "../screens/profile/order/OrderScreen";
 
 import { MainTabbar } from "./tabbar";
-import EditAddressScreen from "../screens/address/EditAddressScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -55,12 +55,9 @@ const AppStack = function AppStack() {
         headerShown: false,
       }}
     >
-      {isLoggedIn ? (
-        <Stack.Screen name="Tabbar" component={MainTabbar} />
-      ) : (
-        <Stack.Screen name="Signin" component={SigninScreen} />
-      )}
+      <Stack.Screen name="Tabbar" component={MainTabbar} />
 
+      <Stack.Screen name="Signin" component={SigninScreen} />
       <Stack.Screen name="Signup" component={SignupScreen} />
       <Stack.Screen name="Address" component={AddressScreen} />
       <Stack.Screen name="ListAddress" component={ListAddressScreen} />

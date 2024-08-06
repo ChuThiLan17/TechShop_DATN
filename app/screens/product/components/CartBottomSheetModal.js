@@ -85,6 +85,13 @@ const CartBottomSheetModal = forwardRef(({ product }, ref) => {
         });
       }
     } catch (error) {
+      if (error.response.data.success === false) {
+        sheetRef.current.dismiss();
+        Toast.show({
+          type: "error",
+          text1: error.response.data.mes,
+        });
+      }
       console.log(error);
     }
   };
@@ -118,7 +125,7 @@ const CartBottomSheetModal = forwardRef(({ product }, ref) => {
             <YStack gap={12}>
               <Itext text={"Loại"} font={"semibold"} />
               <XStack gap={12}>
-                {product.types.map((item) => {
+                {product.types.map((item, index) => {
                   return (
                     <View
                       br={10}
@@ -127,6 +134,7 @@ const CartBottomSheetModal = forwardRef(({ product }, ref) => {
                       borderWidth={1}
                       py={6}
                       onPress={() => setType(item)}
+                      key={index}
                     >
                       <Itext
                         text={item}

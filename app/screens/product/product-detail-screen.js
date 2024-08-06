@@ -8,25 +8,19 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
 } from "react-native";
 
 import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { ScrollView, XStack } from "tamagui";
+import { ScrollView, XStack, View } from "tamagui";
 
 import CartBottomSheetModal from "./components/CartBottomSheetModal";
+import DescriptionCard from "./components/Description/DescriptionCard";
 
 const width = Dimensions.get("window").width;
 const height = 500;
-
-const data = [
-  { id: "1", text: "Item 1" },
-  { id: "2", text: "Item 2" },
-  { id: "3", text: "Item 3" },
-];
 
 const ProductDetailScreen = ({ route }) => {
   const { item_detail } = route.params;
@@ -176,7 +170,9 @@ const ProductDetailScreen = ({ route }) => {
             <Text style={styles.textBranch}>Mặt hàng : {item_detail.slug}</Text>
             <View style={styles.viewDescription}>
               <Text style={styles.textBranch}>Thông tin sản phẩm</Text>
-              <Text>{item_detail.description}</Text>
+              <View flex={1}>
+                <DescriptionCard description={item_detail.description} />
+              </View>
             </View>
           </View>
           <Image

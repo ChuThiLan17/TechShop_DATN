@@ -4,15 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { useNavigation } from "@react-navigation/native";
 
-import {
-  TouchableOpacity,
-  View,
-  Text,
-  FlatList,
-  StyleSheet,
-} from "react-native";
-
-import { useDispatch, useSelector } from "react-redux";
+import { TouchableOpacity, Text, FlatList, StyleSheet } from "react-native";
 
 import { useEffect, useMemo, useReducer, useState } from "react";
 
@@ -21,6 +13,8 @@ import { useDebounce } from "use-debounce";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { ScrollView } from "react-native-gesture-handler";
+
+import { View } from "tamagui";
 
 import api from "../../services";
 import CustomHeader from "../../common/CustomHeader";
@@ -64,12 +58,11 @@ function HomeScreen(props) {
       console.log(error);
     }
   };
+
   const getCategory = async () => {
     try {
       const res = await api.product.getCategory();
-      if (res.data.success) {
-        setCategory(res.data.createCategory);
-      }
+      setCategory(res.data.res);
     } catch (error) {
       console.log(error);
     }
@@ -92,15 +85,23 @@ function HomeScreen(props) {
         <SlideShow />
         <View style={styles.container}>
           <Itext font="semibold" size={20} text={"Loại máy"} />
-          <View style={styles.category}>
-            {category?.map((item, idx) => (
-              <CategoryItem
-                item={item}
-                onPress={() => {
-                  navigation.navigate("ListProduct", { category: item.title });
-                }}
-              />
-            ))}
+          <View>
+            <FlatList
+              data={category}
+              renderItem={({ item }) => {
+                return (
+                  <CategoryItem
+                    item={item}
+                    onPress={() => {
+                      navigation.navigate("ListProduct", {
+                        category: item.title,
+                      });
+                    }}
+                  />
+                );
+              }}
+              horizontal
+            />
           </View>
         </View>
         <View>
