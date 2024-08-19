@@ -36,12 +36,12 @@ function SignupScreen() {
           type: "success",
           text1: res.data.mes,
         });
-        navigation.navigate("Signin");
+        navigation.navigate("VerifyToken");
       }
     } catch (error) {
       Toast.show({
         type: "error",
-        text1: error.response.data.error,
+        text1: error.response.data.mes,
       });
     }
   };

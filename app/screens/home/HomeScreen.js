@@ -1,10 +1,6 @@
-import { AntDesign } from "@expo/vector-icons";
-
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import { useNavigation } from "@react-navigation/native";
 
-import { TouchableOpacity, Text, FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 
 import { useEffect, useMemo, useReducer, useState } from "react";
 

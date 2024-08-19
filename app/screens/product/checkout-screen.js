@@ -1,4 +1,8 @@
-import { useNavigation } from "@react-navigation/native";
+import {
+  useFocusEffect,
+  useIsFocused,
+  useNavigation,
+} from "@react-navigation/native";
 
 import {
   StyleSheet,
@@ -17,23 +21,25 @@ import api from "../../services";
 import RenderItemListOrder from "./components/RenderItemListOrder";
 import FooterCheckoutView from "./components/checkout/FooterCheckout";
 import HeaderCheckoutView from "./components/checkout/HeaderCheckout";
+import {
+  CheckoutProvider,
+  useCheckoutContext,
+} from "./components/provider/CheckoutProvider";
+import AddressModal from "./components/checkout/component/AddressModal";
 
-const CheckoutScreen = ({ route }) => {
+const CheckoutUI = ({ cart }) => {
   const navigation = useNavigation();
+  const { address, listAddress, getAddress } = useCheckoutContext();
 
-  const { cart } = route.params;
-
-  useLayoutEffect(
+  useFocusEffect(
     useCallback(() => {
-      navigation.setOptions({
-        headerShown: true,
-        headerTitle: "Thanh toán",
-        headerTitleAlign: "center",
-        headerShadowVisible: false,
-      });
-    }, [navigation]),
-    []
+      getAddress();
+    }, [])
   );
+
+  const isModalVisible = useMemo(() => {
+    return !address;
+  }, [address]);
 
   const totalPrice = useMemo(() => {
     return cart?.reduce((total, item) => total + item.price, 0);
@@ -54,14 +60,22 @@ const CheckoutScreen = ({ route }) => {
     }
   };
 
+  const renderHeader = useMemo(() => {
+    return <HeaderCheckoutView />;
+  }, []);
+
+  const renderFooter = useMemo(() => {
+    return <FooterCheckoutView cart={cart} />;
+  }, [listAddress]);
+
   return (
     <View style={styles.container}>
       <View style={styles.container}>
         <FlatList
           data={cart}
           renderItem={(item) => <RenderItemListOrder item={item.item} />}
-          ListHeaderComponent={HeaderCheckoutView}
-          ListFooterComponent={FooterCheckoutView}
+          ListHeaderComponent={renderHeader}
+          ListFooterComponent={renderFooter}
         />
       </View>
       <View style={styles.viewCart}>
@@ -78,10 +92,34 @@ const CheckoutScreen = ({ route }) => {
           <Text style={{ color: "white" }}>Thanh toán</Text>
         </TouchableOpacity>
       </View>
+
+      <AddressModal isVisible={isModalVisible} />
     </View>
   );
 };
 
+function CheckoutScreen({ route }) {
+  const navigation = useNavigation();
+  const { cart } = route.params;
+
+  useLayoutEffect(
+    useCallback(() => {
+      navigation.setOptions({
+        headerShown: true,
+        headerTitle: "Thanh toán",
+        headerTitleAlign: "center",
+        headerShadowVisible: false,
+      });
+    }, [navigation]),
+    []
+  );
+
+  return (
+    <CheckoutProvider>
+      <CheckoutUI cart={cart} />
+    </CheckoutProvider>
+  );
+}
 export default CheckoutScreen;
 
 const styles = StyleSheet.create({
@@ -99,7 +137,6 @@ const styles = StyleSheet.create({
   textTitle: {
     fontSize: 15,
     fontFamily: "SemiBold",
-    marginVertical: 15,
   },
 
   viewVoucher: {

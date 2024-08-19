@@ -23,8 +23,10 @@ import ProductDetailScreen from "../screens/product/product-detail-screen";
 import ProfileInfomationScreen from "../screens/profile/ProfileInfomationScreen";
 import SigninScreen from "../screens/signin/SigninScreen";
 import SignupScreen from "../screens/signup/SignupScreen";
+import VerifyTokenEmail from "../screens/signup/VerifiyTokenEmail";
 import ChangePassScreen from "../screens/profile/changepassword/ChangePassScreen";
 import OrderScreen from "../screens/profile/order/OrderScreen";
+import ListAddressCheckout from "../screens/product/components/checkout/ListAddressCheckout";
 
 import { MainTabbar } from "./tabbar";
 
@@ -71,6 +73,8 @@ const AppStack = function AppStack() {
       <Stack.Screen name="ListProduct" component={ListProduct} />
       <Stack.Screen name="ConfirmScreen" component={ConfirmScreen} />
       <Stack.Screen name="EditAddressScreen" component={EditAddressScreen} />
+      <Stack.Screen name="VerifyToken" component={VerifyTokenEmail} />
+      <Stack.Screen name="AddressCheckout" component={ListAddressCheckout} />
     </Stack.Navigator>
   );
 };

@@ -61,18 +61,21 @@ function ProfileScreen() {
           />
           {/* <ProfileListButton icon={"noti"} text={"Thông báo"} /> */}
 
-          <>
-            <ProfileListButton
-              icon={"setting"}
-              text={"Đổi mật khẩu"}
-              onPress={() => navigation.navigate("ChangePass")}
-            />
-            <ProfileListButton
-              icon={"logout"}
-              text={"Đăng xuất"}
-              onPress={_onPressLogout}
-            />
-          </>
+          <ProfileListButton
+            icon={"ship"}
+            text={"Lịch sử mua hàng"}
+            onPress={() => navigation.navigate("Order")}
+          />
+          <ProfileListButton
+            icon={"setting"}
+            text={"Đổi mật khẩu"}
+            onPress={() => navigation.navigate("ChangePass")}
+          />
+          <ProfileListButton
+            icon={"logout"}
+            text={"Đăng xuất"}
+            onPress={_onPressLogout}
+          />
         </>
       ) : (
         <View gap={16}>

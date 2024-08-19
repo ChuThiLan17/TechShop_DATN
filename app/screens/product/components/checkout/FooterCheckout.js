@@ -1,8 +1,13 @@
+import { useMemo } from "react";
+
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 
 import { View } from "tamagui";
 
-const FooterCheckoutView = () => {
+const FooterCheckoutView = ({ cart }) => {
+  const totalPrice = useMemo(() => {
+    return cart?.reduce((total, item) => total + item.price, 0);
+  }, [cart]);
   return (
     <View>
       <TouchableOpacity style={styles.viewVoucher}>
@@ -11,28 +16,24 @@ const FooterCheckoutView = () => {
       </TouchableOpacity>
       <TouchableOpacity style={styles.viewVoucher}>
         <Text>{`Tổng tiền sản phẩm`}</Text>
-        <Text>{} đ</Text>
+        <Text>{totalPrice?.toLocaleString("en-VN")} đ</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.viewVoucher}>
         <Text>Phương thức thanh toán</Text>
         <Text>Thanh toán khi nhận hàng</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.viewVoucher}>
+      {/* <TouchableOpacity style={styles.viewVoucher}>
         <Text>Tổng tiền hàng</Text>
         <Text>{} đ</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.viewVoucher}>
+      </TouchableOpacity> */}
+      {/* <TouchableOpacity style={styles.viewVoucher}>
         <Text>Khuyến mãi</Text>
         <Text>0đ</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.viewVoucher}>
         <Text>Phí vận chuyển</Text>
         <Text>0đ</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.viewVoucher}>
-        <Text>Tổng tiền hàng</Text>
-        <Text>{} đ</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };

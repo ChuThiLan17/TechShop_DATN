@@ -55,4 +55,5 @@ export const iconRegistry = {
   arrowdown: require("../../../../assets/icons/arrowdown.png"),
   camera: require("../../../../assets/icons/camera 1.png"),
   confirm: require("../../../../assets/icons/Featured icon.png"),
+  address: require("../../../../assets/icons/address.png"),
 };

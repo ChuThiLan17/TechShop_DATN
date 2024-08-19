@@ -1,20 +1,11 @@
-import { useNavigation } from "@react-navigation/native";
-
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import React from "react";
 
-const ItemAddress = ({ dataAddress }) => {
-  const navigation = useNavigation();
-
+const ItemAddressCheckout = ({ dataAddress, onPress, isDefault }) => {
   return (
-    <View style={{ alignItems: "center", marginVertical: 8 }}>
-      <TouchableOpacity
-        style={styles.container}
-        onPress={() =>
-          navigation.navigate("EditAddressScreen", { dataAddress: dataAddress })
-        }
-      >
+    <View style={{ alignItems: "center" }}>
+      <TouchableOpacity style={styles.container} onPress={onPress}>
         <View style={{ flexDirection: "row" }}>
           <Text style={{ fontWeight: "bold" }}>{dataAddress.name}</Text>
           <Text style={{ color: "#444444" }}> | {dataAddress?.phone}</Text>
@@ -30,7 +21,7 @@ const ItemAddress = ({ dataAddress }) => {
   );
 };
 
-export default ItemAddress;
+export default ItemAddressCheckout;
 
 const styles = StyleSheet.create({
   container: {

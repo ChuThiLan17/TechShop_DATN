@@ -1,17 +1,6 @@
-import {
-  useFocusEffect,
-  useIsFocused,
-  useNavigation,
-} from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 
-import {
-  FlatList,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 
 import React, {
   useCallback,
@@ -25,7 +14,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { YStack } from "tamagui";
 
 import api from "../../services";
-import Navbar from "../components/nav-bar";
 import Itext from "../components/Text/Itext";
 
 import ItemAddress from "./Item-address";
@@ -71,7 +59,6 @@ const ListAddressScreen = () => {
         backgroundColor: "#fff",
       }}
     >
-      {/* <Navbar text="Danh sách địa chỉ" onPress={() => navigation.goBack()} /> */}
       <View style={{ paddingHorizontal: 16, flex: 1 }}>
         <FlatList
           data={address}

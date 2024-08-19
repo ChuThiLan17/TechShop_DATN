@@ -48,6 +48,10 @@ async function uploadAvartar(file) {
   return await axios.put(`${API_URL}/user/avatar`, formData, { headers });
 }
 
+async function verifyTokenEmail(token) {
+  return await api.v1.put(`/user/finalregister/${token}`);
+}
+
 export default {
   getInfoUser,
   postChangePassword,
@@ -56,4 +60,5 @@ export default {
   updateAddress,
   putAddress,
   deleteAddress,
+  verifyTokenEmail,
 };
