@@ -18,10 +18,11 @@ import { styles } from "./styles";
 const RenderItemListCart = (props) => {
   const { item } = props;
   const { fetchCart } = useCartContext();
+  console.log("item23", item);
 
   const deleteCart = async () => {
     try {
-      const res = await api.cart.deleteCart(item.item._id, item.item.color);
+      const res = await api.cart.deleteCart(item.item.product, item.item.color);
       if (res.data.success) {
         Toast.show({
           type: "success",
@@ -33,13 +34,14 @@ const RenderItemListCart = (props) => {
       console.log(error);
     }
   };
+  console.log("item", item);
 
   return (
     <View style={styles.container}>
       <Image
         style={styles.viewImage}
         source={{
-          uri: item.item?.product?.thumb ?? "",
+          uri: item.item?.thumb ?? "",
         }}
       />
       <YStack gap={10} flex={1}>

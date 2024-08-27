@@ -46,7 +46,7 @@ const ProductDetailScreen = ({ route }) => {
     }, [navigation]),
     []
   );
-
+  console.log("item_detail", item_detail);
   const cartRef = useRef(null);
 
   const addToCart = async () => {
@@ -141,19 +141,20 @@ const ProductDetailScreen = ({ route }) => {
                 flex: 1,
               }}
             >
-              {item_detail.types &&
-                item_detail.types.map((item, index) => (
-                  <TouchableOpacity
-                    key={item.id}
-                    style={{
-                      borderRadius: 16,
-                      borderWidth: 1,
-                      paddingHorizontal: 8,
-                    }}
-                  >
-                    <Text>{item}</Text>
-                  </TouchableOpacity>
-                ))}
+              {item_detail.varriants.map((item, index) => (
+                <TouchableOpacity
+                  key={item.id}
+                  style={{
+                    borderRadius: 16,
+                    borderWidth: 1,
+                    paddingHorizontal: 8,
+                    alignItems: "center",
+                  }}
+                >
+                  <Text>{item.color}</Text>
+                  <Text>{item.price}</Text>
+                </TouchableOpacity>
+              ))}
             </View>
 
             <Text

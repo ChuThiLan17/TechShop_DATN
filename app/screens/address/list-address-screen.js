@@ -22,11 +22,13 @@ const ListAddressScreen = () => {
   const navigation = useNavigation();
 
   const [address, setAddress] = useState([]);
+  console.log(address);
 
   const getAddress = async () => {
     try {
       const res = await api.user.getInfoUser();
       setAddress(res.data.rs.address);
+      console.log("res", res);
     } catch (error) {
       console.log(error);
     }

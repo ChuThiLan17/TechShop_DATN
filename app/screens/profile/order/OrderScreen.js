@@ -12,6 +12,9 @@ import { Dimensions, StyleSheet } from "react-native";
 import { Icon } from "../../components/Icon/Icon";
 import Itext from "../../components/Text/Itext";
 import api from "../../../services";
+import ListConfirmView from "./components/ListConfirmView";
+import ListTrading from "./components/ListTrading";
+import ListCancel from "./components/ListCancel";
 
 const initialLayout = { width: Dimensions.get("window").width };
 
@@ -24,22 +27,21 @@ function OrderScreen() {
     try {
       const res = await api.order.getOrder();
       setOrder(res.data.response);
-      console.log("res", res.data.response);
     } catch (error) {
       console.log(error);
     }
   };
+  console.log("ordertren", order);
+
   const FirstRoute = () => (
     <View style={{ flex: 1, padding: 16, backgroundColor: "#fff" }}>
-      {order.map((item, index) => (
-        <View></View>
-      ))}
+      <ListConfirmView />
     </View>
   );
 
   const SecondRoute = () => (
     <View style={{ flex: 1, padding: 16, backgroundColor: "#fff" }}>
-      {/* .map((type, index) => ()) */}
+      <ListTrading />
     </View>
   );
 
@@ -51,7 +53,7 @@ function OrderScreen() {
 
   const FourRoute = () => (
     <View style={{ flex: 1, padding: 16, backgroundColor: "#fff" }}>
-      {/* .map((type, index) => ()) */}
+      <ListCancel />
     </View>
   );
 
@@ -72,7 +74,7 @@ function OrderScreen() {
   useEffect(() => {
     getOrder();
   }, []);
-
+  console.log("order", order);
   useLayoutEffect(
     useCallback(() => {
       navigation.setOptions({
@@ -94,6 +96,7 @@ function OrderScreen() {
       renderScene={renderScene}
       onIndexChange={setIndex}
       initialLayout={{ initialLayout }}
+      lazy
       renderTabBar={(props) => (
         <XStack ai={"center"} bg={"#fff"}>
           <TabBar

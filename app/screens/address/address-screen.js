@@ -51,7 +51,7 @@ const AddressScreen = () => {
       phone: phone,
     };
     try {
-      const res = await api.user.updateAddress(address);
+      const res = await api.user.addAddress(address);
       if (res.data.success) {
         Toast.show({
           type: "success",

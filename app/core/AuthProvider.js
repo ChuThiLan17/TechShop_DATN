@@ -42,6 +42,8 @@ export const AuthProvider = ({ children }) => {
       setIsLoggedIn(false);
     } catch (error) {
       console.error("Error removing accessToken:", error);
+      await AsyncStorage.removeItem(ACCESS_TOKEN_KEY);
+      setIsLoggedIn(false);
     }
   };
 

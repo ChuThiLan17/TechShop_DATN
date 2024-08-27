@@ -69,11 +69,11 @@ const CartBottomSheetModal = forwardRef(({ product }, ref) => {
 
   const onPressAddCart = async () => {
     let params = {
-      pid: product._id,
-      color: color,
-      price: product.price,
-      thumb: product.thumb,
-      title: product.title,
+      pid: type._id,
+      color: type.color,
+      price: type.price,
+      thumb: type.thumb,
+      title: type.title,
     };
     try {
       const res = await api.cart.putCart(params);
@@ -121,23 +121,29 @@ const CartBottomSheetModal = forwardRef(({ product }, ref) => {
               <Itext text={"Kho : " + product.quantity} />
             </YStack>
           </XStack>
-          {product.types.length > 0 && (
+          {product.varriants.length > 0 && (
             <YStack gap={12}>
               <Itext text={"Loại"} font={"semibold"} />
-              <XStack gap={12}>
-                {product.types.map((item, index) => {
+              <XStack gap={12} flexWrap="wrap">
+                {product.varriants.map((item, index) => {
                   return (
                     <View
                       br={10}
                       bg={type === item ? "#000" : "#fff"}
                       borderColor={"#000"}
                       borderWidth={1}
+                      w={100}
                       py={6}
                       onPress={() => setType(item)}
                       key={index}
+                      alignItems="center"
                     >
                       <Itext
-                        text={item}
+                        text={item.color}
+                        color={type === item ? "#fff" : "#000"}
+                      />
+                      <Itext
+                        text={item.price}
                         color={type === item ? "#fff" : "#000"}
                       />
                     </View>
@@ -147,7 +153,7 @@ const CartBottomSheetModal = forwardRef(({ product }, ref) => {
             </YStack>
           )}
 
-          <YStack gap={10}>
+          {/* <YStack gap={10}>
             <Itext text={"Màu sắc"} font={"semibold"} />
             <XStack gap={12} flexWrap="wrap">
               {listColor && listColor.length > 0 && (
@@ -172,8 +178,8 @@ const CartBottomSheetModal = forwardRef(({ product }, ref) => {
                     </View>
                   ))}
                 </>
-              )}
-              {/* <View
+              )} */}
+          {/* <View
                 borderWidth={1}
                 borderColor={"#000"}
                 borderRadius={10}
@@ -185,8 +191,8 @@ const CartBottomSheetModal = forwardRef(({ product }, ref) => {
               >
                 <Itext text={product.color} />
               </View> */}
-            </XStack>
-          </YStack>
+          {/* </XStack> */}
+          {/* </YStack> */}
         </YStack>
       </BottomSheetScrollView>
       <YStack

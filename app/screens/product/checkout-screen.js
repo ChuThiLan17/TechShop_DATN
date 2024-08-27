@@ -49,6 +49,7 @@ const CheckoutUI = ({ cart }) => {
     let params = {
       products: cart,
       total: totalPrice,
+      address: address,
     };
     try {
       const res = await api.order.createOrder(params);

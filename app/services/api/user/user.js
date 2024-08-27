@@ -17,7 +17,7 @@ async function updateUser(params) {
   return await api.v1.put("/user/current", { params });
 }
 
-async function updateAddress(address) {
+async function addAddress(address) {
   return await api.v1.put("/user/address", { address: address });
 }
 
@@ -57,7 +57,7 @@ export default {
   postChangePassword,
   updateUser,
   uploadAvartar,
-  updateAddress,
+  addAddress,
   putAddress,
   deleteAddress,
   verifyTokenEmail,
