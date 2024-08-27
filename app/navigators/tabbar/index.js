@@ -57,7 +57,7 @@ function MainTabbar() {
         case "Profile":
           return (
             <FontAwesome
-              name="home"
+              name="user"
               size={24}
               color={focus ? "white" : "gray"}
             />

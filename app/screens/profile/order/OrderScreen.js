@@ -1,8 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
 
-import { View, XStack } from "tamagui";
+import { Text, View, XStack } from "tamagui";
 
-import { useLayoutEffect, useCallback } from "react";
+import { useLayoutEffect, useCallback, useEffect, useState } from "react";
 import * as React from "react";
 
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
@@ -11,34 +11,67 @@ import { Dimensions, StyleSheet } from "react-native";
 
 import { Icon } from "../../components/Icon/Icon";
 import Itext from "../../components/Text/Itext";
+import api from "../../../services";
 
 const initialLayout = { width: Dimensions.get("window").width };
 
-const FirstRoute = () => <View style={{ flex: 1, backgroundColor: "#fff" }} />;
-
-const SecondRoute = () => <View style={{ flex: 1, backgroundColor: "#fff" }} />;
-
-const ThreeRoute = () => <View style={{ flex: 1, backgroundColor: "#fff" }} />;
-
-const FourRoute = () => <View style={{ flex: 1, backgroundColor: "#fff" }} />;
-
-const renderScene = SceneMap({
-  first: FirstRoute,
-  second: SecondRoute,
-  three: ThreeRoute,
-  four: FourRoute,
-});
-
 function OrderScreen() {
   const navigation = useNavigation();
+  const [order, setOrder] = useState();
+  const [index, setIndex] = useState(0);
 
-  const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
-    { key: "first", title: "Chờ xác nhận" },
+  const getOrder = async () => {
+    try {
+      const res = await api.order.getOrder();
+      setOrder(res.data.response);
+      console.log("res", res.data.response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const FirstRoute = () => (
+    <View style={{ flex: 1, padding: 16, backgroundColor: "#fff" }}>
+      {order.map((item, index) => (
+        <View></View>
+      ))}
+    </View>
+  );
+
+  const SecondRoute = () => (
+    <View style={{ flex: 1, padding: 16, backgroundColor: "#fff" }}>
+      {/* .map((type, index) => ()) */}
+    </View>
+  );
+
+  const ThreeRoute = () => (
+    <View style={{ flex: 1, padding: 16, backgroundColor: "#fff" }}>
+      {/* .map((type, index) => ()) */}
+    </View>
+  );
+
+  const FourRoute = () => (
+    <View style={{ flex: 1, padding: 16, backgroundColor: "#fff" }}>
+      {/* .map((type, index) => ()) */}
+    </View>
+  );
+
+  const renderScene = SceneMap({
+    first: FirstRoute,
+    second: SecondRoute,
+    three: ThreeRoute,
+    four: FourRoute,
+  });
+
+  const [routes] = useState([
+    { key: "first", title: " xác nhận" },
     { key: "second", title: "Đang giao" },
     { key: "three", title: "Đã giao" },
     { key: "four", title: "Đã hủy" },
   ]);
+
+  useEffect(() => {
+    getOrder();
+  }, []);
 
   useLayoutEffect(
     useCallback(() => {
@@ -47,13 +80,14 @@ function OrderScreen() {
         headerTitle: "Đơn hàng",
         headerTitleAlign: "center",
         headerShadowVisible: false,
-        // headerLeft: () => (
-        //   <Icon icon={"back"} onPress={() => navigation.goBack()} />
-        // ),
+        headerLeft: () => (
+          <Icon icon={"back"} onPress={() => navigation.goBack()} />
+        ),
       });
     }, [navigation]),
     []
   );
+
   return (
     <TabView
       navigationState={{ index, routes }}

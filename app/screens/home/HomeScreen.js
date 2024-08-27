@@ -71,7 +71,7 @@ function HomeScreen(props) {
 
   return (
     <SafeAreaView style={style.container}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <CustomHeader title={"Trang chủ"} />
         <CustomSearch
           isTextInput={true}

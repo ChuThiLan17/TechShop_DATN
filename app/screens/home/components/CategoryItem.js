@@ -22,4 +22,3 @@ const CategoryItem = ({ item, onPress }) => {
   );
 };
 export default CategoryItem;
-// luuthithaonhi@gmail.com

@@ -55,7 +55,10 @@ const ProductDetailScreen = ({ route }) => {
 
   return (
     <SafeAreaView style={{ flex: 1, alignItems: "center" }}>
-      <ScrollView style={{ paddingHorizontal: 16 }}>
+      <ScrollView
+        style={{ paddingHorizontal: 16 }}
+        showsVerticalScrollIndicator={false}
+      >
         <View>
           <ScrollView
             onScroll={handleScroll}
