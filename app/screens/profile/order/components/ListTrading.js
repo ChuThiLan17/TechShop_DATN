@@ -3,6 +3,8 @@ import { Text, View } from "tamagui";
 import api from "../../../../services";
 import { Image, StyleSheet } from "react-native";
 import Itext from "../../../components/Text/Itext";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { TouchableOpacity } from "react-native-gesture-handler";
 const ListTrading = () => {
   const [listConfirm, setListConfirm] = useState([]);
 
@@ -24,34 +26,45 @@ const ListTrading = () => {
       {filteredOrders.map((item) => (
         <View style={styles.container}>
           <Text>{item.code}</Text>
-          {item.products.map((iten) => (
-            <View style={styles.containerItem}>
-              <Image
-                style={{ height: 50, width: 50, borderRadius: 16 }}
-                source={{
-                  uri: iten.thumb,
+
+          <View style={styles.containerItem}>
+            <Image
+              style={{ height: 60, width: 60, borderRadius: 16 }}
+              source={{
+                uri: item.products[0]?.thumb,
+              }}
+            />
+            <View style={{ gap: 2, width: "65%" }}>
+              <Text>{item.products[0]?.title}</Text>
+              <Text>Màu: {item.products[0]?.color}</Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  width: "100%",
                 }}
-              />
-              <View>
-                <Text>{iten.title}</Text>
-                <Text>Màu: {iten.color}</Text>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    width: "80%",
-                  }}
-                >
-                  <Text>Giá: {iten.price} đ</Text>
-                  <Text>x {iten.quantity}</Text>
-                </View>
+              >
+                <Text>Giá: {item.products[0]?.price} đ</Text>
+                <Text>x {item.products[0]?.quantity}</Text>
               </View>
-              {/* <View>
-                <Text>{iten.color}</Text>
-                <Text>{iten.color}</Text>
-              </View> */}
             </View>
-          ))}
+          </View>
+          <Text style={{ color: "#339900" }}>
+            {item.status == 1 ? "Chờ đơn vị vận chuyển đến lấy hàng" : ""}
+          </Text>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              width: "90%",
+            }}
+          >
+            <Text>{item.products.length} sản phẩm</Text>
+            <View style={{ flexDirection: "row", marginTop: 4 }}>
+              <Text> Thành tiền:</Text>
+              <Text style={{ color: "red" }}> {item.total}</Text>
+            </View>
+          </View>
         </View>
       ))}
     </View>
@@ -72,12 +85,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
     elevation: 3,
-    marginVertical: 10,
-    marginHorizontal: 10,
     gap: 12,
   },
   containerItem: {
-    paddingVertical: 8,
+    // paddingVertical: 8,
     flexDirection: "row",
     gap: 16,
   },

@@ -19,7 +19,7 @@ const ItemProduct = ({ item, onPress }) => {
       <Itext font="Medium" size={18} text={item.title} />
       <View>
         <Itext
-          font="regular"
+          font="medium"
           size={18}
           color="red"
           text={item.price + " " + "đ"}
@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "white",
     borderRadius: 25,
-    padding: 5,
     backgroundColor: "white",
     shadowColor: "#000",
     shadowOffset: {
@@ -65,8 +64,8 @@ const styles = StyleSheet.create({
   },
   image: {
     borderRadius: 16,
-    width: 120,
-    height: 130,
+    width: 140,
+    height: 140,
   },
   text: {
     fontSize: 16,

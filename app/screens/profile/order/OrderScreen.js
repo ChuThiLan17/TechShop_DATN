@@ -1,20 +1,16 @@
 import { useNavigation } from "@react-navigation/native";
-
 import { Text, View, XStack } from "tamagui";
-
 import { useLayoutEffect, useCallback, useEffect, useState } from "react";
 import * as React from "react";
-
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
-
 import { Dimensions, StyleSheet } from "react-native";
-
 import { Icon } from "../../components/Icon/Icon";
 import Itext from "../../components/Text/Itext";
 import api from "../../../services";
 import ListConfirmView from "./components/ListConfirmView";
 import ListTrading from "./components/ListTrading";
 import ListCancel from "./components/ListCancel";
+import ListSuccess from "./components/ListSuccess";
 
 const initialLayout = { width: Dimensions.get("window").width };
 
@@ -47,7 +43,7 @@ function OrderScreen() {
 
   const ThreeRoute = () => (
     <View style={{ flex: 1, padding: 16, backgroundColor: "#fff" }}>
-      {/* .map((type, index) => ()) */}
+      <ListSuccess />
     </View>
   );
 

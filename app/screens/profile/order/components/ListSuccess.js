@@ -3,7 +3,7 @@ import { Text, View } from "tamagui";
 import api from "../../../../services";
 import { Image, StyleSheet } from "react-native";
 import Itext from "../../../components/Text/Itext";
-const ListCancel = () => {
+const ListSuccess = () => {
   const [listConfirm, setListConfirm] = useState([]);
 
   const fetch = async () => {
@@ -13,7 +13,7 @@ const ListCancel = () => {
     } catch (error) {}
   };
 
-  const filteredOrders = listConfirm.filter((order) => order.status === 3);
+  const filteredOrders = listConfirm.filter((order) => order.status === 2);
 
   useEffect(() => {
     fetch();
@@ -47,7 +47,9 @@ const ListCancel = () => {
               </View>
             </View>
           </View>
-
+          <Text style={{ color: "#339900" }}>
+            {item.status == 2 ? "Đơn hàng đã giao thành công" : ""}
+          </Text>
           <View
             style={{
               flexDirection: "row",
@@ -67,7 +69,7 @@ const ListCancel = () => {
   );
 };
 
-export default ListCancel;
+export default ListSuccess;
 const styles = StyleSheet.create({
   container: {
     borderRadius: 16,
