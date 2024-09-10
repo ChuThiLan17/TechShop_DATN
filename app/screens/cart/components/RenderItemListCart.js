@@ -1,15 +1,9 @@
 import { AntDesign } from "@expo/vector-icons";
-
 import { Image, Text, TouchableOpacity } from "react-native";
-
 import React, { useMemo } from "react";
-
 import Checkbox from "expo-checkbox";
-
 import { View, XStack, YStack } from "tamagui";
-
 import Toast from "react-native-toast-message";
-
 import { useCartContext } from "../provider/provider";
 import api from "../../../services";
 import Itext from "../../components/Text/Itext";
