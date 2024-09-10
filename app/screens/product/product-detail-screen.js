@@ -24,6 +24,7 @@ const height = 500;
 
 const ProductDetailScreen = ({ route }) => {
   const { item_detail } = route.params;
+  console.log("item_detail", item_detail);
 
   const navigation = useNavigation();
 
