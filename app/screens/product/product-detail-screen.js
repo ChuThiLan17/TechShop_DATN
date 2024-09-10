@@ -55,7 +55,7 @@ const ProductDetailScreen = ({ route }) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, alignItems: "center" }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <ScrollView
         style={{ paddingHorizontal: 16 }}
         showsVerticalScrollIndicator={false}
@@ -168,7 +168,7 @@ const ProductDetailScreen = ({ route }) => {
             </Text>
           </View>
           {/*Content*/}
-          <View style={styles.styleBranch}>
+          <View style={[styles.styleBranch, { flex: 1 }]}>
             <Text style={styles.textBranch}>
               Thương hiệu : {item_detail.brand}
             </Text>

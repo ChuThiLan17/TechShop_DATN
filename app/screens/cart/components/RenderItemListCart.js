@@ -1,9 +1,15 @@
 import { AntDesign } from "@expo/vector-icons";
+
 import { Image, Text, TouchableOpacity } from "react-native";
+
 import React, { useMemo } from "react";
+
 import Checkbox from "expo-checkbox";
+
 import { View, XStack, YStack } from "tamagui";
+
 import Toast from "react-native-toast-message";
+
 import { useCartContext } from "../provider/provider";
 import api from "../../../services";
 import Itext from "../../components/Text/Itext";
@@ -39,12 +45,12 @@ const RenderItemListCart = (props) => {
       <YStack gap={10} flex={1}>
         <XStack flex={1}>
           <View f={1}>
-            {/* <Itext
+            <Itext
               text={item.item.title}
               font={"medium"}
               size={15}
               color={"rgba(0, 0, 0, 0.8)"}
-            ></Itext> */}
+            />
           </View>
           <TouchableOpacity onPress={deleteCart}>
             <AntDesign name="delete" size={25} color="black" />

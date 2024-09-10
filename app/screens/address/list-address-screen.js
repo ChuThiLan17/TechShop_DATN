@@ -22,7 +22,6 @@ const ListAddressScreen = () => {
   const navigation = useNavigation();
 
   const [address, setAddress] = useState([]);
-  console.log(address);
 
   const getAddress = async () => {
     try {

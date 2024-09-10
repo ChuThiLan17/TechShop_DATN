@@ -89,6 +89,9 @@ function SignupScreen() {
     return check;
   };
 
+  const [showPass, setShowPass] = useState(true);
+  const [showPass1, setShowPass1] = useState(true);
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView style={{ flex: 1 }}>
@@ -103,20 +106,21 @@ function SignupScreen() {
             <InputSignup label={"Number phone"} onChangeText={setPhone} />
             <InputSignup
               label={"Password"}
-              secureTextEntry={true}
+              secureTextEntry={showPass}
               onChangeText={setPassword}
+              onPress={() => setShowPass(!showPass)}
+              password={true}
             />
             <InputSignup
               label={"Confirm password"}
-              secureTextEntry={true}
+              secureTextEntry={showPass1}
               onChangeText={setRePassword}
+              onPress={() => setShowPass1(!showPass1)}
+              password={true}
             />
           </YStack>
 
           <YStack flex={1} gap={16} mb={26}>
-            <XStack>
-              <Itext text={"Tôi đồng ý với chính sách của app"} />
-            </XStack>
             <YStack
               py={10}
               als="stretch"

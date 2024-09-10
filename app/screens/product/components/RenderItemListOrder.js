@@ -11,7 +11,10 @@ const RenderItemListOrder = (props) => {
 
   return (
     <View style={styles.container} gap={12}>
-      <Image style={styles.viewImage} source={{ uri: item.thumb ?? "" }} />
+      <Image
+        style={styles.viewImage}
+        source={{ uri: item.product.thumb ?? item.thumb ?? "" }}
+      />
       <View style={styles.viewContent}>
         <View style={styles.viewContentTitle}>
           <Text style={styles.textTitle}>{item.title}</Text>

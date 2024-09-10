@@ -1,3 +1,5 @@
+import { useNavigation } from "@react-navigation/native";
+
 import {
   FlatList,
   SafeAreaView,
@@ -6,21 +8,23 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+
 import React, {
   useCallback,
   useEffect,
   useLayoutEffect,
   useState,
 } from "react";
-import { useNavigation } from "@react-navigation/native";
+
 import { ScrollView } from "tamagui";
+
 import api from "../../services";
 import ItemProduct from "../home/components/item-product";
 
 const ListProduct = ({ route }) => {
   const navigation = useNavigation();
   const { category } = route.params;
-  console.log(category);
+
   const [product, setProduct] = useState(null);
   const getProduct = async () => {
     const params = {

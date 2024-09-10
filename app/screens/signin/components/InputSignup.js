@@ -2,6 +2,8 @@ import { View, XStack } from "tamagui";
 
 import { TextInput } from "react-native";
 
+import { useState } from "react";
+
 import { Icon } from "../../components/Icon/Icon";
 import Itext from "../../components/Text/Itext";
 
@@ -11,6 +13,8 @@ const InputSignup = ({
   onChangeText,
   placeholder,
   secureTextEntry,
+  onPress,
+  password,
 }) => {
   return (
     <View>
@@ -23,7 +27,11 @@ const InputSignup = ({
           style={{ height: 48, flex: 1 }}
           secureTextEntry={secureTextEntry}
         />
-        {secureTextEntry && <Icon icon={"hidepass"} />}
+        {password && (
+          <View jc="center" onPress={onPress}>
+            <Icon icon={secureTextEntry ? "hidepass" : "openpass"} />
+          </View>
+        )}
       </XStack>
       <View h={1} als="stretch" bg={"#1a202c1a"} />
     </View>

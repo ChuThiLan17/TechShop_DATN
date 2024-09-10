@@ -85,6 +85,8 @@ function SigninScreen(props) {
     return check;
   };
 
+  const [showPass, setShowPass] = useState(true);
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView>
@@ -103,8 +105,10 @@ function SigninScreen(props) {
               <InputSignup label={"Email"} onChangeText={setEmail} />
               <InputSignup
                 label={"Password"}
-                secureTextEntry={true}
+                secureTextEntry={showPass}
                 onChangeText={setPassword}
+                password={true}
+                onPress={() => setShowPass(!showPass)}
               />
             </YStack>
             <View als="flex-end" mt={22}>
