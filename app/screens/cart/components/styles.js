@@ -25,6 +25,7 @@ export const styles = StyleSheet.create({
     width: 84,
     height: 73,
     borderRadius: 16,
+    backgroundColor: "#1a202c",
   },
 
   viewContent: {

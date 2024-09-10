@@ -18,7 +18,6 @@ import { styles } from "./styles";
 const RenderItemListCart = (props) => {
   const { item } = props;
   const { fetchCart } = useCartContext();
-  console.log("item23", item);
 
   const deleteCart = async () => {
     try {
@@ -34,7 +33,6 @@ const RenderItemListCart = (props) => {
       console.log(error);
     }
   };
-  console.log("item", item);
 
   return (
     <View style={styles.container}>
@@ -47,12 +45,12 @@ const RenderItemListCart = (props) => {
       <YStack gap={10} flex={1}>
         <XStack flex={1}>
           <View f={1}>
-            <Itext
+            {/* <Itext
               text={item.item.title}
               font={"medium"}
               size={15}
               color={"rgba(0, 0, 0, 0.8)"}
-            ></Itext>
+            ></Itext> */}
           </View>
           <TouchableOpacity onPress={deleteCart}>
             <AntDesign name="delete" size={25} color="black" />

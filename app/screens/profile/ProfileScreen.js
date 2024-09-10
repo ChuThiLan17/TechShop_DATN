@@ -37,6 +37,7 @@ function ProfileScreen() {
       }
     } catch (error) {
       console.log(error);
+      logout();
     }
   };
 
