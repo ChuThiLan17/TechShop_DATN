@@ -15,6 +15,8 @@ import EditAddressScreen from "../screens/address/EditAddressScreen";
 import AddressScreen from "../screens/address/address-screen";
 import ListAddressScreen from "../screens/address/list-address-screen";
 import CartDetailScreens from "../screens/cart/cart-detail-screens";
+import ForgotPasswordScreen from "../screens/forgotpassword/ForgotPasswordScreen";
+import ResetPasswordScreen from "../screens/forgotpassword/ResetPasswordScreen";
 import CartScreen from "../screens/product/cart-screen";
 import CheckoutScreen from "../screens/product/checkout-screen";
 import ConfirmScreen from "../screens/product/confirmScreen";
@@ -29,6 +31,7 @@ import OrderScreen from "../screens/profile/order/OrderScreen";
 import ListAddressCheckout from "../screens/product/components/checkout/ListAddressCheckout";
 
 import { MainTabbar } from "./tabbar";
+import VerifiyTokenScreen from "../screens/forgotpassword/VerifyTokenScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -61,6 +64,9 @@ const AppStack = function AppStack() {
 
       <Stack.Screen name="Signin" component={SigninScreen} />
       <Stack.Screen name="Signup" component={SignupScreen} />
+      <Stack.Screen name="ForgotPass" component={ForgotPasswordScreen} />
+      <Stack.Screen name="ResetPass" component={ResetPasswordScreen} />
+      <Stack.Screen name="Verify" component={VerifiyTokenScreen} />
       <Stack.Screen name="Address" component={AddressScreen} />
       <Stack.Screen name="ListAddress" component={ListAddressScreen} />
       <Stack.Screen name="DetailProduct" component={ProductDetailScreen} />

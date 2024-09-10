@@ -111,7 +111,11 @@ function SigninScreen(props) {
                 onPress={() => setShowPass(!showPass)}
               />
             </YStack>
-            <View als="flex-end" mt={22}>
+            <View
+              als="flex-end"
+              mt={22}
+              onPress={() => navigation.navigate("ForgotPass")}
+            >
               <Itext
                 text={"Quên mật khẩu ?"}
                 size={16}

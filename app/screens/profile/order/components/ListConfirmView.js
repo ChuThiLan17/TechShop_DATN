@@ -1,10 +1,15 @@
-import { useEffect, useState } from "react";
-import { Text, View } from "tamagui";
-import api from "../../../../services";
-import { Image, StyleSheet } from "react-native";
-import Itext from "../../../components/Text/Itext";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+
+import { useEffect, useState } from "react";
+
+import { Text, View } from "tamagui";
+
+import { Image, StyleSheet } from "react-native";
+
+import { TouchableOpacity } from "react-native-gesture-handler";
+
+import api from "../../../../services";
+import Itext from "../../../components/Text/Itext";
 const ListConfirmView = () => {
   const [listConfirm, setListConfirm] = useState([]);
 
@@ -48,9 +53,6 @@ const ListConfirmView = () => {
                 <Text>x {item.products[0]?.quantity}</Text>
               </View>
             </View>
-            <TouchableOpacity>
-              <MaterialIcons name="delete" size={24} color="black" />
-            </TouchableOpacity>
           </View>
           <Text style={{ color: "#339900" }}>
             {item.status == 0 ? "Chờ người bán xác nhận" : ""}
@@ -89,6 +91,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2.22,
     elevation: 3,
     gap: 12,
+    marginVertical: 8,
   },
   containerItem: {
     // paddingVertical: 8,
