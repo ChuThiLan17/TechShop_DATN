@@ -1,17 +1,34 @@
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
-import { useEffect, useState } from "react";
+import { FlashList } from "@shopify/flash-list";
+
+import { useCallback, useEffect, useState } from "react";
 
 import { Text, View } from "tamagui";
 
-import { Image, StyleSheet } from "react-native";
+import { Image, RefreshControl, StyleSheet } from "react-native";
 
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import api from "../../../../services";
 import Itext from "../../../components/Text/Itext";
+
+import HistoryOrderItem from "./HistoryOrderItem";
+import ListEmptyView from "./ListEmptyView";
 const ListConfirmView = () => {
   const [listConfirm, setListConfirm] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    if (refreshing) return;
+    setRefreshing(true);
+    try {
+      fetch();
+    } catch (error) {
+      console.log(error);
+    }
+    setRefreshing(false);
+  }, [refreshing]);
 
   const fetch = async () => {
     try {
@@ -26,76 +43,25 @@ const ListConfirmView = () => {
     fetch();
   }, []);
 
-  return (
-    <View>
-      {filteredOrders.map((item) => (
-        <View style={styles.container}>
-          <Text>{item.code}</Text>
+  const renderItem = useCallback(({ item }) => {
+    return <HistoryOrderItem item={item} />;
+  }, []);
 
-          <View style={styles.containerItem}>
-            <Image
-              style={{ height: 60, width: 60, borderRadius: 16 }}
-              source={{
-                uri: item.products[0]?.thumb,
-              }}
-            />
-            <View style={{ gap: 2, width: "65%" }}>
-              <Text>{item.products[0]?.title}</Text>
-              <Text>Màu: {item.products[0]?.color}</Text>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  width: "100%",
-                }}
-              >
-                <Text>Giá: {item.products[0]?.price} đ</Text>
-                <Text>x {item.products[0]?.quantity}</Text>
-              </View>
-            </View>
-          </View>
-          <Text style={{ color: "#339900" }}>
-            {item.status == 0 ? "Chờ người bán xác nhận" : ""}
-          </Text>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              width: "90%",
-            }}
-          >
-            <Text>{item.products.length} sản phẩm</Text>
-            <View style={{ flexDirection: "row", marginTop: 4 }}>
-              <Text> Thành tiền:</Text>
-              <Text style={{ color: "red" }}> {item.total}</Text>
-            </View>
-          </View>
-        </View>
-      ))}
+  return (
+    <View flex={1}>
+      <FlashList
+        renderItem={renderItem}
+        data={filteredOrders}
+        ItemSeparatorComponent={() => <View h={16} />}
+        estimatedItemSize={147}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+        ListEmptyComponent={() => <ListEmptyView />}
+        showsVerticalScrollIndicator={false}
+      />
     </View>
   );
 };
 
 export default ListConfirmView;
-const styles = StyleSheet.create({
-  container: {
-    borderRadius: 16,
-    padding: 8,
-    backgroundColor: "white",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-    elevation: 3,
-    gap: 12,
-    marginVertical: 8,
-  },
-  containerItem: {
-    // paddingVertical: 8,
-    flexDirection: "row",
-    gap: 16,
-  },
-});

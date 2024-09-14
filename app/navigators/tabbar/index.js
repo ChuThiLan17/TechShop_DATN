@@ -9,6 +9,8 @@ import { TouchableOpacity, View, StyleSheet } from "react-native";
 
 import * as Animatable from "react-native-animatable";
 
+import OrderScreen from "../../screens/profile/order/OrderScreen";
+
 import CartStackScreen from "./CartStack";
 import HomeTab from "./HomeStack";
 import ProfileTab from "./ProfileStack";
@@ -46,7 +48,7 @@ function MainTabbar() {
               color={focus ? "white" : "gray"}
             />
           );
-        case "Cart":
+        case "Order":
           return (
             <FontAwesome
               name="shopping-cart"
@@ -103,13 +105,13 @@ function MainTabbar() {
           tabBarButton: (props) => <RenderButton tab={props} label={"Home"} />,
         }}
       />
-      {/* <Tab.Screen
-        name="Cart"
-        component={CartStackScreen}
+      <Tab.Screen
+        name="Order"
+        component={OrderScreen}
         options={{
-          tabBarButton: (props) => <RenderButton tab={props} label={"Cart"} />,
+          tabBarButton: (props) => <RenderButton tab={props} label={"Order"} />,
         }}
-      /> */}
+      />
       <Tab.Screen
         name="Profile"
         component={ProfileTab}

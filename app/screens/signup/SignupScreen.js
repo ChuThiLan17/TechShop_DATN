@@ -49,22 +49,31 @@ function SignupScreen() {
   const validateEmailPassword = (name, phone, email, password, rePassword) => {
     let check = false;
     const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const phoneRegex = /^[0-9]+$/;
     if (name && name.length > 0) {
       if (regex.test(email)) {
         if (phone && phone.length > 0) {
-          if (password.length >= 8 && rePassword.length >= 8) {
-            if (password === rePassword) {
-              check = true;
+          if (phoneRegex.test(phone)) {
+            if (password.length >= 8 && rePassword.length >= 8) {
+              if (password === rePassword) {
+                check = true;
+              } else {
+                Toast.show({
+                  type: "error",
+                  text1: "Nhập lại mật khẩu không trùng khớp",
+                });
+              }
             } else {
               Toast.show({
                 type: "error",
-                text1: "Nhập lại mật khẩu không trùng khớp",
+                text1: "Mật khẩu phải lớn hơn hoặc bằng 8 kí tự!",
               });
             }
           } else {
             Toast.show({
               type: "error",
-              text1: "Mật khẩu phải lớn hơn hoặc bằng 8 kí tự!",
+              text1:
+                "Số điện thoại không hợp lệ. Vui lòng chỉ nhập các chữ số.",
             });
           }
         } else {

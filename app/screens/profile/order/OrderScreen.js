@@ -25,15 +25,6 @@ function OrderScreen() {
   const [order, setOrder] = useState();
   const [index, setIndex] = useState(0);
 
-  const getOrder = async () => {
-    try {
-      const res = await api.order.getOrder();
-      setOrder(res.data.response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const FirstRoute = () => (
     <View style={{ flex: 1, padding: 16, backgroundColor: "#fff" }}>
       <ListConfirmView />
@@ -72,10 +63,6 @@ function OrderScreen() {
     { key: "four", title: "Đã hủy" },
   ]);
 
-  useEffect(() => {
-    getOrder();
-  }, []);
-  console.log("order", order);
   useLayoutEffect(
     useCallback(() => {
       navigation.setOptions({

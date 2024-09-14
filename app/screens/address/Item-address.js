@@ -16,13 +16,18 @@ const ItemAddress = ({ dataAddress }) => {
         }
       >
         <View style={{ flexDirection: "row" }}>
-          <Text style={{ fontWeight: "bold" }}>{dataAddress.name}</Text>
-          <Text style={{ color: "#444444" }}> | {dataAddress?.phone}</Text>
+          <Text style={{ fontWeight: "bold", fontSize: 18 }}>
+            {dataAddress.name}
+          </Text>
+          <Text style={{ color: "#444444", fontSize: 18 }}>
+            {" "}
+            | {dataAddress?.phone}
+          </Text>
         </View>
-        <Text style={{ color: "#000000", marginTop: 4 }}>
+        <Text style={{ color: "#000000", marginTop: 4, fontSize: 16 }}>
           {dataAddress?.street}
         </Text>
-        <Text style={{ color: "#000000", marginTop: 4 }}>
+        <Text style={{ color: "#000000", marginTop: 4, fontSize: 16 }}>
           {dataAddress?.district} - {dataAddress?.city} - Việt Nam
         </Text>
       </TouchableOpacity>
