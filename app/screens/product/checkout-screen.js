@@ -14,8 +14,6 @@ import {
 
 import React, { useCallback, useLayoutEffect, useMemo } from "react";
 
-import Toast from "react-native-toast-message";
-
 import api from "../../services";
 
 import RenderItemListOrder from "./components/RenderItemListOrder";

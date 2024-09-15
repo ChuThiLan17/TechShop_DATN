@@ -58,4 +58,7 @@ export const iconRegistry = {
   address: require("../../../../assets/icons/address.png"),
 
   icon_address: require("../../../../assets/icons/House_03.png"),
+
+  starfull: require("../../../../assets/icons/ic_star_full.png"),
+  starempty: require("../../../../assets/icons/star 5.png"),
 };

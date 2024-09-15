@@ -24,7 +24,6 @@ const height = 500;
 
 const ProductDetailScreen = ({ route }) => {
   const { item_detail } = route.params;
-  console.log("item_detail", item_detail);
 
   const navigation = useNavigation();
 
@@ -47,7 +46,7 @@ const ProductDetailScreen = ({ route }) => {
     }, [navigation]),
     []
   );
-  console.log("item_detail", item_detail);
+
   const cartRef = useRef(null);
 
   const addToCart = async () => {
@@ -209,14 +208,11 @@ const ProductDetailScreen = ({ route }) => {
                 {
                   color: item_detail.color,
                   price: item_detail.price,
-                  product: {
-                    _id: item_detail._id,
-                    price: item_detail.price,
-                    thumb: item_detail.thumb,
-                    title: item_detail.title,
-                  },
+                  product: item_detail._id,
                   quantity: 1,
                   title: item_detail.title,
+                  thumb: item_detail.thumb,
+                  productVid: item_detail.varriants[0]._id,
                 },
               ],
             })

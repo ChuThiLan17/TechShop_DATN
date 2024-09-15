@@ -7,9 +7,9 @@ import { useCallback } from "react";
 import Itext from "../../../components/Text/Itext";
 
 const HistoryOrderItem = ({ item, onPress }) => {
-  const renderItem = useCallback((item) => {
+  const renderItem = useCallback((item, index) => {
     return (
-      <View style={styles.containerItem}>
+      <View style={styles.containerItem} key={index}>
         <Image
           style={{ height: 60, width: 60, borderRadius: 16 }}
           source={{
@@ -43,7 +43,8 @@ const HistoryOrderItem = ({ item, onPress }) => {
     <View style={styles.container}>
       <Text>{item.code}</Text>
 
-      {item.products && item?.products.map((item) => renderItem(item))}
+      {item.products &&
+        item?.products.map((item, index) => renderItem(item, index))}
 
       <Text
         style={{

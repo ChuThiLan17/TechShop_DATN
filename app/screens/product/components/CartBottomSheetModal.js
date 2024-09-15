@@ -66,7 +66,6 @@ const CartBottomSheetModal = forwardRef(({ product }, ref) => {
   const [color, setColor] = useState("Đỏ");
   const [type, setType] = useState();
   const [listColor, setListColor] = useState(product.color);
-  console.log("product", product._id);
 
   const onPressAddCart = async () => {
     let params = {
