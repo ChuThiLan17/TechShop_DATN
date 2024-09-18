@@ -8,6 +8,9 @@ import { io } from "socket.io-client";
 
 import Toast from "react-native-toast-message";
 
+import * as Notifications from "expo-notifications";
+
+import { requestPermissions } from "../common/PermissionCheck";
 import { useAuthContext } from "../core/AuthProvider";
 import { SOCKET_URL } from "../services/config";
 import { ACCESS_TOKEN_KEY } from "../services/httpclient";
@@ -17,12 +20,15 @@ import ListAddressScreen from "../screens/address/list-address-screen";
 import CartDetailScreens from "../screens/cart/cart-detail-screens";
 import ForgotPasswordScreen from "../screens/forgotpassword/ForgotPasswordScreen";
 import ResetPasswordScreen from "../screens/forgotpassword/ResetPasswordScreen";
+import VerifiyTokenScreen from "../screens/forgotpassword/VerifyTokenScreen";
+import NotificationScreen from "../screens/notification/NotificationScreen";
 import CartScreen from "../screens/product/cart-screen";
 import CheckoutScreen from "../screens/product/checkout-screen";
 import ConfirmScreen from "../screens/product/confirmScreen";
 import ListProduct from "../screens/product/list-product";
 import ProductDetailScreen from "../screens/product/product-detail-screen";
 import ProfileInfomationScreen from "../screens/profile/ProfileInfomationScreen";
+import RattingScreen from "../screens/rating/RattingScreen";
 import SigninScreen from "../screens/signin/SigninScreen";
 import SignupScreen from "../screens/signup/SignupScreen";
 import VerifyTokenEmail from "../screens/signup/VerifiyTokenEmail";
@@ -31,22 +37,30 @@ import OrderScreen from "../screens/profile/order/OrderScreen";
 import ListAddressCheckout from "../screens/product/components/checkout/ListAddressCheckout";
 
 import { MainTabbar } from "./tabbar";
-import VerifiyTokenScreen from "../screens/forgotpassword/VerifyTokenScreen";
 
 const Stack = createNativeStackNavigator();
 
 const AppStack = function AppStack() {
-  const { isLoggedIn } = useAuthContext();
+  useEffect(() => {
+    requestPermissions();
+  }, []);
 
   useEffect(() => {
     const socket = io(SOCKET_URL);
 
-    socket.on("notification", (data) => {
-      Toast.show({
-        type: "noti",
-        text1: data.title,
-        text2: data.message,
+    const showNotification = async (data) => {
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: data.title,
+          body: data.message,
+          sound: true, // Sử dụng âm thanh mặc định
+        },
+        trigger: null, // Gửi ngay lập tức
       });
+    };
+
+    socket.on("notification", (data) => {
+      showNotification(data);
     });
 
     return () => {
@@ -81,6 +95,7 @@ const AppStack = function AppStack() {
       <Stack.Screen name="EditAddressScreen" component={EditAddressScreen} />
       <Stack.Screen name="VerifyToken" component={VerifyTokenEmail} />
       <Stack.Screen name="AddressCheckout" component={ListAddressCheckout} />
+      <Stack.Screen name="ListComment" component={RattingScreen} />
     </Stack.Navigator>
   );
 };

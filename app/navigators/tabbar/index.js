@@ -13,6 +13,7 @@ import OrderScreen from "../../screens/profile/order/OrderScreen";
 
 import CartStackScreen from "./CartStack";
 import HomeTab from "./HomeStack";
+import NotiStackScreen from "./NotiStack";
 import ProfileTab from "./ProfileStack";
 
 const Tab = createBottomTabNavigator();
@@ -64,6 +65,14 @@ function MainTabbar() {
               color={focus ? "white" : "gray"}
             />
           );
+        case "Noti":
+          return (
+            <FontAwesome
+              name="sticky-note"
+              size={24}
+              color={focus ? "white" : "gray"}
+            />
+          );
       }
     };
 
@@ -110,6 +119,13 @@ function MainTabbar() {
         component={OrderScreen}
         options={{
           tabBarButton: (props) => <RenderButton tab={props} label={"Order"} />,
+        }}
+      />
+      <Tab.Screen
+        name="Noti"
+        component={NotiStackScreen}
+        options={{
+          tabBarButton: (props) => <RenderButton tab={props} label={"Noti"} />,
         }}
       />
       <Tab.Screen
