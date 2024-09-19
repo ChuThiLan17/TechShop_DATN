@@ -49,22 +49,31 @@ function SignupScreen() {
   const validateEmailPassword = (name, phone, email, password, rePassword) => {
     let check = false;
     const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const phoneRegex = /^[0-9]+$/;
     if (name && name.length > 0) {
       if (regex.test(email)) {
         if (phone && phone.length > 0) {
-          if (password.length >= 8 && rePassword.length >= 8) {
-            if (password === rePassword) {
-              check = true;
+          if (phoneRegex.test(phone)) {
+            if (password.length >= 8 && rePassword.length >= 8) {
+              if (password === rePassword) {
+                check = true;
+              } else {
+                Toast.show({
+                  type: "error",
+                  text1: "Nhập lại mật khẩu không trùng khớp",
+                });
+              }
             } else {
               Toast.show({
                 type: "error",
-                text1: "Nhập lại mật khẩu không trùng khớp",
+                text1: "Mật khẩu phải lớn hơn hoặc bằng 8 kí tự!",
               });
             }
           } else {
             Toast.show({
               type: "error",
-              text1: "Mật khẩu phải lớn hơn hoặc bằng 8 kí tự!",
+              text1:
+                "Số điện thoại không hợp lệ. Vui lòng chỉ nhập các chữ số.",
             });
           }
         } else {
@@ -89,6 +98,9 @@ function SignupScreen() {
     return check;
   };
 
+  const [showPass, setShowPass] = useState(true);
+  const [showPass1, setShowPass1] = useState(true);
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView style={{ flex: 1 }}>
@@ -103,20 +115,21 @@ function SignupScreen() {
             <InputSignup label={"Number phone"} onChangeText={setPhone} />
             <InputSignup
               label={"Password"}
-              secureTextEntry={true}
+              secureTextEntry={showPass}
               onChangeText={setPassword}
+              onPress={() => setShowPass(!showPass)}
+              password={true}
             />
             <InputSignup
               label={"Confirm password"}
-              secureTextEntry={true}
+              secureTextEntry={showPass1}
               onChangeText={setRePassword}
+              onPress={() => setShowPass1(!showPass1)}
+              password={true}
             />
           </YStack>
 
           <YStack flex={1} gap={16} mb={26}>
-            <XStack>
-              <Itext text={"Tôi đồng ý với chính sách của app"} />
-            </XStack>
             <YStack
               py={10}
               als="stretch"

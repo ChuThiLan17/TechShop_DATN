@@ -37,6 +37,7 @@ function ProfileScreen() {
       }
     } catch (error) {
       console.log(error);
+      logout();
     }
   };
 
@@ -55,17 +56,18 @@ function ProfileScreen() {
             onPress={() => navigation.navigate("CartDetailScreens")}
           />
           <ProfileListButton
-            icon={"ship"}
+            icon={"icon_address"}
+            color={"#1a202cb3"}
             text={"Địa chỉ"}
             onPress={() => navigation.navigate("ListAddress")}
           />
           {/* <ProfileListButton icon={"noti"} text={"Thông báo"} /> */}
 
-          <ProfileListButton
+          {/* <ProfileListButton
             icon={"ship"}
             text={"Lịch sử mua hàng"}
             onPress={() => navigation.navigate("Order")}
-          />
+          /> */}
           <ProfileListButton
             icon={"setting"}
             text={"Đổi mật khẩu"}

@@ -45,7 +45,6 @@ export default ItemProduct;
 const styles = StyleSheet.create({
   container: {
     width: width / 2.4,
-    height: height * 0.3,
     alignItems: "center",
     backgroundColor: "white",
     borderRadius: 25,

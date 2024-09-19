@@ -119,7 +119,13 @@ function ProfileInfomationScreen() {
     } else {
       const fileUri = result.assets[0].uri;
       setAvatar(fileUri);
-      await api.user.uploadAvartar(result.assets[0]);
+      const res = await api.user.uploadAvartar(result.assets[0]);
+      if (res.data) {
+        AsyncStorage.setItem(
+          KEY_STORAGE_USER.USER_DATA,
+          JSON.stringify(res.data.updateAvatar)
+        );
+      }
     }
   };
 

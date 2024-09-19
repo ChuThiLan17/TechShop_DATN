@@ -9,8 +9,11 @@ import { TouchableOpacity, View, StyleSheet } from "react-native";
 
 import * as Animatable from "react-native-animatable";
 
+import OrderScreen from "../../screens/profile/order/OrderScreen";
+
 import CartStackScreen from "./CartStack";
 import HomeTab from "./HomeStack";
+import NotiStackScreen from "./NotiStack";
 import ProfileTab from "./ProfileStack";
 
 const Tab = createBottomTabNavigator();
@@ -46,7 +49,7 @@ function MainTabbar() {
               color={focus ? "white" : "gray"}
             />
           );
-        case "Cart":
+        case "Order":
           return (
             <FontAwesome
               name="shopping-cart"
@@ -58,6 +61,14 @@ function MainTabbar() {
           return (
             <FontAwesome
               name="user"
+              size={24}
+              color={focus ? "white" : "gray"}
+            />
+          );
+        case "Noti":
+          return (
+            <FontAwesome
+              name="sticky-note"
               size={24}
               color={focus ? "white" : "gray"}
             />
@@ -103,13 +114,20 @@ function MainTabbar() {
           tabBarButton: (props) => <RenderButton tab={props} label={"Home"} />,
         }}
       />
-      {/* <Tab.Screen
-        name="Cart"
-        component={CartStackScreen}
+      <Tab.Screen
+        name="Order"
+        component={OrderScreen}
         options={{
-          tabBarButton: (props) => <RenderButton tab={props} label={"Cart"} />,
+          tabBarButton: (props) => <RenderButton tab={props} label={"Order"} />,
         }}
-      /> */}
+      />
+      <Tab.Screen
+        name="Noti"
+        component={NotiStackScreen}
+        options={{
+          tabBarButton: (props) => <RenderButton tab={props} label={"Noti"} />,
+        }}
+      />
       <Tab.Screen
         name="Profile"
         component={ProfileTab}

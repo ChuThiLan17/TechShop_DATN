@@ -43,17 +43,22 @@ const $imageStyleBase = {
 export const iconRegistry = {
   back: require("../../../../assets/icons/Back.png"),
 
-  // Profile
+  // Profile House_03
   bag: require("../../../../assets/icons/Bag.png"),
   person: require("../../../../assets/icons/person.png"),
   ship: require("../../../../assets/icons/ship.png"),
   noti: require("../../../../assets/icons/notification.png"),
   setting: require("../../../../assets/icons/setting.png"),
   logout: require("../../../../assets/icons/logout.png"),
-  hidepass: require("../../../../assets/icons/hidepass.png"),
-  openpass: require("../../../../assets/icons/Eye.png"),
+  hidepass: require("../../../../assets/icons/hide-password.png"),
+  openpass: require("../../../../assets/icons/preview-password.png"),
   arrowdown: require("../../../../assets/icons/arrowdown.png"),
   camera: require("../../../../assets/icons/camera 1.png"),
   confirm: require("../../../../assets/icons/Featured icon.png"),
   address: require("../../../../assets/icons/address.png"),
+
+  icon_address: require("../../../../assets/icons/House_03.png"),
+
+  starfull: require("../../../../assets/icons/ic_star_full.png"),
+  starempty: require("../../../../assets/icons/star 5.png"),
 };

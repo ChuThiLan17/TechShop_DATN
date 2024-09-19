@@ -3,6 +3,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 import {
+  Alert,
   Dimensions,
   Image,
   StyleSheet,
@@ -16,6 +17,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { ScrollView, XStack, View } from "tamagui";
 
+import { useAuthContext } from "../../core/AuthProvider";
+
 import CartBottomSheetModal from "./components/CartBottomSheetModal";
 import DescriptionCard from "./components/Description/DescriptionCard";
 
@@ -23,8 +26,8 @@ const width = Dimensions.get("window").width;
 const height = 500;
 
 const ProductDetailScreen = ({ route }) => {
+  const { isLoggedIn } = useAuthContext();
   const { item_detail } = route.params;
-  console.log("item_detail", item_detail);
 
   const navigation = useNavigation();
 
@@ -47,15 +50,46 @@ const ProductDetailScreen = ({ route }) => {
     }, [navigation]),
     []
   );
-  console.log("item_detail", item_detail);
+
   const cartRef = useRef(null);
 
   const addToCart = async () => {
     cartRef.current?.present();
   };
 
+  const onPressBuy = () => {
+    if (isLoggedIn) {
+      navigation.navigate("Checkout", {
+        cart: [
+          {
+            color: item_detail.color,
+            price: item_detail.price,
+            product: item_detail._id,
+            quantity: 1,
+            title: item_detail.title,
+            thumb: item_detail.thumb,
+            productVid: item_detail.varriants[0]._id,
+          },
+        ],
+      });
+    } else {
+      Alert.alert("", "Vui lòng đăng nhập để mua hàng", [
+        {
+          text: "Đăng nhập",
+          onPress: () => {
+            navigation.navigate("Signin");
+          },
+        },
+      ]);
+    }
+  };
+
+  const onPressToListComment = () => {
+    navigation.navigate("ListComment", { id: item_detail._id });
+  };
+
   return (
-    <SafeAreaView style={{ flex: 1, alignItems: "center" }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <ScrollView
         style={{ paddingHorizontal: 16 }}
         showsVerticalScrollIndicator={false}
@@ -168,7 +202,7 @@ const ProductDetailScreen = ({ route }) => {
             </Text>
           </View>
           {/*Content*/}
-          <View style={styles.styleBranch}>
+          <View style={[styles.styleBranch, { flex: 1 }]}>
             <Text style={styles.textBranch}>
               Thương hiệu : {item_detail.brand}
             </Text>
@@ -195,7 +229,7 @@ const ProductDetailScreen = ({ route }) => {
         </View>
       </ScrollView>
       <View style={styles.container}>
-        <TouchableOpacity style={styles.btnMess}>
+        <TouchableOpacity style={styles.btnMess} onPress={onPressToListComment}>
           <AntDesign name="message1" size={24} color="black" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.btnDetai} onPress={addToCart}>
@@ -203,24 +237,7 @@ const ProductDetailScreen = ({ route }) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.btnDetai, { backgroundColor: "black" }]}
-          onPress={() =>
-            navigation.navigate("Checkout", {
-              cart: [
-                {
-                  color: item_detail.color,
-                  price: item_detail.price,
-                  product: {
-                    _id: item_detail._id,
-                    price: item_detail.price,
-                    thumb: item_detail.thumb,
-                    title: item_detail.title,
-                  },
-                  quantity: 1,
-                  title: item_detail.title,
-                },
-              ],
-            })
-          }
+          onPress={onPressBuy}
         >
           <Text style={{ color: "white" }}>Mua hàng</Text>
         </TouchableOpacity>

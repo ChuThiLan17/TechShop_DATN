@@ -1,6 +1,6 @@
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 
 import "@tamagui/core/reset.css";
 import { TamaguiProvider } from "@tamagui/core";
@@ -15,10 +15,9 @@ import { Provider } from "react-redux";
 
 import { useEffect } from "react";
 
-import io from "socket.io-client";
-
 import config from "./tamagui.config.ts";
 
+import { linking } from "./app/common/Linking.js";
 import toastConfig from "./app/configs/Toastconfig.js";
 import { AuthProvider } from "./app/core/AuthProvider.js";
 import AppStack from "./app/navigators/AppStack.js";
@@ -34,7 +33,7 @@ export default function App() {
         <AuthProvider>
           <TamaguiProvider config={config}>
             <BottomSheetModalProvider>
-              <NavigationContainer>
+              <NavigationContainer linking={linking}>
                 <AppStack />
                 <Toast config={toastConfig} />
               </NavigationContainer>

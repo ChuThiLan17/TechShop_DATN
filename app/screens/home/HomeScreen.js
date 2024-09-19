@@ -97,6 +97,7 @@ function HomeScreen(props) {
                 );
               }}
               horizontal
+              showsHorizontalScrollIndicator={false}
             />
           </View>
         </View>

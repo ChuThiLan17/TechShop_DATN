@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import api, { ACCESS_TOKEN_KEY } from "../../httpclient";
 
 export const getAllProducts = async () => {
@@ -17,7 +18,22 @@ async function getCategory(params) {
   return await api.v1.get("prodcategory/");
 }
 
+async function getDetailById(id) {
+  return await api.v1.get(`product/detai/${id}`);
+}
+
+async function getNotification() {
+  return await api.v1.get(`notification/`);
+}
+
+async function getNotificationById(id) {
+  return await api.v1.get(`notification/${id}`);
+}
+
 export default {
   getProduct,
   getCategory,
+  getDetailById,
+  getNotification,
+  getNotificationById,
 };

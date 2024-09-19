@@ -70,13 +70,3 @@ const AddressModal = ({ isVisible }) => {
 };
 
 export default AddressModal;
-
-const styles = StyleSheet.create({
-  delete: {
-    marginHorizontal: 32,
-    paddingVertical: 12,
-    borderRadius: 16,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

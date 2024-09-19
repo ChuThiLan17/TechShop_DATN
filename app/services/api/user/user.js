@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 import { API_URL } from "../../config";
-import api from "../../httpclient";
+import api, { ACCESS_TOKEN_KEY } from "../../httpclient";
 
 async function getInfoUser() {
   return await api.v1.get("/user/current/");
@@ -30,22 +30,25 @@ async function deleteAddress(addressId) {
 }
 
 async function uploadAvartar(file) {
-  const token = await AsyncStorage.getItem(ACCESS_TOKEN_KEY);
+  try {
+    const token = await AsyncStorage.getItem(ACCESS_TOKEN_KEY);
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data",
+    };
 
-  // const headers = {
-  //   Authorization: `Bearer ${token}`,
-  //   "Content-Type": "multipart/form-data",
-  // };
+    const formData = new FormData();
 
-  const formData = new FormData();
+    formData.append("avatar", {
+      uri: file.uri,
+      type: file.type,
+      name: file.fileName,
+    });
 
-  formData.append("avatar", {
-    uri: file.uri,
-    type: file.type,
-    name: file.fileName,
-  });
-
-  return await axios.put(`${API_URL}/user/avatar`, formData, { headers });
+    return await axios.put(`${API_URL}/user/avatar`, formData, { headers });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 async function verifyTokenEmail(token) {

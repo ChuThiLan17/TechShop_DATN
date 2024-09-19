@@ -6,6 +6,8 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "scheme": "techshop",
+    "platforms": ["ios", "android"],
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -13,7 +15,12 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.example.TechShop"
+      "bundleIdentifier": "com.example.TechShop",
+      "config": {
+        "notifications": {
+          "iosDisplayInForeground": true
+        }
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -21,11 +28,19 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.example.TechShop",
+
       "permissions": [
         "android.permission.INTERNET",
         "android.permission.POST_NOTIFICATIONS",
         "android.permission.BLUETOOTH"
-      ]
+      ],
+      "config": {
+        "notifications": {
+          "icon": "./assets/notification.png",
+          "color": "#ffffff",
+          "sound": "default"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
