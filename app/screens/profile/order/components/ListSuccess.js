@@ -19,8 +19,8 @@ const ListSuccess = () => {
 
   const reviewRef = useRef(null);
 
-  const onPress = (product) => {
-    reviewRef.current.onShow(product);
+  const onPress = (product, id) => {
+    reviewRef.current.onShow(product, id);
   };
 
   const onRefresh = useCallback(() => {
@@ -49,7 +49,10 @@ const ListSuccess = () => {
 
   const renderItem = useCallback(({ item }) => {
     return (
-      <HistoryOrderItem item={item} onPress={() => onPress(item.products)} />
+      <HistoryOrderItem
+        item={item}
+        onPress={() => onPress(item.products, item._id)}
+      />
     );
   }, []);
 

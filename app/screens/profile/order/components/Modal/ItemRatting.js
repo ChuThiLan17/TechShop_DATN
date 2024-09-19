@@ -13,13 +13,13 @@ import api from "../../../../../services";
 import { KEY_STORAGE_USER } from "../../../../../constants/KeyStorage";
 import Itext from "../../../../components/Text/Itext";
 
-const ItemRatting = ({ item, onPress }) => {
+const ItemRatting = ({ item, id, onPress }) => {
   const [ratting, setRatting] = useState(0);
   const [comment, setComment] = useState("");
 
   const onPressRatting = async () => {
     if (!ratting) return;
-    console.log(item);
+
     if (!item.product) return;
 
     const user = JSON.parse(
@@ -33,6 +33,7 @@ const ItemRatting = ({ item, onPress }) => {
         pid: item.product,
         avatar: user.avatar,
         name: user.name,
+        idOrder: id,
       };
       const res = await api.order.postRatting(params);
 

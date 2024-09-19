@@ -76,11 +76,15 @@ const HistoryOrderItem = ({ item, onPress }) => {
           px={16}
           py={10}
           br={10}
-          borderColor={"#ff6d03"}
+          bg={item?.statusRating ? "#1a202c" : undefined}
+          borderColor={item?.statusRating ? "#1a202c" : "#ff6d03"}
           borderWidth={1}
-          onPress={onPress}
+          onPress={item?.statusRating ? null : onPress}
         >
-          <Itext text={"Đánh giá"} color={"#ff6d03"} />
+          <Itext
+            text={item?.statusRating ? "Đã đánh giá" : "Đánh giá"}
+            color={item?.statusRating ? "white" : "#ff6d03"}
+          />
         </View>
       )}
     </View>

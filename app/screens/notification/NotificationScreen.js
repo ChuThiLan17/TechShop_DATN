@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 
 import { FlashList } from "@shopify/flash-list";
 
@@ -27,6 +27,14 @@ function NotificationScreen() {
     []
   );
 
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused) {
+      fetch();
+    }
+  }, [isFocused]);
+
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = useCallback(() => {
@@ -53,14 +61,16 @@ function NotificationScreen() {
     }
   };
 
-  useEffect(() => {
-    fetch();
-  }, []);
-
   const _renderItem = ({ item }) => {
     const date = formatDate(item.createdAt);
     return (
-      <>
+      <YStack
+        onPress={() => {
+          navigation.navigate("DetailNoti", {
+            id: item._id,
+          });
+        }}
+      >
         <XStack gap={16}>
           <YStack gap={8} flex={1}>
             <Itext text={item.title} size={18} font={"medium"} />
@@ -70,7 +80,7 @@ function NotificationScreen() {
           <Itext text={date} />
         </XStack>
         <View h={1} bg={"#1a202c1a"} mt={12} />
-      </>
+      </YStack>
     );
   };
 

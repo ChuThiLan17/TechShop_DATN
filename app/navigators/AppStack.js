@@ -2,6 +2,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import { useNavigation } from "@react-navigation/native";
+
 import { useEffect, useState } from "react";
 
 import { io } from "socket.io-client";
@@ -21,6 +23,7 @@ import CartDetailScreens from "../screens/cart/cart-detail-screens";
 import ForgotPasswordScreen from "../screens/forgotpassword/ForgotPasswordScreen";
 import ResetPasswordScreen from "../screens/forgotpassword/ResetPasswordScreen";
 import VerifiyTokenScreen from "../screens/forgotpassword/VerifyTokenScreen";
+import DetailNotificationScreen from "../screens/notification/DetailNotificationScreen";
 import NotificationScreen from "../screens/notification/NotificationScreen";
 import CartScreen from "../screens/product/cart-screen";
 import CheckoutScreen from "../screens/product/checkout-screen";
@@ -41,8 +44,27 @@ import { MainTabbar } from "./tabbar";
 const Stack = createNativeStackNavigator();
 
 const AppStack = function AppStack() {
+  const navigation = useNavigation();
   useEffect(() => {
     requestPermissions();
+  }, []);
+
+  useEffect(() => {
+    const subscription = Notifications.addNotificationResponseReceivedListener(
+      (response) => {
+        const url = response.notification.request.content.data.url; // Lấy URL từ data của thông báo
+        if (url) {
+          if (url.includes("notification")) {
+            const notificationId = url.split("/").pop();
+            navigation.navigate("DetailNoti", { id: notificationId });
+          }
+        }
+      }
+    );
+
+    return () => {
+      subscription.remove();
+    };
   }, []);
 
   useEffect(() => {
@@ -54,6 +76,7 @@ const AppStack = function AppStack() {
           title: data.title,
           body: data.message,
           sound: true, // Sử dụng âm thanh mặc định
+          data: { url: `techshop://notification/${data?._id}` },
         },
         trigger: null, // Gửi ngay lập tức
       });
@@ -96,6 +119,7 @@ const AppStack = function AppStack() {
       <Stack.Screen name="VerifyToken" component={VerifyTokenEmail} />
       <Stack.Screen name="AddressCheckout" component={ListAddressCheckout} />
       <Stack.Screen name="ListComment" component={RattingScreen} />
+      <Stack.Screen name="DetailNoti" component={DetailNotificationScreen} />
     </Stack.Navigator>
   );
 };

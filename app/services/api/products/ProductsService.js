@@ -26,9 +26,14 @@ async function getNotification() {
   return await api.v1.get(`notification/`);
 }
 
+async function getNotificationById(id) {
+  return await api.v1.get(`notification/${id}`);
+}
+
 export default {
   getProduct,
   getCategory,
   getDetailById,
   getNotification,
+  getNotificationById,
 };

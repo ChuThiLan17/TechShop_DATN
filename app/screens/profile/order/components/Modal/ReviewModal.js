@@ -26,6 +26,7 @@ const ReviewModal = forwardRef(({}, ref) => {
   const sheetRef = useRef(null);
 
   const [products, setProducts] = useState([]);
+  const [orderId, setOrderId] = useState();
 
   const onPresent = useCallback(() => {
     sheetRef.current?.present();
@@ -42,8 +43,9 @@ const ReviewModal = forwardRef(({}, ref) => {
   useImperativeHandle(
     ref,
     () => ({
-      onShow: (product) => {
+      onShow: (product, id) => {
         setProducts(product);
+        setOrderId(id);
         onPresent();
       },
       dismiss: onDismiss,
@@ -71,6 +73,7 @@ const ReviewModal = forwardRef(({}, ref) => {
       <ItemRatting
         key={item.id}
         item={item}
+        id={orderId}
         onPress={() => {
           sheetRef.current.dismiss();
         }}
