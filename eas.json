@@ -10,7 +10,12 @@
     "preview": {
       "distribution": "internal"
     },
-    "production": {}
+    "production": {
+      "distribution": "internal", // Phát hành nội bộ thay vì lên cửa hàng ứng dụng
+      "android": {
+        "buildType": "apk" // Chỉ build APK
+      }
+    }
   },
   "submit": {
     "production": {}
